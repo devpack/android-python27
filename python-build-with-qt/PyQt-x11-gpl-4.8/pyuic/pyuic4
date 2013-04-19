@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /home/tsheasha/GUC/Bachelors/android-python27/python-build/PyQt-x11-gpl-4.8/../hostpython /home/tsheasha/GUC/Bachelors/android-python27/python-build/output/extras/python/site-packages/PyQt4/uic/pyuic.py ${1+"$@"}

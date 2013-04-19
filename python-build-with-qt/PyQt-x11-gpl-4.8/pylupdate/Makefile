@@ -1,0 +1,58 @@
+TARGET = pylupdate4
+OFILES = fetchtr.o merge.o numberh.o sametexth.o main.o metatranslator.o proparser.o translator.o simtexth.o moc_translator.o
+HFILES = metatranslator.h proparser.h simtexth.h
+
+CC = /opt/necessitas/android-ndk-r6b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/arm-linux-androideabi-gcc
+CXX = /opt/necessitas/android-ndk-r6b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/arm-linux-androideabi-g++
+LINK = /opt/necessitas/android-ndk-r6b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/arm-linux-androideabi-g++
+CPPFLAGS = -DNDEBUG -DQT_NO_DEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_XML_LIB -I. -I/home/tsheasha/GUC/Bachelors/android-python27/python-build/PyQt-x11-gpl-4.8/pylupdate -I/opt/necessitas/android-ndk-r6b/sources/cxx-stl-4.4.3/gnu-libstdc++/include -I/opt/necessitas/android-ndk-r6b/sources/cxx-stl-4.4.3/gnu-libstdc++/libs/armeabi/include -I/opt/necessitas/Android/Qt/480/qt-src/src/3rdparty/phonon -I/opt/necessitas/mkspecs/linux-g++ -I/opt/necessitas/Android/Qt/480/armeabi/include/QtCore -I/opt/necessitas/Android/Qt/480/armeabi/include/QtGui -I/opt/necessitas/Android/Qt/480/armeabi/include/QtXml -I/opt/necessitas/Android/Qt/480/armeabi/include
+CFLAGS = -pipe -g -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -Wall -Wno-psabi -W -D_REENTRANT
+CXXFLAGS = -pipe -DQT_NO_QWS_TRANSFORMED -DQ_WS_QWS -Dprotected=public -DSIP_PROTECTED_IS_PUBLIC --sysroot=/opt/necessitas/android-ndk-r6b/platforms/android-9/arch-arm/ -pipe -DQT_NO_QWS_TRANSFORMED -DQ_WS_QWS -Dprotected=public -DSIP_PROTECTED_IS_PUBLIC --sysroot=/opt/necessitas/android-ndk-r6b/platforms/android-9/arch-arm/ -fpic -g -msoft-float -mthumb -mthumb-interwork -mtune=xscale -march=armv5te -mfloat-abi=softfp -mfpu=vfp -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -g -msoft-float -mthumb -mthumb-interwork  -mtune=xscale -march=armv5te -mfloat-abi=softfp -mfpu=vfp -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -Wall -Wno-psabi -W -Os -pipe -msoft-float -fpic -mthumb-interwork -ffunction-sections -funwind-tables -fstack-protector -fno-short-enums -funwind-tables -DANDROID  -D__ARM_ARCH_5__ -D__ARM_ARCH_5T__ -D__ARM_ARCH_5TE__ -D__STDC_INT64__ -DQT_NO_QWS_TRANSFORMED -g -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -g -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -Wall -Wno-psabi -W -D_REENTRANT
+LFLAGS = --sysroot=/opt/necessitas/android-ndk-r6b/platforms/android-9/arch-arm/ -L/opt/necessitas/android-ndk-r6b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/../lib/gcc/arm-linux-androideabi/4.4.3/ -Wl,-rpath-link= -Wl,-rpath=/opt/necessitas/Android/Qt/480/qt-src/src/3rdparty/android/precompiled/android-9/arch-arm/lib -Wl,-z,noexecstack -Wl,-O1  -Wl,-z,noexecstack -shared -Wl,-shared,-Bsymbolic -Wl,--no-whole-archive -Wl,-rpath=/opt/necessitas/Android/Qt/480/armeabi/lib
+LIBS = -L/opt/necessitas/android-ndk-r6b/sources/cxx-stl-4.4.3/gnu-libstdc++/libs/armeabi/ -L/opt/necessitas/Android/Qt/480/armeabi/lib -lstdc++ -lsupc++ -llog -lz -lm -ldl -lc -lgcc -L/home/tsheasha/GUC/Bachelors/android-python27/python-build/output/python/lib/ -lpython2.7 -lQtCore -L/tmp/necessitas/unstable/Android/Qt/480/build-armeabi/install/lib -L/tmp/necessitas/android-ndk-r6b/sources/cxx-stl/gnu-libstdc++/libs/armeabi -L/tmp/necessitas/android-ndk-r6b/platforms/android-9/arch-arm//usr/lib -lstdc++ -lsupc++ -llog -lz -lm -ldl -lc -lgcc -lQtGui -L/tmp/necessitas/unstable/Android/Qt/480/build-armeabi/install/lib -L/tmp/necessitas/android-ndk-r6b/sources/cxx-stl/gnu-libstdc++/libs/armeabi -L/tmp/necessitas/android-ndk-r6b/platforms/android-9/arch-arm//usr/lib -lQtCore -L/tmp/necessitas/unstable/Android/Qt/480/build-armeabi/install/lib -L/tmp/necessitas/android-ndk-r6b/sources/cxx-stl/gnu-libstdc++/libs/armeabi -L/tmp/necessitas/android-ndk-r6b/platforms/android-9/arch-arm//usr/lib -lstdc++ -lsupc++ -llog -lz -lm -ldl -lc -lgcc -lQtXml -L/tmp/necessitas/unstable/Android/Qt/480/build-armeabi/install/lib -L/tmp/necessitas/android-ndk-r6b/sources/cxx-stl/gnu-libstdc++/libs/armeabi -L/tmp/necessitas/android-ndk-r6b/platforms/android-9/arch-arm//usr/lib -lQtCore -L/tmp/necessitas/unstable/Android/Qt/480/build-armeabi/install/lib -L/tmp/necessitas/android-ndk-r6b/sources/cxx-stl/gnu-libstdc++/libs/armeabi -L/tmp/necessitas/android-ndk-r6b/platforms/android-9/arch-arm//usr/lib -lstdc++ -lsupc++ -llog -lz -lm -ldl -lc -lgcc
+MOC = /opt/necessitas/Android/Qt/480/armeabi/bin/moc
+.SUFFIXES: .c .o .cpp .cc .cxx .C
+
+
+.cpp.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.cc.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.cxx.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.C.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.c.o:
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) -o $@ $<
+
+all: $(TARGET)
+
+$(OFILES): $(HFILES)
+
+moc_translator.cpp: translator.h
+	$(MOC) -o moc_translator.cpp translator.h
+
+$(TARGET): $(OFILES)
+	$(LINK) $(LFLAGS) -o $(TARGET) $(OFILES) $(LIBS)
+
+install: $(TARGET)
+	@test -d $(DESTDIR)/home/tsheasha/GUC/Bachelors/android-python27/python-build/output/python/bin || mkdir $(DESTDIR)/home/tsheasha/GUC/Bachelors/android-python27/python-build/output/python/bin
+	cp -f $(TARGET) $(DESTDIR)/home/tsheasha/GUC/Bachelors/android-python27/python-build/output/python/bin/$(TARGET)
+
+clean:
+	-del /q 2> NUL $(TARGET)
+	-del /q 2> NUL fetchtr.o
+	-del /q 2> NUL merge.o
+	-del /q 2> NUL numberh.o
+	-del /q 2> NUL sametexth.o
+	-del /q 2> NUL main.o
+	-del /q 2> NUL metatranslator.o
+	-del /q 2> NUL proparser.o
+	-del /q 2> NUL translator.o
+	-del /q 2> NUL simtexth.o
+	-del /q 2> NUL moc_translator.o
+	-del /q 2> NUL moc_translator.cpp

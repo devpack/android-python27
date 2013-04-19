@@ -1,0 +1,1 @@
+{ global: initQtSql; local: *; };

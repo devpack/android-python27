@@ -1,0 +1,5 @@
+# This is the build file for the dbus support module for Qt v4.
+
+target = qt
+sources = dbus.cpp
+moc_headers = helper.h

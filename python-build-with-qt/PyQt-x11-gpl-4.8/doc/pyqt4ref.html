@@ -1,0 +1,2525 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.6: http://docutils.sourceforge.net/" />
+<title>PyQt v4 - Python Bindings for Qt v4</title>
+<meta name="copyright" content="Copyright (c) 2010 Riverbank Computing Limited" />
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 5951 2009-05-18 18:03:10Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left{
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="pyqt-v4-python-bindings-for-qt-v4">
+<h1 class="title">PyQt v4 - Python Bindings for Qt v4</h1>
+<h2 class="subtitle" id="reference-guide">Reference Guide</h2>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Contact:</th>
+<td><a class="first last reference external" href="mailto:info&#64;riverbankcomputing.com">info&#64;riverbankcomputing.com</a></td></tr>
+<tr><th class="docinfo-name">Version:</th>
+<td>4.8</td></tr>
+<tr><th class="docinfo-name">Copyright:</th>
+<td>Copyright (c) 2010 Riverbank Computing Limited</td></tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="auto-toc simple">
+<li><a class="reference internal" href="#introduction" id="id15">1&nbsp;&nbsp;&nbsp;Introduction</a><ul class="auto-toc">
+<li><a class="reference internal" href="#license" id="id16">1.1&nbsp;&nbsp;&nbsp;License</a></li>
+<li><a class="reference internal" href="#pyqt-components" id="id17">1.2&nbsp;&nbsp;&nbsp;PyQt Components</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#potential-incompatibilities-with-earlier-versions" id="id18">2&nbsp;&nbsp;&nbsp;Potential Incompatibilities with Earlier Versions</a><ul class="auto-toc">
+<li><a class="reference internal" href="#pyqt-v4-8" id="id19">2.1&nbsp;&nbsp;&nbsp;PyQt v4.8</a><ul class="auto-toc">
+<li><a class="reference internal" href="#qvariantlist" id="id20">2.1.1&nbsp;&nbsp;&nbsp;QVariantList</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pyqt-v4-7-4" id="id21">2.2&nbsp;&nbsp;&nbsp;PyQt v4.7.4</a><ul class="auto-toc">
+<li><a class="reference internal" href="#pyqtsignal-with-dict-and-list" id="id22">2.2.1&nbsp;&nbsp;&nbsp;pyqtSignal() with dict and list</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pyqt-v4-7-1" id="id23">2.3&nbsp;&nbsp;&nbsp;PyQt v4.7.1</a><ul class="auto-toc">
+<li><a class="reference internal" href="#qvariant" id="id24">2.3.1&nbsp;&nbsp;&nbsp;QVariant</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pyqt-v4-5" id="id25">2.4&nbsp;&nbsp;&nbsp;PyQt v4.5</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id1" id="id26">2.4.1&nbsp;&nbsp;&nbsp;QVariant</a></li>
+<li><a class="reference internal" href="#pyrcc4-support-for-python-v3" id="id27">2.4.2&nbsp;&nbsp;&nbsp;pyrcc4 Support for Python v3</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installing-pyqt" id="id28">3&nbsp;&nbsp;&nbsp;Installing PyQt</a><ul class="auto-toc">
+<li><a class="reference internal" href="#downloading-sip" id="id29">3.1&nbsp;&nbsp;&nbsp;Downloading SIP</a></li>
+<li><a class="reference internal" href="#downloading-pyqt" id="id30">3.2&nbsp;&nbsp;&nbsp;Downloading PyQt</a></li>
+<li><a class="reference internal" href="#configuring-pyqt" id="id31">3.3&nbsp;&nbsp;&nbsp;Configuring PyQt</a></li>
+<li><a class="reference internal" href="#configuring-sip-and-pyqt-for-macos-10-6-snow-leopard" id="id32">3.4&nbsp;&nbsp;&nbsp;Configuring SIP and PyQt for MacOS 10.6 (Snow Leopard)</a></li>
+<li><a class="reference internal" href="#building-pyqt" id="id33">3.5&nbsp;&nbsp;&nbsp;Building PyQt</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#selecting-incompatible-apis" id="id34">4&nbsp;&nbsp;&nbsp;Selecting Incompatible APIs</a><ul class="auto-toc">
+<li><a class="reference internal" href="#qdate" id="id35">4.1&nbsp;&nbsp;&nbsp;QDate</a><ul class="auto-toc">
+<li><a class="reference internal" href="#version-2" id="id36">4.1.1&nbsp;&nbsp;&nbsp;Version 2</a></li>
+<li><a class="reference internal" href="#version-1" id="id37">4.1.2&nbsp;&nbsp;&nbsp;Version 1</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#qdatetime" id="id38">4.2&nbsp;&nbsp;&nbsp;QDateTime</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id2" id="id39">4.2.1&nbsp;&nbsp;&nbsp;Version 2</a></li>
+<li><a class="reference internal" href="#id3" id="id40">4.2.2&nbsp;&nbsp;&nbsp;Version 1</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#qstring" id="id41">4.3&nbsp;&nbsp;&nbsp;QString</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id4" id="id42">4.3.1&nbsp;&nbsp;&nbsp;Version 2</a></li>
+<li><a class="reference internal" href="#id5" id="id43">4.3.2&nbsp;&nbsp;&nbsp;Version 1</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#qtextstream" id="id44">4.4&nbsp;&nbsp;&nbsp;QTextStream</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id6" id="id45">4.4.1&nbsp;&nbsp;&nbsp;Version 2</a></li>
+<li><a class="reference internal" href="#id7" id="id46">4.4.2&nbsp;&nbsp;&nbsp;Version 1</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#qtime" id="id47">4.5&nbsp;&nbsp;&nbsp;QTime</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id8" id="id48">4.5.1&nbsp;&nbsp;&nbsp;Version 2</a></li>
+<li><a class="reference internal" href="#id9" id="id49">4.5.2&nbsp;&nbsp;&nbsp;Version 1</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#qurl" id="id50">4.6&nbsp;&nbsp;&nbsp;QUrl</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id10" id="id51">4.6.1&nbsp;&nbsp;&nbsp;Version 2</a></li>
+<li><a class="reference internal" href="#id11" id="id52">4.6.2&nbsp;&nbsp;&nbsp;Version 1</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id12" id="id53">4.7&nbsp;&nbsp;&nbsp;QVariant</a><ul class="auto-toc">
+<li><a class="reference internal" href="#id13" id="id54">4.7.1&nbsp;&nbsp;&nbsp;Version 2</a></li>
+<li><a class="reference internal" href="#id14" id="id55">4.7.2&nbsp;&nbsp;&nbsp;Version 1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#support-for-keyword-arguments" id="id56">5&nbsp;&nbsp;&nbsp;Support for Keyword Arguments</a></li>
+<li><a class="reference internal" href="#support-for-qt-properties" id="id57">6&nbsp;&nbsp;&nbsp;Support for Qt Properties</a></li>
+<li><a class="reference internal" href="#new-style-signal-and-slot-support" id="id58">7&nbsp;&nbsp;&nbsp;New-style Signal and Slot Support</a><ul class="auto-toc">
+<li><a class="reference internal" href="#unbound-and-bound-signals" id="id59">7.1&nbsp;&nbsp;&nbsp;Unbound and Bound Signals</a></li>
+<li><a class="reference internal" href="#defining-new-signals-with-qtcore-pyqtsignal" id="id60">7.2&nbsp;&nbsp;&nbsp;Defining New Signals with <tt class="docutils literal">QtCore.pyqtSignal()</tt></a></li>
+<li><a class="reference internal" href="#connecting-disconnecting-and-emitting-signals" id="id61">7.3&nbsp;&nbsp;&nbsp;Connecting, Disconnecting and Emitting Signals</a></li>
+<li><a class="reference internal" href="#connecting-signals-using-keyword-arguments" id="id62">7.4&nbsp;&nbsp;&nbsp;Connecting Signals Using Keyword Arguments</a></li>
+<li><a class="reference internal" href="#the-qtcore-pyqtslot-decorator" id="id63">7.5&nbsp;&nbsp;&nbsp;The <tt class="docutils literal">QtCore.pyqtSlot()</tt> Decorator</a></li>
+<li><a class="reference internal" href="#connecting-slots-by-name" id="id64">7.6&nbsp;&nbsp;&nbsp;Connecting Slots By Name</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#old-style-signal-and-slot-support" id="id65">8&nbsp;&nbsp;&nbsp;Old-style Signal and Slot Support</a><ul class="auto-toc">
+<li><a class="reference internal" href="#pyqt-signals-and-qt-signals" id="id66">8.1&nbsp;&nbsp;&nbsp;PyQt Signals and Qt Signals</a></li>
+<li><a class="reference internal" href="#the-pyqt-pyobject-signal-argument-type" id="id67">8.2&nbsp;&nbsp;&nbsp;The <tt class="docutils literal">PyQt_PyObject</tt> Signal Argument Type</a></li>
+<li><a class="reference internal" href="#short-circuit-signals" id="id68">8.3&nbsp;&nbsp;&nbsp;Short-circuit Signals</a></li>
+<li><a class="reference internal" href="#pyqt-slots-and-qt-slots" id="id69">8.4&nbsp;&nbsp;&nbsp;PyQt Slots and Qt Slots</a></li>
+<li><a class="reference internal" href="#connecting-signals-and-slots" id="id70">8.5&nbsp;&nbsp;&nbsp;Connecting Signals and Slots</a></li>
+<li><a class="reference internal" href="#emitting-signals" id="id71">8.6&nbsp;&nbsp;&nbsp;Emitting Signals</a></li>
+<li><a class="reference internal" href="#the-qtcore-pyqtsignature-decorator" id="id72">8.7&nbsp;&nbsp;&nbsp;The <tt class="docutils literal">QtCore.pyqtSignature()</tt> Decorator</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#python-objects-and-qvariant" id="id73">9&nbsp;&nbsp;&nbsp;Python Objects and QVariant</a></li>
+<li><a class="reference internal" href="#integrating-python-and-qml" id="id74">10&nbsp;&nbsp;&nbsp;Integrating Python and QML</a></li>
+<li><a class="reference internal" href="#integrating-python-and-javascript-in-qtwebkit" id="id75">11&nbsp;&nbsp;&nbsp;Integrating Python and JavaScript in QtWebKit</a></li>
+<li><a class="reference internal" href="#support-for-pickling" id="id76">12&nbsp;&nbsp;&nbsp;Support for Pickling</a></li>
+<li><a class="reference internal" href="#support-for-python-s-buffer-interface" id="id77">13&nbsp;&nbsp;&nbsp;Support for Python's Buffer Interface</a></li>
+<li><a class="reference internal" href="#using-pyqt-from-the-python-shell" id="id78">14&nbsp;&nbsp;&nbsp;Using PyQt from the Python Shell</a></li>
+<li><a class="reference internal" href="#using-qt-designer" id="id79">15&nbsp;&nbsp;&nbsp;Using Qt Designer</a><ul class="auto-toc">
+<li><a class="reference internal" href="#using-the-generated-code" id="id80">15.1&nbsp;&nbsp;&nbsp;Using the Generated Code</a></li>
+<li><a class="reference internal" href="#the-uic-module" id="id81">15.2&nbsp;&nbsp;&nbsp;The <tt class="docutils literal">uic</tt> Module</a></li>
+<li><a class="reference internal" href="#pyuic4" id="id82">15.3&nbsp;&nbsp;&nbsp;pyuic4</a></li>
+<li><a class="reference internal" href="#writing-qt-designer-plugins" id="id83">15.4&nbsp;&nbsp;&nbsp;Writing Qt Designer Plugins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-pyqt-resource-system" id="id84">16&nbsp;&nbsp;&nbsp;The PyQt Resource System</a><ul class="auto-toc">
+<li><a class="reference internal" href="#pyrcc4" id="id85">16.1&nbsp;&nbsp;&nbsp;pyrcc4</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#internationalisation-of-pyqt-applications" id="id86">17&nbsp;&nbsp;&nbsp;Internationalisation of PyQt Applications</a><ul class="auto-toc">
+<li><a class="reference internal" href="#pylupdate4" id="id87">17.1&nbsp;&nbsp;&nbsp;pylupdate4</a></li>
+<li><a class="reference internal" href="#differences-between-pyqt-and-qt" id="id88">17.2&nbsp;&nbsp;&nbsp;Differences Between PyQt and Qt</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-dbus-support-module" id="id89">18&nbsp;&nbsp;&nbsp;The DBus Support Module</a></li>
+<li><a class="reference internal" href="#things-to-be-aware-of" id="id90">19&nbsp;&nbsp;&nbsp;Things to be Aware Of</a><ul class="auto-toc">
+<li><a class="reference internal" href="#python-strings-qt-strings-and-unicode" id="id91">19.1&nbsp;&nbsp;&nbsp;Python Strings, Qt Strings and Unicode</a></li>
+<li><a class="reference internal" href="#garbage-collection" id="id92">19.2&nbsp;&nbsp;&nbsp;Garbage Collection</a></li>
+<li><a class="reference internal" href="#multiple-inheritance" id="id93">19.3&nbsp;&nbsp;&nbsp;Multiple Inheritance</a></li>
+<li><a class="reference internal" href="#access-to-protected-member-functions" id="id94">19.4&nbsp;&nbsp;&nbsp;Access to Protected Member Functions</a></li>
+<li><a class="reference internal" href="#none-and-null" id="id95">19.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal">None</tt> and <tt class="docutils literal">NULL</tt></a></li>
+<li><a class="reference internal" href="#support-for-void" id="id96">19.6&nbsp;&nbsp;&nbsp;Support for <tt class="docutils literal">void *</tt></a></li>
+<li><a class="reference internal" href="#super-and-pyqt-classes" id="id97">19.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal">super</tt> and PyQt Classes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#deploying-commercial-pyqt-applications" id="id98">20&nbsp;&nbsp;&nbsp;Deploying Commercial PyQt Applications</a></li>
+<li><a class="reference internal" href="#the-pyqt-build-system" id="id99">21&nbsp;&nbsp;&nbsp;The PyQt Build System</a><ul class="auto-toc">
+<li><a class="reference internal" href="#pyqtconfig-classes" id="id100">21.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal">pyqtconfig</tt> Classes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h1><a class="toc-backref" href="#id15">1&nbsp;&nbsp;&nbsp;Introduction</a></h1>
+<p>This is the reference guide for PyQt 4.8.  PyQt v4 is a set of
+<a class="reference external" href="http://www.python.org">Python</a> bindings for v4 of the Qt application
+framework from <a class="reference external" href="http://qt.nokia.com">Nokia</a>.</p>
+<p>There is a separate <a class="reference external" href="html/classes.html">PyQt API Reference</a>.</p>
+<p>Qt is a set of C++ libraries and development tools that includes platform
+independent abstractions for graphical user interfaces, networking, threads,
+Unicode, regular expressions, SQL databases, SVG, OpenGL, XML, and user and
+application settings.  PyQt implements 440 of these classes as a set of
+Python modules.</p>
+<p>PyQt supports the Windows, Linux, UNIX and MacOS/X platforms.</p>
+<p>PyQt does not include Qt itself - you must obtain it separately.</p>
+<p>The homepage for PyQt is <a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/">http://www.riverbankcomputing.com/software/pyqt/</a>.
+Here you will always find the latest stable version, current development
+snapshots, and the latest version of this documentation.</p>
+<p>PyQt is built using the <a class="reference external" href="http://www.riverbankcomputing.com/software/sip/">SIP bindings generator</a>.  SIP must be installed in
+order to build and use PyQt.</p>
+<p>Earlier versions of Qt are supported by PyQt v3.</p>
+<div class="section" id="license">
+<h2><a class="toc-backref" href="#id16">1.1&nbsp;&nbsp;&nbsp;License</a></h2>
+<p>PyQt is licensed on all platforms under a commercial license, the GPL v2 and
+the GPL v3.  Your PyQt license must be compatible with your Qt license.  If
+you use the GPL versions then your own code must also use a compatible
+license.</p>
+<p>PyQt, unlike Qt, is not available under the LGPL.</p>
+<p>You can purchase a commercial PyQt license <a class="reference external" href="http://www.riverbankcomputing.com/commercial/buy">here</a>.</p>
+</div>
+<div class="section" id="pyqt-components">
+<h2><a class="toc-backref" href="#id17">1.2&nbsp;&nbsp;&nbsp;PyQt Components</a></h2>
+<p>PyQt comprises a number of different components.  First of all there are a
+number of Python extension modules.  These are all installed in the <tt class="docutils literal">PyQt4</tt>
+Python package.</p>
+<blockquote>
+<ul class="simple">
+<li>The <tt class="docutils literal">QtCore</tt> module.  This contains the core non-GUI classes, including
+the event loop and Qt's signal and slot mechanism.  It also includes
+platform independent abstractions for Unicode, threads, mapped files,
+shared memory, regular expressions, and user and application settings.</li>
+<li>The <tt class="docutils literal">QtGui</tt> module.  This contains the majority of the GUI classes.</li>
+<li>The <tt class="docutils literal">QtHelp</tt> module.  This contains classes for creating and viewing
+searchable documentation.</li>
+<li>The <tt class="docutils literal">QtNetwork</tt> module.  This module contains classes for writing UDP
+and TCP clients and servers.  It includes classes that implement FTP and
+HTTP clients and support DNS lookups.</li>
+<li>The <tt class="docutils literal">QtOpenGL</tt> module.  This module contains classes that enable the
+use of OpenGL in rendering 3D graphics in PyQt applications.</li>
+<li>The <tt class="docutils literal">QtScript</tt> module.  This module contains classes that enable PyQt
+applications to be scripted using Qt's JavaScript interpreter.</li>
+<li>The <tt class="docutils literal">QtScriptTools</tt> module.  This module contains classes that contain
+additional components (e.g. a debugger) that are used with Qt's
+JavaScript interpreter.</li>
+<li>The <tt class="docutils literal">QtSql</tt> module.  This module contains classes that integrate with
+SQL databases.  It includes editable data models for database tables that
+can be used with GUI classes.  It also includes an implementation of
+<a class="reference external" href="http://www.sqlite.org">SQLite</a>.</li>
+<li>The <tt class="docutils literal">QtSvg</tt> module.  This module contains classes for displaying the
+contents of SVG files.</li>
+<li>The <tt class="docutils literal">QtTest</tt> module.  This module contains functions that enable unit
+testing of PyQt applications.  (PyQt does not implement the complete Qt
+unit test framework.  Instead it assumes that the standard Python unit
+test framework will be used and implements those functions that simulate
+a user interacting with a GUI.)</li>
+<li>The <tt class="docutils literal">QtWebKit</tt> module.  This module implements a web browser engine
+based on the WebKit open source browser engine.</li>
+<li>The <tt class="docutils literal">QtXml</tt> module.  This module contains classes that implement SAX
+and DOM interfaces to Qt's XML parser.</li>
+<li>The <tt class="docutils literal">QtXmlPatterns</tt> module.  This module contains classes that
+implement XQuery and XPath support for XML and custom data models.</li>
+<li>The <tt class="docutils literal">phonon</tt> module.  This module contains classes that
+implement a cross-platform multimedia framework that enables the use of
+audio and video content in PyQt applications.</li>
+<li>The <tt class="docutils literal">QtDeclarative</tt> module.  This module provides a declarative
+framework for building highly dynamic, custom user interfaces using
+QML.</li>
+<li>The <tt class="docutils literal">QtMultimedia</tt> module.  This module provides low-level multimedia
+functionality.  Application developers would normally use the <tt class="docutils literal">phonon</tt>
+module.</li>
+<li>The <tt class="docutils literal">QtAssistant</tt> module.  This module contains classes that allow Qt
+Assistant to be integrated with a PyQt application to provide online
+help.  This module is not available with Qt v4.7 and later.</li>
+<li>The <tt class="docutils literal">QtDesigner</tt> module.  This module contains classes that allow Qt
+Designer to be extended using PyQt.  See <a class="reference internal" href="#writing-qt-designer-plugins">Writing Qt Designer Plugins</a>
+for a full description of how to do this.</li>
+<li>The <tt class="docutils literal">QAxContainer</tt> module.  This module contains classes that allow
+access to ActiveX controls and COM objects.</li>
+<li>The <tt class="docutils literal">Qt</tt> module.  This module consolidates the classes contained in all
+of the modules described above into a single module.  This has the
+advantage that you don't have to worry about which underlying module
+contains a particular class.  It has the disadvantage that it loads the
+whole of the Qt framework, thereby increasing the memory footprint of an
+application.  Whether you use this consolidated module, or the individual
+component modules is down to personal taste.</li>
+<li>The <a class="reference external" href="http://www.freedesktop.org/wiki/Software_2fdbus">DBus</a> support
+module is installed as <tt class="docutils literal">dbus.mainloop.qt</tt>.  PyQt does not support Qt's
+native DBus classes (which are very C++ orientated).  Instead the
+<tt class="docutils literal">dbus.mainloop.qt</tt> module provides support for the Qt event loop in the
+same way that the <tt class="docutils literal">dbus.mainloop.glib</tt> included with the standard
+<tt class="docutils literal"><span class="pre">dbus-python</span></tt> bindings package provides support for the GLib event
+loop.  The API is described in <a class="reference internal" href="#the-dbus-support-module">The DBus Support Module</a>.  It is only
+available for PyQt for X11 and only if the <tt class="docutils literal"><span class="pre">dbus-python</span></tt> v0.80 (or
+later) bindings package is installed.</li>
+<li>The <tt class="docutils literal">uic</tt> module.  This module contains classes for handling the
+<tt class="docutils literal">.ui</tt> files created by Qt Designer that describe the whole or part of a
+graphical user interface.  It includes classes that load a <tt class="docutils literal">.ui</tt> file
+and render it directly, and classes that generate Python code from a
+<tt class="docutils literal">.ui</tt> file for later execution.  It is covered in detail in <a class="reference internal" href="#the-uic-module">The uic
+Module</a>.</li>
+<li>The <tt class="docutils literal">pyqtconfig</tt> module is an extention of the SIP build system and is
+created when PyQt is configured.  It encapsulates all the necessary
+information about your Qt installation and makes it easier to write
+installation scripts for bindings built on top of PyQt.  It is covered
+in detail in <a class="reference internal" href="#the-pyqt-build-system">The PyQt Build System</a>.</li>
+</ul>
+</blockquote>
+<p>PyQt also contains a number of utility programs.</p>
+<blockquote>
+<ul class="simple">
+<li><a class="reference internal" href="#pyuic4">pyuic4</a> corresponds to the Qt <tt class="docutils literal">uic</tt> utility.  It converts GUIs
+created using Qt Designer to Python code.  It is covered in detail in
+<a class="reference internal" href="#pyuic4">pyuic4</a>.</li>
+<li><a class="reference internal" href="#pyrcc4">pyrcc4</a> corresponds to the Qt <tt class="docutils literal">rcc</tt> utility.  It embeds arbitrary
+resources (eg. icons, images, translation files) described by a resource
+collection file in a Python module.  It is covered in detail in
+<a class="reference internal" href="#pyrcc4">pyrcc4</a>.  (<em>Note</em> It will only be included if your copy of Qt includes
+the XML module.)</li>
+<li><a class="reference internal" href="#pylupdate4">pylupdate4</a> corresponds to the Qt <tt class="docutils literal">lupdate</tt> utility.  It extracts
+all of the translatable strings from Python code and creates or updates
+<tt class="docutils literal">.ts</tt> translation files.  These are then used by Qt Linguist to manage
+the translation of those strings.  It is covered in detail in
+<a class="reference internal" href="#pylupdate4">pylupdate4</a>.  (<em>Note</em> It will only be included if your copy of Qt
+includes the XML module.)</li>
+</ul>
+</blockquote>
+<p>When PyQt is configured a file called <tt class="docutils literal">PyQt4.api</tt> is generated.  This can be
+used by the QScintilla editor component (at
+<a class="reference external" href="http://www.riverbankcomputing.com/software/qscintilla/">http://www.riverbankcomputing.com/software/qscintilla/</a>) to enable the use of
+auto-completion and call tips when editing PyQt code.  The API file is
+installed automatically if QScintilla is already installed.</p>
+<p>PyQt includes a large number of examples.  These are ports to Python of many
+of the C++ examples provided with Qt.  They can be found in the <tt class="docutils literal">examples</tt>
+directory.</p>
+<p>Finally, PyQt contains the <tt class="docutils literal">.sip</tt> files used by SIP to generate PyQt
+itself.  These can be used by developers of bindings of other Qt based class
+libraries - for example <a class="reference external" href="http://pyqwt.sourceforge.net/">PyQwt and PyQwt3D</a>.</p>
+</div>
+</div>
+<div class="section" id="potential-incompatibilities-with-earlier-versions">
+<h1><a class="toc-backref" href="#id18">2&nbsp;&nbsp;&nbsp;Potential Incompatibilities with Earlier Versions</a></h1>
+<div class="section" id="pyqt-v4-8">
+<h2><a class="toc-backref" href="#id19">2.1&nbsp;&nbsp;&nbsp;PyQt v4.8</a></h2>
+<div class="section" id="qvariantlist">
+<h3><a class="toc-backref" href="#id20">2.1.1&nbsp;&nbsp;&nbsp;QVariantList</a></h3>
+<p>In previous versions PyQt would always try and convert a Python list to a
+<tt class="docutils literal">QVariantList</tt>.  In this version PyQt will first try to convert it to a
+<tt class="docutils literal">QVariant</tt> containing a <tt class="docutils literal">QList&lt;QObject *&gt;</tt>, but only if
+<tt class="docutils literal">QList&lt;QObject *&gt;</tt> has been registered with Qt as a meta-type.</p>
+<p>Normally it is only the <tt class="docutils literal">QtDeclarative</tt> module that registers this meta-type
+and so the behaviour of existing applications should be unchanged.  It is
+possible however that you might observe different conversion behaviour after
+importing the <tt class="docutils literal">QtDeclarative</tt> module.</p>
+</div>
+</div>
+<div class="section" id="pyqt-v4-7-4">
+<h2><a class="toc-backref" href="#id21">2.2&nbsp;&nbsp;&nbsp;PyQt v4.7.4</a></h2>
+<div class="section" id="pyqtsignal-with-dict-and-list">
+<h3><a class="toc-backref" href="#id22">2.2.1&nbsp;&nbsp;&nbsp;pyqtSignal() with dict and list</a></h3>
+<p>In previous versions a Qt signal defined using <tt class="docutils literal">pyqtSignal()</tt> that had an
+argument specified as a dict then, when emitting a value, PyQt would try and
+convert the value to a <tt class="docutils literal">QVariantMap</tt> if possible.  If it wasn't possible,
+normally because the dict had non-string keys, then the value would be left as
+a dict object.</p>
+<p>In this version PyQt will not attempt to convert the value to a <tt class="docutils literal">QVariantMap</tt>
+and will always leave it as a dict object.  If you want the value to be
+converted to a <tt class="docutils literal">QVariantMap</tt> then define the signal argument as
+<tt class="docutils literal">'QVariantMap'</tt>.</p>
+<p>The same applies to conversions between lists and <tt class="docutils literal">QVariantList</tt>.</p>
+</div>
+</div>
+<div class="section" id="pyqt-v4-7-1">
+<h2><a class="toc-backref" href="#id23">2.3&nbsp;&nbsp;&nbsp;PyQt v4.7.1</a></h2>
+<div class="section" id="qvariant">
+<h3><a class="toc-backref" href="#id24">2.3.1&nbsp;&nbsp;&nbsp;QVariant</a></h3>
+<p>This version introduces a slight incompatibility in the conversion between
+sub-classes of standard Python types and <tt class="docutils literal">QVariant</tt>.</p>
+<p>Take, for example, the following code:</p>
+<pre class="literal-block">
+from PyQt4.QtCore import QVariant
+
+class MyFloat(float):
+
+    pass
+
+myfloat = MyFloat(5.0)
+variant = QVariant(myfloat)
+</pre>
+<p>With this version of PyQt <tt class="docutils literal">myfloat</tt> will be converted in such a way as to
+preserve any additional attributes (including methods) and will not be
+converted to a C++ <tt class="docutils literal">double</tt>.  In other words, the following assertions are
+true:</p>
+<pre class="literal-block">
+assert(variant.type() != QVariant.Double)
+assert(variant.toPyObject() is myfloat)
+</pre>
+<p>Prior to this version <tt class="docutils literal">myfloat</tt> would be converted to a C++ <tt class="docutils literal">double</tt>.  In
+other words, the following assertions would be true:</p>
+<pre class="literal-block">
+assert(variant.type() == QVariant.Double)
+assert(variant.toPyObject() == myfloat)
+assert(type(variant.toPyObject()) is float)
+</pre>
+<p>The same change also affects objects that implement the sequence protocol.
+Prior to this version such an object would be converted to a <tt class="docutils literal">QVariantList</tt>
+which would mean that it was converted back to a Python <tt class="docutils literal">list</tt> rather than to
+the original type.</p>
+</div>
+</div>
+<div class="section" id="pyqt-v4-5">
+<h2><a class="toc-backref" href="#id25">2.4&nbsp;&nbsp;&nbsp;PyQt v4.5</a></h2>
+<div class="section" id="id1">
+<h3><a class="toc-backref" href="#id26">2.4.1&nbsp;&nbsp;&nbsp;QVariant</a></h3>
+<p>This version introduces a slight incompatibility in the conversion between
+Python sub-classes of certain Qt classes and <tt class="docutils literal">QVariant</tt>.  The Qt classes
+affected are those that <tt class="docutils literal">QVariant</tt> has explicit support for, e.g. <tt class="docutils literal">QSize</tt>,
+<tt class="docutils literal">QBitmap</tt>.</p>
+<p>Take, for example, the following code:</p>
+<pre class="literal-block">
+from PyQt4.QtCore import QSize, QVariant
+
+class MySize(QSize):
+
+    pass
+
+mysize = MySize(5, 5)
+variant = QVariant(mysize)
+</pre>
+<p>With this version of PyQt <tt class="docutils literal">mysize</tt> will be converted in such a way as to
+preserve any additional attributes (including methods) and will not be
+converted to a C++ <tt class="docutils literal">QSize</tt> instance.  In other words, the following
+assertions are true:</p>
+<pre class="literal-block">
+assert(variant.type() != QVariant.Size)
+assert(variant.toPyObject() is mysize)
+</pre>
+<p>Prior to this version <tt class="docutils literal">mysize</tt> would be converted to a C++ <tt class="docutils literal">QSize</tt>
+instance.  In other words, the following assertions would be true:</p>
+<pre class="literal-block">
+assert(variant.type() == QVariant.Size)
+assert(variant.toPyObject() == mysize)
+assert(type(variant.toPyObject()) is QSize)
+</pre>
+<p>It is hoped that this change of behaviour will not have a significant impact.
+However if you need the old behaviour then simple create a copy of your
+sub-class instance using the base class constructor as shown below:</p>
+<pre class="literal-block">
+variant = QVariant(QSize(mysize))
+</pre>
+<p>A similar issue also affects the conversion of the Python <tt class="docutils literal">datetime</tt>,
+<tt class="docutils literal">date</tt> and <tt class="docutils literal">time</tt> types to <tt class="docutils literal">QVariant</tt>.  These are no longer converted to
+the corresponding <tt class="docutils literal">QDateTime</tt>, <tt class="docutils literal">QDate</tt> and <tt class="docutils literal">QTime</tt> classes.  The values
+can be retrieved using <tt class="docutils literal">QVariant.toPyObject()</tt>.  Again, the old behaviour can
+be achieved using an explicit conversion to the Qt class before converting to
+<tt class="docutils literal">QVariant</tt>.</p>
+<p>A further incompatible change is the handling of Python sub-classes of
+<tt class="docutils literal">QObject</tt>.  In previous versions <tt class="docutils literal">QVariant.userType()</tt> would return an
+internal type and an extra reference would be kept to the Python object.  In
+the current version <tt class="docutils literal">QVariant.userType()</tt> will correctly return
+<tt class="docutils literal">QMetaType.QObjectStar</tt> (or <tt class="docutils literal">QMetaType.QWidgetStar</tt>) but an extra
+reference to the Python object is not kept.  To avoid a potential crash you
+should ensure that you keep a separate reference to the Python object, either
+explicitly or implicitly by giving it a parent.</p>
+</div>
+<div class="section" id="pyrcc4-support-for-python-v3">
+<h3><a class="toc-backref" href="#id27">2.4.2&nbsp;&nbsp;&nbsp;pyrcc4 Support for Python v3</a></h3>
+<p><a class="reference internal" href="#pyrcc4">pyrcc4</a> will now generate code for Python v3 when the new <tt class="docutils literal"><span class="pre">-py3</span></tt> command
+line option is used.  The generated code will also work with Python v2.6 and
+later.</p>
+<p>By default <a class="reference internal" href="#pyrcc4">pyrcc4</a> will generate code for all Python v2 versions but you
+should use the new <tt class="docutils literal"><span class="pre">-py2</span></tt> command line option to enforce this in case the
+default is changed in the future.</p>
+</div>
+</div>
+</div>
+<div class="section" id="installing-pyqt">
+<h1><a class="toc-backref" href="#id28">3&nbsp;&nbsp;&nbsp;Installing PyQt</a></h1>
+<div class="section" id="downloading-sip">
+<h2><a class="toc-backref" href="#id29">3.1&nbsp;&nbsp;&nbsp;Downloading SIP</a></h2>
+<p>SIP must be installed before building and using PyQt.  You can get the latest
+release of the SIP source code from
+<a class="reference external" href="http://www.riverbankcomputing.com/software/sip/download">http://www.riverbankcomputing.com/software/sip/download</a>.</p>
+<p>The SIP documentation can be found at
+<a class="reference external" href="http://www.riverbankcomputing.com/static/Docs/sip4/index.html">http://www.riverbankcomputing.com/static/Docs/sip4/index.html</a>.</p>
+</div>
+<div class="section" id="downloading-pyqt">
+<h2><a class="toc-backref" href="#id30">3.2&nbsp;&nbsp;&nbsp;Downloading PyQt</a></h2>
+<p>You can get the latest release of the GPL version of the PyQt source code from
+<a class="reference external" href="http://www.riverbankcomputing.com/software/pyqt/download">http://www.riverbankcomputing.com/software/pyqt/download</a>.</p>
+<p>If you are using the commercial version of PyQt then you should use the
+download instructions which were sent to you when you made your purchase.  You
+must also download your license file.</p>
+</div>
+<div class="section" id="configuring-pyqt">
+<h2><a class="toc-backref" href="#id31">3.3&nbsp;&nbsp;&nbsp;Configuring PyQt</a></h2>
+<p>After unpacking the source package (either a <tt class="docutils literal">.tar.gz</tt> or a <tt class="docutils literal">.zip</tt> file
+depending on your platform) you should then check for any <tt class="docutils literal">README</tt> files
+that relate to your platform.</p>
+<p>If you are using the commercial version of PyQt then you must copy your
+license file to the <tt class="docutils literal">sip</tt> directory.</p>
+<p>You need to make sure your environment variables are set properly for your
+development environment.  For example, if you are using a binary distribution
+of Qt on Windows then make sure you have run the <tt class="docutils literal">qtvars.bat</tt> file.  For
+other platforms it is normally enough to ensure that Qt's <tt class="docutils literal">bin</tt> directory is
+on your <tt class="docutils literal">PATH</tt>.</p>
+<p>Next you need to configure SIP by executing the <tt class="docutils literal">configure.py</tt> script.  For
+example:</p>
+<pre class="literal-block">
+python configure.py
+</pre>
+<p>This assumes that the Python interpreter is on your path.  Something like the
+following may be appropriate on Windows:</p>
+<pre class="literal-block">
+c:\python26\python configure.py
+</pre>
+<p>If you have multiple versions of Python installed then make sure you use the
+interpreter for which you wish to build PyQt for.</p>
+<p>The full set of command line options is:</p>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">--version</span></kbd></td>
+<td>Display the PyQt version number.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>Display a help message.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--confirm-license</span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Using this confirms that you accept the terms of the PyQt license.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-k</span>, <span class="option">--static</span></kbd></td>
+<td>The PyQt modules will be built as static libraries.  This is useful when
+building a custom interpreter with the PyQt modules built in to the
+interpreter.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--no-docstrings</span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>The PyQt modules will not contain automatically generated docstrings.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-r</span>, <span class="option">--trace</span></kbd></td>
+<td>The generated PyQt modules contain additional tracing code that is enabled
+using SIP's <tt class="docutils literal">sip.settracemask()</tt> function.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-u</span>, <span class="option">--debug</span></kbd></td>
+<td>The PyQt modules will be built with debugging symbols.  On Windows this
+requires that a debug version of Python is installed.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-w</span>, <span class="option">--verbose</span></kbd></td>
+<td>Compiler commands and any output issued during configuration is displayed
+instead of being suppressed.  Use this if <tt class="docutils literal">configure.py</tt> is having
+problems to see what exactly is going wrong.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-c</span>, <span class="option">--concatenate</span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>The C++ source files for a Python module will be concatenated.  This
+results in significantly reduced compilation times.  Most, but not all,
+C++ compilers can handle the large files that result.  See also the
+<tt class="docutils literal"><span class="pre">--concatenate-split</span></tt> option.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-j <var>N</var></span>, <span class="option">--concatenate-split=<var>N</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>If the <tt class="docutils literal"><span class="pre">--concatenate</span></tt> option is used to concatenate the C++ source files
+then this option determines how many files are created.  The default is 1.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--assume-shared</span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Normally Qt is checked to see if it has been built as shared libraries.
+Some Linux distributions configure their Qt builds to make this check
+unreliable.  This option ignores the result of the check and assumes that
+Qt has been built as shared libraries.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-g</span>, <span class="option">--consolidate</span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Normally each PyQt module (except for the <tt class="docutils literal">Qt</tt> module) is linked against
+the corresponding Qt library.  This option creates a module called <tt class="docutils literal">_qt</tt>
+which is linked against all the required Qt libraries and the other modules
+are stub modules that populate their module dictionaries from this one.
+This is useful when linking against static Qt libraries to eliminate the
+need to distribute the Qt libraries while minimising the memory footprint
+of the PyQt modules.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-e <var>MODULE</var></span>, <span class="option">--enable=<var>MODULE</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Normally checks for all PyQt4 modules are enabled and are built if the
+corresponding Qt library can be found.  Using this option only those
+modules specifically enabled will be checked for and built.  The option may
+be specified any number of times.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-t <var>PLUGIN</var></span>, <span class="option">--plugin=<var>PLUGIN</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>If Qt has been built as static libraries then the static plugin <tt class="docutils literal">PLUGIN</tt>
+will be linked with the appropriate PyQt module.  The option may be
+specified any number of times.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-q <var>FILE</var></span>, <span class="option">--qmake=<var>FILE</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Qt's <tt class="docutils literal">qmake</tt> program is used to determine how your Qt installation is
+laid out.  Normally <tt class="docutils literal">qmake</tt> is found on your <tt class="docutils literal">PATH</tt>.  This option can
+be used to specify a particular instance of <tt class="docutils literal">qmake</tt> to use.  This option
+is not available on Windows.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-s <var>DIR</var></span>, <span class="option">--dbus=<var>DIR</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>The <tt class="docutils literal"><span class="pre">dbus-python.h</span></tt> header file of the dbus-python package can be found
+in the directory <tt class="docutils literal">DIR/dbus</tt>.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-b <var>DIR</var></span>, <span class="option">--bindir=<var>DIR</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>The <tt class="docutils literal">pyuic4</tt>, <tt class="docutils literal">pyrcc4</tt> and <tt class="docutils literal">pylupdate4</tt> utilities will be installed
+in the directory <tt class="docutils literal">DIR</tt>.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-d <var>DIR</var></span>, <span class="option">--destdir=<var>DIR</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>The PyQt Python package will be installed in the directory <tt class="docutils literal">DIR</tt>.  The
+default is the Python installation's <tt class="docutils literal"><span class="pre">site-packages</span></tt> directory.  If you
+use this option then the <tt class="docutils literal">PYTHONPATH</tt> environment variable must include
+<tt class="docutils literal">DIR</tt>.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-p <var>DIR</var></span>, <span class="option">--plugin-destdir=<var>DIR</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>The Qt Designer plugin that manages plugins implemented in Python will be
+installed in the <tt class="docutils literal">designer</tt> subdirectory of the directory <tt class="docutils literal">DIR</tt>.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--no-designer-plugin</span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>The Qt Designer plugin will not be built.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--no-sip-files</span></kbd></td>
+<td>The <tt class="docutils literal">.sip</tt> files for the PyQt modules will not be installed.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-v <var>DIR</var></span>, <span class="option">--sipdir=<var>DIR</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>The <tt class="docutils literal">.sip</tt> files for the PyQt modules will be installed in the directory
+<tt class="docutils literal">DIR</tt>.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--use-arch=<var>ARCH</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>When <tt class="docutils literal">pyuic4</tt> calls the Python interpreter on MacOS it will be run
+using the architecture <tt class="docutils literal">ARCH</tt>.  See the section
+<a class="reference internal" href="#configuring-sip-and-pyqt-for-macos-10-6-snow-leopard">Configuring SIP and PyQt for MacOs 10.6 (Snow Leopard)</a>.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--protected-is-public</span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>On certain platforms the size of PyQt modules can be significantly reduced
+by redefining the C++ <tt class="docutils literal">protected</tt> keyword as <tt class="docutils literal">public</tt> during
+compilation.  This option enables this behaviour and is the default on
+Linux and MacOS/X.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--protected-not-public</span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>The default redefinition of <tt class="docutils literal">protected</tt> to <tt class="docutils literal">public</tt> during compilation
+on Linux and MacOS/X is disabled.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-i</span>, <span class="option">--vendorid</span></kbd></td>
+<td>The checking of signed Python interpreters using the <a class="reference external" href="http://www.riverbankcomputing.com/software/vendorid/">VendorID</a> package is
+enabled.  See also the <tt class="docutils literal"><span class="pre">--vendorid-incdir</span></tt> and <tt class="docutils literal"><span class="pre">--vendorid-libdir</span></tt>
+options and <a class="reference internal" href="#deploying-commercial-pyqt-applications">Deploying Commercial PyQt Applications</a>.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-l <var>DIR</var></span>, <span class="option">--vendorid-incdir=<var>DIR</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>The header file of the VendorID package can be found in the directory
+<tt class="docutils literal">DIR</tt>.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-m <var>DIR</var></span>, <span class="option">--vendorid-libdir=<var>DIR</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>The library of the VendorID package can be found in the directory <tt class="docutils literal">DIR</tt>.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-a</span>, <span class="option">--qsci-api</span></kbd></td>
+<td>The <tt class="docutils literal">PyQt4.api</tt> QScintilla API file is installed even if QScintilla does
+not appear to be installed.  This option is implied if the
+<tt class="docutils literal"><span class="pre">--qsci-api-destdir</span></tt> option is specified.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--no-qsci-api</span></kbd></td>
+<td>The <tt class="docutils literal">PyQt4.api</tt> QScintilla API file is not installed even if QScintilla
+does appear to be installed.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-n <var>DIR</var></span>, <span class="option">--qsci-api-destdir=<var>DIR</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>The QScintilla API file will be installed in the <tt class="docutils literal">python</tt> subdirectory of
+the <tt class="docutils literal">api` subdirectory of the directory ``DIR</tt>.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="configuring-sip-and-pyqt-for-macos-10-6-snow-leopard">
+<h2><a class="toc-backref" href="#id32">3.4&nbsp;&nbsp;&nbsp;Configuring SIP and PyQt for MacOS 10.6 (Snow Leopard)</a></h2>
+<p>With MacOS 10.6 the Python interpreter is built as a universal binary that
+supports the i386 and x86_64 architectures.  (It also supports the ppc
+architecture but that isn't relevant.)</p>
+<p>When building SIP and PyQt on a 64 bit system they will be built, by default,
+as x86_64 binaries.  However, again by default, Qt builds as i386 binaries.
+(Note that the default is expected to change in Qt v4.7.)  This means that,
+using the default configuration, PyQt will not build on a 64 bit system
+running MacOS 10.6 with a 32 bit build of Qt.  Instead you have to make sure
+that SIP and PyQt are built as i386 binaries.</p>
+<p>To configure SIP for i386 use the following command line options:</p>
+<pre class="literal-block">
+python configure.py --arch i386
+</pre>
+<p>When PyQt is configured it will automatically pick up the correct architecture
+from SIP's configuration.  However it is necessary to use the following
+command line option when configuring PyQt:</p>
+<pre class="literal-block">
+python configure.py --use-arch i386
+</pre>
+<p>This tells the different PyQt tools that execute the Python interpreter
+(actually only <tt class="docutils literal">pyuic4</tt> at present) to use the i386 architecture rather than
+the default x86_64.  This ensures that the interpreter will be able to import
+the i386 PyQt modules.</p>
+<p>The other aspect to consider is the version of the SDK to use.  By default SIP
+will use the latest version it can find, probably <tt class="docutils literal">MacOSX10.6.sdk</tt>.  However
+the Qt binary installer is built with <tt class="docutils literal">MacOSX10.4u.sdk</tt> so you will probably
+need to use the following command line option when configuring SIP:</p>
+<pre class="literal-block">
+python configure.py --sdk MacOSX10.4u.sdk
+</pre>
+</div>
+<div class="section" id="building-pyqt">
+<h2><a class="toc-backref" href="#id33">3.5&nbsp;&nbsp;&nbsp;Building PyQt</a></h2>
+<p>The next step is to build PyQt by running your platform's <tt class="docutils literal">make</tt> command.
+For example:</p>
+<pre class="literal-block">
+make
+</pre>
+<p>The final step is to install PyQt by running the following command:</p>
+<pre class="literal-block">
+make install
+</pre>
+<p>(Depending on your system you may require root or administrator privileges.)</p>
+<p>This will install the various PyQt components.</p>
+</div>
+</div>
+<div class="section" id="selecting-incompatible-apis">
+<h1><a class="toc-backref" href="#id34">4&nbsp;&nbsp;&nbsp;Selecting Incompatible APIs</a></h1>
+<p>PyQt provides limited support for multiple incompatible APIs and the ability
+for an application to select between them at run-time.  For example, an
+application can choose whether <tt class="docutils literal">QString</tt> is implemented as a Python type, or
+is automatically converted to and from a Python v2 unicode object or a Python
+v3 string object.</p>
+<p>This ability allows developers to decide how to manage the transition from an
+older deprecated, API to a newer incompatible API.</p>
+<p>Each API that can be selected in this way has a name and a range of version
+numbers.  An application calls <tt class="docutils literal">sip.setapi()</tt> to set the version number of a
+particular API.  This call must be made before any module that implements the
+API is imported.  Once set the version number cannot be changed.  If not set
+then an API will use its default version.</p>
+<p>For example the following code will disable the use of <tt class="docutils literal">QString</tt>:</p>
+<pre class="literal-block">
+import sip
+sip.setapi('QString', 2)
+
+from PyQt4 import QtCore
+
+# This will raise an attribute exception because QString is only wrapped
+# in version 1 of the API.
+s = QtCore.QString()
+</pre>
+<p>The rest of this section describes the different APIs that are available.</p>
+<div class="section" id="qdate">
+<h2><a class="toc-backref" href="#id35">4.1&nbsp;&nbsp;&nbsp;QDate</a></h2>
+<div class="section" id="version-2">
+<h3><a class="toc-backref" href="#id36">4.1.1&nbsp;&nbsp;&nbsp;Version 2</a></h3>
+<p>This is the default for Python v3.</p>
+<p><tt class="docutils literal">__hash__()</tt> returns a hash of the string representation so that two objects
+with the same date will have the same hash.</p>
+</div>
+<div class="section" id="version-1">
+<h3><a class="toc-backref" href="#id37">4.1.2&nbsp;&nbsp;&nbsp;Version 1</a></h3>
+<p>This is the default for Python v2.</p>
+<p><tt class="docutils literal">__hash__()</tt> returns an object's <tt class="docutils literal">id()</tt> so that two objects with the same
+date will have different hashes.</p>
+</div>
+</div>
+<div class="section" id="qdatetime">
+<h2><a class="toc-backref" href="#id38">4.2&nbsp;&nbsp;&nbsp;QDateTime</a></h2>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id39">4.2.1&nbsp;&nbsp;&nbsp;Version 2</a></h3>
+<p>This is the default for Python v3.</p>
+<p><tt class="docutils literal">__hash__()</tt> returns a hash of the string representation so that two objects
+with the same date and time will have the same hash.</p>
+</div>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id40">4.2.2&nbsp;&nbsp;&nbsp;Version 1</a></h3>
+<p>This is the default for Python v2.</p>
+<p><tt class="docutils literal">__hash__()</tt> returns an object's <tt class="docutils literal">id()</tt> so that two objects with the same
+date and time will have different hashes.</p>
+</div>
+</div>
+<div class="section" id="qstring">
+<h2><a class="toc-backref" href="#id41">4.3&nbsp;&nbsp;&nbsp;QString</a></h2>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id42">4.3.1&nbsp;&nbsp;&nbsp;Version 2</a></h3>
+<p>This is the default for Python v3.</p>
+<p>The <tt class="docutils literal">QString</tt> class is implemented as a mapped type that is automatically
+converted to and from a Python string.  In addition a None is converted to a
+null <tt class="docutils literal">QString</tt>.  However, a null <tt class="docutils literal">QString</tt> is converted to an empty Python
+string (and not <tt class="docutils literal">None</tt>).  (This is because Qt often returns a null <tt class="docutils literal">QString</tt>
+when it should probably return an empty <tt class="docutils literal">QString</tt>.)</p>
+<p>The <tt class="docutils literal">QChar</tt> and <tt class="docutils literal">QStringRef</tt> classes are implemented as mapped types that
+are automatically converted to and from Python strings.</p>
+<p>The <tt class="docutils literal">QStringList</tt> class is implemented as a mapped type that is
+automatically converted to and from Python lists of strings.</p>
+<p>The <tt class="docutils literal">QLatin1Char</tt>, <tt class="docutils literal">QLatin1String</tt> and <tt class="docutils literal">QStringMatcher</tt> classes are not
+implemented.</p>
+<p>The following Qt calls are not wrapped because they expect <tt class="docutils literal">QString</tt> to be
+mutable:</p>
+<pre class="literal-block">
+void QTextDecoder::toUnicode(QString *target, const char *chars, int len)
+
+QTextStream::QTextStream(QString *string, QIODevice::OpenMode openMode = QIODevice::ReadWrite)
+void QTextStream::setString(QString *string, QIODevice::OpenMode openMode = QIODevice::ReadWrite)
+QString *QTextStream::string()
+QTextStream &amp;operator&gt;&gt;(QChar &amp;c)
+QTextStream &amp;operator&gt;&gt;(QString &amp;s)
+
+QXmlStreamWriter::QXmlStreamWriter(QString *string)
+</pre>
+<p>Some PyQt calls have changed Python signatures to avoid the need for mutable
+strings.  The new signatures are as follows:</p>
+<pre class="literal-block">
+QAbstractSpinBox.fixup(str input) -&gt; str
+QAbstractSpinBox.validate(str input, int pos) -&gt; QValidator.State, str, int
+
+QDateTimeEdit.fixup(str input) -&gt; str
+QDateTimeEdit.validate(str input, int pos) -&gt; QValidator.State, str, int
+
+QDoubleSpinBox.fixup(str input) -&gt; str
+QDoubleSpinBox.validate(str input, int pos) -&gt; QValidator.State, str, int
+
+QDoubleValidator.validate(str input, int pos) -&gt; QValidator.State, str, int
+
+QClipboard.text(str subtype, QClipboard.Mode mode=QClipboard.Clipboard) -&gt; str, str
+
+QFileDialog.getOpenFileName(QWidget parent=None, str caption=None, str dir=None, str filter=None, QFileDialog.Options options=0) -&gt; str
+QFileDialog.getOpenFileNames(QWidget parent=None, str caption=None, str dir=None, str filter=None, QFileDialog.Options options=0) -&gt; list(str)
+QFileDialog.getSaveFileName(QWidget parent=None, str caption=None, str dir=None, str filter=None, QFileDialog.Options options=0) -&gt; str
+
+QIntValidator.validate(str input, int pos) -&gt; QValidator.State, str, int
+
+QRegExpValidator.validate(str input, int pos) -&gt; QValidator.State, str, int
+
+QSpinBox.fixup(str input) -&gt; str
+QSpinBox.validate(str input, int pos) -&gt; QValidator.State, str, int
+
+QValidator.fixup(str input) -&gt; str
+QValidator.validate(str input, int pos) -&gt; QValidator.State, str, int
+
+QWebPage.javaScriptPrompt(QWebFrame originatingFrame, str msg, str defaultValue) -&gt; bool, str
+</pre>
+<p>The static methods <tt class="docutils literal">getOpenFileNameAndFilter()</tt>,
+<tt class="docutils literal">getOpenFileNamesAndFilter()</tt> and <tt class="docutils literal">getSaveFileNameAndFilter()</tt> have been
+added to <tt class="docutils literal">QFileDialog</tt> (for version 1 and version 2) which return a tuple of
+the name(s) and the selected filter.</p>
+<p>The methods <tt class="docutils literal">widthChar()</tt> and <tt class="docutils literal">boundingRectChar()</tt> have been added to
+<tt class="docutils literal">QFontMetrics</tt> and <tt class="docutils literal">QFontMetricsF</tt> which accept a Python string of length
+one and call the C++ <tt class="docutils literal">width()</tt> and <tt class="docutils literal">boundingRect()</tt> methods passing the
+character as a <tt class="docutils literal">QChar</tt> (rather than a single character <tt class="docutils literal">QString</tt>).</p>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id43">4.3.2&nbsp;&nbsp;&nbsp;Version 1</a></h3>
+<p>This is the default for Python v2.</p>
+<p>The <tt class="docutils literal">QChar</tt>, <tt class="docutils literal">QLatin1Char</tt>, <tt class="docutils literal">QLatin1String</tt>, <tt class="docutils literal">QString</tt>,
+<tt class="docutils literal">QStringList</tt>, <tt class="docutils literal">QStringMatcher</tt> and <tt class="docutils literal">QStringRef</tt> classes are implemented
+as normal types.</p>
+</div>
+</div>
+<div class="section" id="qtextstream">
+<h2><a class="toc-backref" href="#id44">4.4&nbsp;&nbsp;&nbsp;QTextStream</a></h2>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id45">4.4.1&nbsp;&nbsp;&nbsp;Version 2</a></h3>
+<p>This is the default for Python v3.</p>
+<p>The C++ functions <tt class="docutils literal">bin()</tt>, <tt class="docutils literal">hex()</tt> and <tt class="docutils literal">oct()</tt> are named <tt class="docutils literal">bin_()</tt>,
+<tt class="docutils literal">hex_()</tt> and <tt class="docutils literal">oct_()</tt> respectively in Python.  This allows the import
+style <tt class="docutils literal">from PyQt4.QtCore import *</tt> to be used without them clashing with the
+Python built-in functions with the same names.</p>
+</div>
+<div class="section" id="id7">
+<h3><a class="toc-backref" href="#id46">4.4.2&nbsp;&nbsp;&nbsp;Version 1</a></h3>
+<p>This is the default for Python v2.</p>
+<p>The C++ functions <tt class="docutils literal">bin()</tt>, <tt class="docutils literal">hex()</tt> and <tt class="docutils literal">oct()</tt> have the same names in
+Python.  This causes problems when the import style
+<tt class="docutils literal">from PyQt4.QtCore import *</tt> is used because they clash with the Python
+built-in functions with the same names.</p>
+</div>
+</div>
+<div class="section" id="qtime">
+<h2><a class="toc-backref" href="#id47">4.5&nbsp;&nbsp;&nbsp;QTime</a></h2>
+<div class="section" id="id8">
+<h3><a class="toc-backref" href="#id48">4.5.1&nbsp;&nbsp;&nbsp;Version 2</a></h3>
+<p>This is the default for Python v3.</p>
+<p><tt class="docutils literal">__hash__()</tt> returns a hash of the string representation so that two objects
+with the same time will have the same hash.</p>
+</div>
+<div class="section" id="id9">
+<h3><a class="toc-backref" href="#id49">4.5.2&nbsp;&nbsp;&nbsp;Version 1</a></h3>
+<p>This is the default for Python v2.</p>
+<p><tt class="docutils literal">__hash__()</tt> returns an object's <tt class="docutils literal">id()</tt> so that two objects with the same
+time will have different hashes.</p>
+</div>
+</div>
+<div class="section" id="qurl">
+<h2><a class="toc-backref" href="#id50">4.6&nbsp;&nbsp;&nbsp;QUrl</a></h2>
+<div class="section" id="id10">
+<h3><a class="toc-backref" href="#id51">4.6.1&nbsp;&nbsp;&nbsp;Version 2</a></h3>
+<p>This is the default for Python v3.</p>
+<p><tt class="docutils literal">__hash__()</tt> returns a hash of the string representation so that two objects
+with the same URL will have the same hash.</p>
+</div>
+<div class="section" id="id11">
+<h3><a class="toc-backref" href="#id52">4.6.2&nbsp;&nbsp;&nbsp;Version 1</a></h3>
+<p>This is the default for Python v2.</p>
+<p><tt class="docutils literal">__hash__()</tt> returns an object's <tt class="docutils literal">id()</tt> so that two objects with the same
+URL will have different hashes.</p>
+</div>
+</div>
+<div class="section" id="id12">
+<h2><a class="toc-backref" href="#id53">4.7&nbsp;&nbsp;&nbsp;QVariant</a></h2>
+<div class="section" id="id13">
+<h3><a class="toc-backref" href="#id54">4.7.1&nbsp;&nbsp;&nbsp;Version 2</a></h3>
+<p>This is the default for Python v3.</p>
+<p>The <tt class="docutils literal">QVariant</tt> class is implemented as a mapped type.  Any Python object can
+be passed when a <tt class="docutils literal">QVariant</tt> instance is expected.  When Qt returns a
+<tt class="docutils literal">QVariant</tt> then it will automatically be converted to the original Python
+object or an equivalent.  <tt class="docutils literal">None</tt> is interpreted as an invalid <tt class="docutils literal">QVariant</tt>
+and vice versa.</p>
+</div>
+<div class="section" id="id14">
+<h3><a class="toc-backref" href="#id55">4.7.2&nbsp;&nbsp;&nbsp;Version 1</a></h3>
+<p>This is the default for Python v2.</p>
+<p>The <tt class="docutils literal">QVariant</tt> class is implememted as a normal type.  Any Python object
+can be passed when a <tt class="docutils literal">QVariant</tt> instance is expected and <tt class="docutils literal">None</tt> is
+interpreted as an invalid <tt class="docutils literal">QVariant</tt>.  However, when Qt returns a
+<tt class="docutils literal">QVariant</tt> then it must be explicitly converted to the original Python
+object or an equivalent by calling its <tt class="docutils literal">toPyObject()</tt> method.</p>
+</div>
+</div>
+</div>
+<div class="section" id="support-for-keyword-arguments">
+<h1><a class="toc-backref" href="#id56">5&nbsp;&nbsp;&nbsp;Support for Keyword Arguments</a></h1>
+<p>Starting with v4.7 PyQt supports the use of keyword arguments for optional
+arguments.</p>
+<p>One thing to be aware of is that, although the PyQt and Qt documentation may
+indicate that an argument has a particular name, you may find that PyQt
+actually uses a different name.  This is because the name of an argument is not
+part of the Qt API and there is some inconsistency in the way that similar
+arguments are named.  Different versions of Qt may use a different name for an
+argument which wouldn't affect the C++ API but would break the Python API.</p>
+<p>The docstrings that PyQt generates for all classes, functions and methods will
+contain the correct argument names.  In a future version of PyQt the
+documentation will also contain the correct argument names.</p>
+</div>
+<div class="section" id="support-for-qt-properties">
+<h1><a class="toc-backref" href="#id57">6&nbsp;&nbsp;&nbsp;Support for Qt Properties</a></h1>
+<p>PyQt does not support the setting and getting of Qt properties as if they were
+normal instance attributes.  This is because the name of a property often
+conflicts with the name of the property's getter method.</p>
+<p>However, PyQt does support the initial setting of properties using keyword
+arguments passed when an instance is created.  For example:</p>
+<pre class="literal-block">
+act = QtGui.QAction(&quot;&amp;Save&quot;, self, shortcut=QtGui.QKeySequence.Save,
+        statusTip=&quot;Save the document to disk&quot;, triggered=self.save)
+</pre>
+<p>The example also demonstrates the use of a keyword argument to connect a
+signal to a slot.</p>
+<p>PyQt also supports setting the values of properties (and connecting a signal
+to a slot) using the <tt class="docutils literal">pyqtConfigure()</tt> method of <tt class="docutils literal">QObject</tt>.  For example,
+the following gives the same results as above:</p>
+<pre class="literal-block">
+act = QtGui.QAction(&quot;&amp;Save&quot;, self)
+act.pyqtConfigure(shortcut=QtGui.QKeySequence.Save,
+        statusTip=&quot;Save the document to disk&quot;, triggered=self.save)
+</pre>
+</div>
+<div class="section" id="new-style-signal-and-slot-support">
+<h1><a class="toc-backref" href="#id58">7&nbsp;&nbsp;&nbsp;New-style Signal and Slot Support</a></h1>
+<p>This section describes the new style of connecting signals and slots
+introduced in PyQt v4.5.</p>
+<p>One of the key features of Qt is its use of signals and slots to communicate
+between objects.  Their use encourages the development of reusable components.</p>
+<p>A signal is emitted when something of potential interest happens.  A slot is a
+Python callable.  If a signal is connected to a slot then the slot is called
+when the signal is emitted.  If a signal isn't connected then nothing happens.
+The code (or component) that emits the signal does not know or care if the
+signal is being used.</p>
+<p>The signal/slot mechanism has the following features.</p>
+<ul class="simple">
+<li>A signal may be connected to many slots.</li>
+<li>A signal may also be connected to another signal.</li>
+<li>Signal arguments may be any Python type.</li>
+<li>A slot may be connected to many signals.</li>
+<li>Connections may be direct (ie. synchronous) or queued (ie. asynchronous).</li>
+<li>Connections may be made across threads.</li>
+<li>Signals may be disconnected.</li>
+</ul>
+<div class="section" id="unbound-and-bound-signals">
+<h2><a class="toc-backref" href="#id59">7.1&nbsp;&nbsp;&nbsp;Unbound and Bound Signals</a></h2>
+<p>A signal (specifically an unbound signal) is an attribute of a class that is a
+sub-class of <tt class="docutils literal">QObject</tt>.  When a signal is referenced as an attribute of an
+instance of the class then PyQt automatically binds the instance to the signal
+in order to create a <em>bound signal</em>.  This is the same mechanism that Python
+itself uses to create bound methods from class functions.</p>
+<p>A bound signal has <tt class="docutils literal">connect()</tt>, <tt class="docutils literal">disconnect()</tt> and <tt class="docutils literal">emit()</tt> methods that
+implement the associated functionality.</p>
+<p>A signal may be overloaded, ie. a signal with a particular name may support
+more than one signature.  A bound signal may be indexed with a signature in
+order to select the one required.  A signature is a sequence of types.  A type
+is either a Python type object or a string that is the name of a C++ type.</p>
+<p>If a signal is overloaded then it will have a default that will be used if no
+index is given.</p>
+<p>When a signal is emitted then any arguments are converted to C++ types if
+possible.  If an argument doesn't have a corresponding C++ type then it is
+wrapped in a special C++ type that allows it to be passed around Qt's meta-type
+system while ensuring that its reference count is properly maintained.</p>
+</div>
+<div class="section" id="defining-new-signals-with-qtcore-pyqtsignal">
+<h2><a class="toc-backref" href="#id60">7.2&nbsp;&nbsp;&nbsp;Defining New Signals with <tt class="docutils literal">QtCore.pyqtSignal()</tt></a></h2>
+<p>PyQt automatically defines signals for all Qt's built-in signals.  New signals
+can be defined as class attributes using the <tt class="docutils literal">QtCore.pyqtSignal()</tt> factory.</p>
+<p><tt class="docutils literal">QtCore.pyqtSignal()</tt> takes a number of type arguments that corresponds to
+the signature of the signal.  Each type may be a Python type object or a string
+that is the name of a C++ type.  Alternatively each argument could be a
+sequence of type arguments.  In this case each sequence defines the signature
+of a different signal overload.  The first overload will be the default.</p>
+<p><tt class="docutils literal">QtCore.pyqtSignal()</tt> takes an optional <em>name</em> keyword argument that is the
+name of the signal.  If it is omitted then the name of the class attribute is
+used.</p>
+<p>The following example shows the definition of a number of new signals:</p>
+<pre class="literal-block">
+from PyQt4 import QtCore
+
+class Foo(QtCore.QObject):
+
+    # This defines a signal called 'closed' that takes no arguments.
+    closed = QtCore.pyqtSignal()
+
+    # This defines a signal called 'rangeChanged' that takes two
+    # integer arguments.
+    range_changed = QtCore.pyqtSignal(int, int, name='rangeChanged')
+
+    # This defines a signal called 'valueChanged' that has two overloads,
+    # one that takes an integer argument and one that takes a QString
+    # argument.
+    valueChanged = QtCore.pyqtSignal((int, ), (QtCore.QString, ))
+
+    # The following will create exactly the same overloaded signal as
+    # above and demonstrates the use of C++ type names instead of Python
+    # type objects, and lists instead of tuples.
+    valueChanged = QtCore.pyqtSignal(['int'], ['QString'])
+</pre>
+<p>New signals should only be defined in sub-classes of <tt class="docutils literal">QObject</tt>.</p>
+<p>New signals defined in this way will be automatically added to the class's
+<tt class="docutils literal">QMetaObject</tt>.  This means that they will appear in Qt Designer and can be
+introspected using the <tt class="docutils literal">QMetaObject</tt> API.</p>
+</div>
+<div class="section" id="connecting-disconnecting-and-emitting-signals">
+<h2><a class="toc-backref" href="#id61">7.3&nbsp;&nbsp;&nbsp;Connecting, Disconnecting and Emitting Signals</a></h2>
+<p>Signals are connected to slots using the <tt class="docutils literal">connect()</tt> method of a bound
+signal:</p>
+<pre class="literal-block">
+connect(slot[, type=PyQt4.QtCore.Qt.AutoConnection])
+
+    *slot* may be either a Python callable or another bound signal.
+
+    *type* is a QtCore.Qt.ConnectionType value.
+</pre>
+<p>Signals are disconnected from slots using the <tt class="docutils literal">disconnect()</tt> method of a
+bound signal:</p>
+<pre class="literal-block">
+disconnect([slot])
+
+    *slot* may be either a Python callable or a another bound signal.  If
+    slot is omitted then all slots connected to the signal are
+    disconnected.
+</pre>
+<p>Signals are emitted from using the <tt class="docutils literal">emit()</tt> method of a bound signal:</p>
+<pre class="literal-block">
+emit(*args)
+
+    *args* is the optional sequence of arguments to pass to any connected
+    slots.
+</pre>
+<p>The following code demonstrates the definition, connection and emit of a
+signal without arguments:</p>
+<pre class="literal-block">
+from PyQt4 import QtCore
+
+class Foo(QtCore.QObject):
+
+    # Define a new signal called 'trigger' that has no arguments.
+    trigger = QtCore.pyqtSignal()
+
+    def connect_and_emit_trigger(self):
+        # Connect the trigger signal to a slot.
+        self.trigger.connect(self.handle_trigger)
+
+        # Emit the signal.
+        self.trigger.emit()
+
+    def handle_trigger(self):
+        # Show that the slot has been called.
+
+        print &quot;trigger signal received&quot;
+</pre>
+<p>The following code demonstrates the connection of overloaded signals:</p>
+<pre class="literal-block">
+from PyQt4 import QtGui
+
+class Bar(QtGui.QComboBox):
+
+    def connect_activated(self):
+        # The PyQt documentation will define what the default overload is.
+        # In this case it is the overload with the single integer argument.
+        self.activated.connect(self.handle_int)
+
+        # For non-default overloads we have to specify which we want to
+        # connect.  In this case the one with the single string argument.
+        # (Note that we could also explicitly specify the default if we
+        # wanted to.)
+        self.activated[str].connect(self.handle_string)
+
+    def handle_int(self, index):
+        print &quot;activated signal passed integer&quot;, index
+
+    def handle_string(self, text):
+        print &quot;activated signal passed QString&quot;, text
+</pre>
+</div>
+<div class="section" id="connecting-signals-using-keyword-arguments">
+<h2><a class="toc-backref" href="#id62">7.4&nbsp;&nbsp;&nbsp;Connecting Signals Using Keyword Arguments</a></h2>
+<p>It is also possible to connect signals by passing a slot as a keyword argument
+corresponding to the name of the signal when creating an object, or using the
+<tt class="docutils literal">pyqtConfigure()</tt> method of <tt class="docutils literal">QObject</tt>.  For example the following three
+fragments are equivalent:</p>
+<pre class="literal-block">
+act = QtGui.QAction(&quot;Action&quot;, self)
+act.triggered.connect(self.on_triggered)
+
+act = QtGui.QAction(&quot;Action&quot;, self, triggered=self.on_triggered)
+
+act = QtGui.QAction(&quot;Action&quot;, self)
+act.pyqtConfigure(triggered=self.on_triggered)
+</pre>
+</div>
+<div class="section" id="the-qtcore-pyqtslot-decorator">
+<h2><a class="toc-backref" href="#id63">7.5&nbsp;&nbsp;&nbsp;The <tt class="docutils literal">QtCore.pyqtSlot()</tt> Decorator</a></h2>
+<p>Although PyQt allows any Python callable to be used as a slot when connecting
+signals, it is sometimes necessary to explicitly mark a Python method as being
+a Qt slot and to provide a C++ signature for it.  PyQt provides the
+<tt class="docutils literal">QtCore.pyqtSlot()</tt> function decorator to do this.</p>
+<p>Using the decorator also has the advantage of reducing the amount of memory
+used and is slightly faster.</p>
+<p>All of the non-keyword arguments to the decorator are interpreted as the types
+of the corresponding C++ arguments.  A type is either a Python type object or a
+string that specifies a C++ type.  The decorator also takes two optional
+keywords arguments: <tt class="docutils literal">name</tt> and <tt class="docutils literal">result</tt>.  <tt class="docutils literal">name</tt> is the name of the slot
+that will be seen by C++.  If ommitted the name of the Python method being
+decorated will be used.  <tt class="docutils literal">result</tt> is the type of the result and may also be
+a Python type object or a string that specifies a C++ type.</p>
+<p>For example:</p>
+<pre class="literal-block">
+&#64;QtCore.pyqtSlot()
+def foo(self):
+    &quot;&quot;&quot; C++: void foo() &quot;&quot;&quot;
+
+&#64;QtCore.pyqtSlot(int, str)
+def foo(self, arg1, arg2):
+    &quot;&quot;&quot; C++: void foo(int, QString) &quot;&quot;&quot;
+
+&#64;QtCore.pyqtSlot(int, name='bar')
+def foo(self, arg1):
+    &quot;&quot;&quot; C++: void bar(int) &quot;&quot;&quot;
+
+&#64;QtCore.pyqtSlot(int, result=int)
+def foo(self, arg1):
+    &quot;&quot;&quot; C++: int foo(int) &quot;&quot;&quot;
+
+&#64;QtCore.pyqtSlot(int, QtGui.QWidget)
+def foo(self, arg1):
+    &quot;&quot;&quot; C++: int foo(int, QWidget *) &quot;&quot;&quot;
+</pre>
+<p>It is also possible to chain the decorators in order to define a Python method
+several times with different signatures.</p>
+<p>For example:</p>
+<pre class="literal-block">
+&#64;QtCore.pyqtSlot(int)
+&#64;QtCore.pyqtSlot('QString')
+def valueChanged(self, value):
+    &quot;&quot;&quot; Two slots will be defined in the QMetaObject. &quot;&quot;&quot;
+</pre>
+</div>
+<div class="section" id="connecting-slots-by-name">
+<h2><a class="toc-backref" href="#id64">7.6&nbsp;&nbsp;&nbsp;Connecting Slots By Name</a></h2>
+<p>PyQt supports the <tt class="docutils literal">QtCore.QMetaObject.connectSlotsByName()</tt> function that
+is most commonly used by <a class="reference internal" href="#pyuic4">pyuic4</a> generated Python code to automatically
+connect signals to slots that conform to a simple naming convention.  However,
+where a class has overloaded Qt signals (ie. with the same name but with
+different arguments) PyQt needs additional information in order to
+automatically connect the correct signal.</p>
+<p>For example the <tt class="docutils literal">QtGui.QSpinBox</tt> class has the following signals:</p>
+<pre class="literal-block">
+void valueChanged(int i);
+void valueChanged(const QString &amp;text);
+</pre>
+<p>When the value of the spin box changes both of these signals will be emitted.
+If you have implemented a slot called <tt class="docutils literal">on_spinbox_valueChanged</tt> (which
+assumes that you have given the <tt class="docutils literal">QSpinBox</tt> instance the name <tt class="docutils literal">spinbox</tt>)
+then it will be connected to both variations of the signal.  Therefore, when
+the user changes the value, your slot will be called twice - once with an
+integer argument, and once with a unicode or <tt class="docutils literal">QString</tt> argument.</p>
+<p>This also happens with signals that take optional arguments.  Qt implements
+this using multiple signals.  For example, <tt class="docutils literal">QtGui.QAbstractButton</tt> has the
+following signal:</p>
+<pre class="literal-block">
+void clicked(bool checked = false);
+</pre>
+<p>Qt implements this as the following:</p>
+<pre class="literal-block">
+void clicked();
+void clicked(bool checked);
+</pre>
+<p>The decorator can be used to specify which of the signals should be connected
+to the slot.</p>
+<p>For example, if you were only interested in the integer variant of the signal
+then your slot definition would look like the following:</p>
+<pre class="literal-block">
+&#64;QtCore.pyqtSlot(int)
+def on_spinbox_valueChanged(self, i):
+    # i will be an integer.
+    pass
+</pre>
+<p>If you wanted to handle both variants of the signal, but with different Python
+methods, then your slot definitions might look like the following:</p>
+<pre class="literal-block">
+&#64;QtCore.pyqtSlot(int, name='on_spinbox_valueChanged')
+def spinbox_int_value(self, i):
+    # i will be an integer.
+    pass
+
+&#64;QtCore.pyqtSlot(str, name='on_spinbox_valueChanged')
+def spinbox_qstring_value(self, s):
+    # s will be a Python string object (or a QString if they are enabled).
+    pass
+</pre>
+<p>The following shows an example using a button when you are not interested in
+the optional argument:</p>
+<pre class="literal-block">
+&#64;QtCore.pyqtSlot()
+def on_button_clicked(self):
+    pass
+</pre>
+</div>
+</div>
+<div class="section" id="old-style-signal-and-slot-support">
+<h1><a class="toc-backref" href="#id65">8&nbsp;&nbsp;&nbsp;Old-style Signal and Slot Support</a></h1>
+<p>This section describes the older style for connecting signals and slots.  It
+uses the same API that a C++ application would use.  This has a number of
+advantages.</p>
+<ul class="simple">
+<li>It is well understood and documented.</li>
+<li>Any future changes to the C++ API should be easily included.</li>
+</ul>
+<p>It also has a number of disadvantages.</p>
+<ul class="simple">
+<li>It requires knowledge of the C++ types of signal arguments.</li>
+<li>It is error prone in that if you mis-type the signal name or signature then
+no exception is raised, either when the signal is connected or emitted.</li>
+<li>It is verbose.</li>
+<li>It is not Pythonic.</li>
+</ul>
+<p>This older style of connecting signals and slots will continue to be supported
+throughout the life of PyQt v4.</p>
+<div class="section" id="pyqt-signals-and-qt-signals">
+<h2><a class="toc-backref" href="#id66">8.1&nbsp;&nbsp;&nbsp;PyQt Signals and Qt Signals</a></h2>
+<p>Qt signals are statically defined as part of a C++ class.  They are referenced
+using the <tt class="docutils literal">QtCore.SIGNAL()</tt> function.  This method takes a single string
+argument that is the name of the signal and its C++ signature.  For example:</p>
+<pre class="literal-block">
+QtCore.SIGNAL(&quot;finished(int)&quot;)
+</pre>
+<p>The returned value is normally passed to the <tt class="docutils literal">QtCore.QObject.connect()</tt>
+method.</p>
+<p>PyQt allows new signals to be defined dynamically.  The act of emitting a
+PyQt signal implicitly defines it.  PyQt v4 signals are also referenced using
+the <tt class="docutils literal">QtCore.SIGNAL()</tt> function.</p>
+</div>
+<div class="section" id="the-pyqt-pyobject-signal-argument-type">
+<h2><a class="toc-backref" href="#id67">8.2&nbsp;&nbsp;&nbsp;The <tt class="docutils literal">PyQt_PyObject</tt> Signal Argument Type</a></h2>
+<p>It is possible to pass any Python object as a signal argument by specifying
+<tt class="docutils literal">PyQt_PyObject</tt> as the type of the argument in the signature.  For example:</p>
+<pre class="literal-block">
+QtCore.SIGNAL(&quot;finished(PyQt_PyObject)&quot;)
+</pre>
+<p>While this would normally be used for passing objects like lists and
+dictionaries as signal arguments, it can be used for any Python type.  Its
+advantage when passing, for example, an integer is that the normal conversions
+from a Python object to a C++ integer and back again are not required.</p>
+<p>The reference count of the object being passed is maintained automatically.
+There is no need for the emitter of a signal to keep a reference to the object
+after the call to <tt class="docutils literal">QtCore.QObject.emit()</tt>, even if a connection is queued.</p>
+</div>
+<div class="section" id="short-circuit-signals">
+<h2><a class="toc-backref" href="#id68">8.3&nbsp;&nbsp;&nbsp;Short-circuit Signals</a></h2>
+<p>There is also a special form of a PyQt v4 signal known as a short-circuit
+signal.  Short-circut signals implicitly declare each argument as being of
+type <tt class="docutils literal">PyQt_PyObject</tt>.</p>
+<p>Short-circuit signals do not have a list of arguments or the surrounding
+parentheses.</p>
+<p>Short-circuit signals may only be connected to slots that have been implemented
+in Python.  They cannot be connected to Qt slots or the Python callables that
+wrap Qt slots.</p>
+</div>
+<div class="section" id="pyqt-slots-and-qt-slots">
+<h2><a class="toc-backref" href="#id69">8.4&nbsp;&nbsp;&nbsp;PyQt Slots and Qt Slots</a></h2>
+<p>Qt slots are statically defined as part of a C++ class.  They are referenced
+using the <tt class="docutils literal">QtCore.SLOT()</tt> function.  This method takes a single string
+argument that is the name of the slot and its C++ signature.  For example:</p>
+<pre class="literal-block">
+QtCore.SLOT(&quot;done(int)&quot;)
+</pre>
+<p>The returned value is normally passed to the <tt class="docutils literal">QtCore.QObject.connect()</tt>
+method.</p>
+<p>PyQt allows any Python callable to be used as a slot, not just Qt slots.  This
+is done by simply referencing the callable.  Because Qt slots are implemented
+as class methods they are also available as Python callables.  Therefore it is
+not usually necessary to use <tt class="docutils literal">QtCore.SLOT()</tt> for Qt slots.  However, doing so
+is more efficient as it avoids a conversion to Python and back to C++.</p>
+<p>Qt allows a signal to be connected to a slot that requires fewer arguments than
+the signal passes.  The extra arguments are quietly discarded.  PyQt slots can
+be used in the same way.</p>
+<p>Note that when a slot is a Python callable its reference count is not
+increased.  This means that a class instance can be deleted without having to
+explicitly disconnect any signals connected to its methods.  However, if a slot
+is a lambda function or a partial function then its reference count is
+automatically incremented to prevent it from being immediately garbage
+collected.</p>
+</div>
+<div class="section" id="connecting-signals-and-slots">
+<h2><a class="toc-backref" href="#id70">8.5&nbsp;&nbsp;&nbsp;Connecting Signals and Slots</a></h2>
+<p>Connections between signals and slots (and other signals) are made using the
+<tt class="docutils literal">QtCore.QObject.connect()</tt> method.  For example:</p>
+<pre class="literal-block">
+QtCore.QObject.connect(a, QtCore.SIGNAL(&quot;QtSig()&quot;), pyFunction)
+QtCore.QObject.connect(a, QtCore.SIGNAL(&quot;QtSig()&quot;), pyClass.pyMethod)
+QtCore.QObject.connect(a, QtCore.SIGNAL(&quot;QtSig()&quot;), b, QtCore.SLOT(&quot;QtSlot()&quot;))
+QtCore.QObject.connect(a, QtCore.SIGNAL(&quot;PySig()&quot;), b, QtCore.SLOT(&quot;QtSlot()&quot;))
+QtCore.QObject.connect(a, QtCore.SIGNAL(&quot;PySig&quot;), pyFunction)
+</pre>
+<p>Disconnecting signals works in exactly the same way using the
+<tt class="docutils literal">QtCore.QObject.disconnect()</tt> method.  However, not all the variations of
+that method are supported by PyQt.  Signals must be disconnected one at a
+time.</p>
+</div>
+<div class="section" id="emitting-signals">
+<h2><a class="toc-backref" href="#id71">8.6&nbsp;&nbsp;&nbsp;Emitting Signals</a></h2>
+<p>Any instance of a class that is derived from the <tt class="docutils literal">QtCore.QObject</tt> class can
+emit a signal using its <tt class="docutils literal">emit()</tt> method.  This takes a minimum of one
+argument which is the signal.  Any other arguments are passed to the connected
+slots as the signal arguments.  For example:</p>
+<pre class="literal-block">
+a.emit(QtCore.SIGNAL(&quot;clicked()&quot;))
+a.emit(QtCore.SIGNAL(&quot;pySig&quot;), &quot;Hello&quot;, &quot;World&quot;)
+</pre>
+</div>
+<div class="section" id="the-qtcore-pyqtsignature-decorator">
+<h2><a class="toc-backref" href="#id72">8.7&nbsp;&nbsp;&nbsp;The <tt class="docutils literal">QtCore.pyqtSignature()</tt> Decorator</a></h2>
+<p>The <tt class="docutils literal">QtCore.pyqtSignature()</tt> serves the same purpose as the
+<tt class="docutils literal">QtCore.pyqtSlot()</tt> decorator but has a less Pythonic API.</p>
+</div>
+</div>
+<div class="section" id="python-objects-and-qvariant">
+<h1><a class="toc-backref" href="#id73">9&nbsp;&nbsp;&nbsp;Python Objects and QVariant</a></h1>
+<p>Qt uses the <tt class="docutils literal">QVariant</tt> class as a wrapper for any C++ data type.  PyQt allows
+any Python object to be wrapped as a <tt class="docutils literal">QVariant</tt> and passed around Qt's
+meta-object system like any other type.</p>
+<p>PyQt will try to convert the Python object to a C++ equivalent if it can so
+that the <tt class="docutils literal">QVariant</tt> can be passed to other C++ code that doesn't know what a
+Python object is.</p>
+<p>Version 2 of PyQt's <tt class="docutils literal">QVariant</tt> API will automatically convert a <tt class="docutils literal">QVariant</tt>
+back to a Python object of the correct type.</p>
+<p>Version 1 of the <tt class="docutils literal">QVariant</tt> API provides the <tt class="docutils literal">QVariant.toPyObject()</tt> method
+to convert the <tt class="docutils literal">QVariant</tt> back to a Python object of the correct type.</p>
+<p>Both versions will raise a Python exception if the conversion cannot be done.</p>
+</div>
+<div class="section" id="integrating-python-and-qml">
+<h1><a class="toc-backref" href="#id74">10&nbsp;&nbsp;&nbsp;Integrating Python and QML</a></h1>
+<p>Qt v4.7 introduced QML as a means of declaratively describing a user interface
+and using JavaScript as a scripting language within QML.  It is possible to
+write complete standalone QML applications, or to combine them with C++.</p>
+<p>PyQt supports the integration of Python and QML as far as it can - given the
+limitations of the QML implementation.</p>
+<p>There are three types of QML application:</p>
+<ul class="simple">
+<li><em>Pure</em> applications that are written entirely in QML and can be run using the
+<tt class="docutils literal">qmlviewer</tt> tool provided with Qt.  PyQt fully supports this type of
+application.  The examples provided by <tt class="docutils literal">qtdemo.py</tt> under the <em>Qt
+Declarative Examples</em> heading are all of this type.</li>
+<li>QML allows <tt class="docutils literal">QObject</tt> instances to be used in QML applications.  QML code is
+able to call an object's slots and has read and write access to the object's
+properties.  QML code can also respond to changes to the value of a property.
+PyQt fully supports the use objects created in Python in this way.  The
+<tt class="docutils literal">minehunt.py</tt> example under the <em>Demonstrations</em> heading of <tt class="docutils literal">qtdemo.py</tt>
+is an example of this type of application.</li>
+<li>QML also allows <tt class="docutils literal">QObject</tt> sub-classes to be used in QML applications so
+that new instances are created from QML.  PyQt does not support this.  The
+reason is that QML uses information generated at compile time (specifically
+it uses <tt class="docutils literal"><span class="pre">QObject::staticMetaObject</span></tt>) rather than information created
+dynamically at run time (i.e. <tt class="docutils literal"><span class="pre">QObject::metaObject()</span></tt>).  This approach is
+fine for a static language like C++ but causes problems for languages such as
+Python that allow types to created dynamically.  This limitation doesn't
+place any restriction on the functionality of a Python/QML application, it
+only places restrictions on how that application is written.</li>
+</ul>
+</div>
+<div class="section" id="integrating-python-and-javascript-in-qtwebkit">
+<h1><a class="toc-backref" href="#id75">11&nbsp;&nbsp;&nbsp;Integrating Python and JavaScript in QtWebKit</a></h1>
+<p>QtWebKit uses slots to expose class methods implemented in C++ as JavaScript
+methods that can be called from scripts embedded in HTML.  Python class
+methods that have been decorated behave in exactly the same way.</p>
+<p>In the same way, properties created using <tt class="docutils literal">QtCore.pyqtProperty()</tt> are also
+automatically exposed as JavaScript properties.</p>
+</div>
+<div class="section" id="support-for-pickling">
+<h1><a class="toc-backref" href="#id76">12&nbsp;&nbsp;&nbsp;Support for Pickling</a></h1>
+<p>The following PyQt classes may be pickled.</p>
+<blockquote>
+<ul class="simple">
+<li>QByteArray</li>
+<li>QChar</li>
+<li>QColor</li>
+<li>QDate</li>
+<li>QDateTime</li>
+<li>QKeySequence</li>
+<li>QLatin1Char</li>
+<li>QLatin1String</li>
+<li>QLine</li>
+<li>QLineF</li>
+<li>QMatrix</li>
+<li>QPoint</li>
+<li>QPointF</li>
+<li>QPolygon</li>
+<li>QRect</li>
+<li>QRectF</li>
+<li>QSize</li>
+<li>QSizeF</li>
+<li>QString</li>
+<li>QTime</li>
+</ul>
+</blockquote>
+<p>Also all named enums (<tt class="docutils literal">QtCore.Qt.Key</tt> for example) may be pickled.</p>
+</div>
+<div class="section" id="support-for-python-s-buffer-interface">
+<h1><a class="toc-backref" href="#id77">13&nbsp;&nbsp;&nbsp;Support for Python's Buffer Interface</a></h1>
+<p>If SIP v4.7.5 or later is used then any Python object that supports the buffer
+interface can be used whenever a <tt class="docutils literal">char</tt> or <tt class="docutils literal">char *</tt> is expected.  If the
+buffer has multiple segments then all but the first will be ignored.</p>
+</div>
+<div class="section" id="using-pyqt-from-the-python-shell">
+<h1><a class="toc-backref" href="#id78">14&nbsp;&nbsp;&nbsp;Using PyQt from the Python Shell</a></h1>
+<p>PyQt installs an input hook (using <tt class="docutils literal">PyOS_InputHook</tt>) that processes events
+when an interactive interpreter is waiting for user input.  This means that
+you can, for example, create widgets from the Python shell prompt, interact
+with them, and still being able to enter other Python commands.</p>
+<p>For example, if you enter the following in the Python shell:</p>
+<pre class="literal-block">
+&gt;&gt;&gt; from PyQt4 import QtGui
+&gt;&gt;&gt; a = QtGui.QApplication([])
+&gt;&gt;&gt; w = QtGui.QWidget()
+&gt;&gt;&gt; w.show()
+&gt;&gt;&gt; w.hide()
+&gt;&gt;&gt;
+</pre>
+<p>The widget would be displayed when <tt class="docutils literal">w.show()</tt> was entered amd hidden as soon
+as <tt class="docutils literal">w.hide()</tt> was entered.</p>
+<p>The installation of an input hook can cause problems for certain applications
+(particularly those that implement a similar feature using different means).
+The <tt class="docutils literal">QtCore</tt> module contains the <tt class="docutils literal">pyqtRemoveInputHook()</tt> and
+<tt class="docutils literal">pyqtRestoreInputHook()</tt> functions that remove and restore the input hook
+respectively.</p>
+</div>
+<div class="section" id="using-qt-designer">
+<h1><a class="toc-backref" href="#id79">15&nbsp;&nbsp;&nbsp;Using Qt Designer</a></h1>
+<p>Qt Designer is the Qt tool for designing and building graphical user
+interfaces.  It allows you to design widgets, dialogs or complete main windows
+using on-screen forms and a simple drag-and-drop interface.  It has the ability
+to preview your designs to ensure they work as you intended, and to allow you
+to prototype them with your users, before you have to write any code.</p>
+<p>Qt Designer uses XML <tt class="docutils literal">.ui</tt> files to store designs and does not generate any
+code itself.  Qt includes the <tt class="docutils literal">uic</tt> utility that generates the C++ code that
+creates the user interface.  Qt also includes the <tt class="docutils literal">QUiLoader</tt> class that
+allows an application to load a <tt class="docutils literal">.ui</tt> file and to create the corresponding
+user interface dynamically.</p>
+<p>PyQt does not wrap the <tt class="docutils literal">QUiLoader</tt> class but instead includes the <tt class="docutils literal">uic</tt>
+Python module.  Like <tt class="docutils literal">QUiLoader</tt> this module can load <tt class="docutils literal">.ui</tt> files to create
+a user interface dynamically.  Like the <tt class="docutils literal">uic</tt> utility it can also generate
+the Python code that will create the user interface.  PyQt's <tt class="docutils literal">pyuic4</tt>
+utility is a command line interface to the <tt class="docutils literal">uic</tt> module.  Both are described
+in detail in the following sections.</p>
+<div class="section" id="using-the-generated-code">
+<h2><a class="toc-backref" href="#id80">15.1&nbsp;&nbsp;&nbsp;Using the Generated Code</a></h2>
+<p>The code that is generated has an identical structure to that generated by Qt's
+<tt class="docutils literal">uic</tt> and can be used in the same way.</p>
+<p>The code is structured as a single class that is derived from the Python
+<tt class="docutils literal">object</tt> type.  The name of the class is the name of the toplevel object set
+in Designer with <tt class="docutils literal">Ui_</tt> prepended.  (In the C++ version the class is defined
+in the <tt class="docutils literal">Ui</tt> namespace.)  We refer to this class as the <em>form class</em>.</p>
+<p>The class contains a method called <tt class="docutils literal">setupUi()</tt>.  This takes a single argument
+which is the widget in which the user interface is created.  The type of this
+argument (typically <tt class="docutils literal">QDialog</tt>, <tt class="docutils literal">QWidget</tt> or <tt class="docutils literal">QMainWindow</tt>) is set in
+Designer.  We refer to this type as the <em>Qt base class</em>.</p>
+<p>In the following examples we assume that a <tt class="docutils literal">.ui</tt> file has been created
+containing a dialog and the name of the <tt class="docutils literal">QDialog</tt> object is <tt class="docutils literal">ImageDialog</tt>.
+We also assume that the name of the file containing the generated Python code
+is <tt class="docutils literal">ui_imagedialog.py</tt>.  The generated code can then be used in a number of
+ways.</p>
+<p>The first example shows the direct approach where we simply create a simple
+application to create the dialog:</p>
+<pre class="literal-block">
+import sys
+from PyQt4 import QtGui
+from ui_imagedialog import Ui_ImageDialog
+
+app = QtGui.QApplication(sys.argv)
+window = QtGui.QDialog()
+ui = Ui_ImageDialog()
+ui.setupUi(window)
+
+window.show()
+sys.exit(app.exec_())
+</pre>
+<p>The second example shows the single inheritance approach where we sub-class
+<tt class="docutils literal">QDialog</tt> and set up the user interface in the <tt class="docutils literal">__init__()</tt> method:</p>
+<pre class="literal-block">
+from PyQt4 import QtCore, QtGui
+from ui_imagedialog import Ui_ImageDialog
+
+class ImageDialog(QtGui.QDialog):
+    def __init__(self):
+        QtGui.QDialog.__init__(self)
+
+        # Set up the user interface from Designer.
+        self.ui = Ui_ImageDialog()
+        self.ui.setupUi(self)
+
+        # Make some local modifications.
+        self.ui.colorDepthCombo.addItem(&quot;2 colors (1 bit per pixel)&quot;)
+
+        # Connect up the buttons.
+        self.connect(self.ui.okButton, QtCore.SIGNAL(&quot;clicked()&quot;),
+                     self, QtCore.SLOT(&quot;accept()&quot;))
+        self.connect(self.ui.cancelButton, QtCore.SIGNAL(&quot;clicked()&quot;),
+                     self, QtCore.SLOT(&quot;reject()&quot;))
+</pre>
+<p>The third example shows the multiple inheritance approach:</p>
+<pre class="literal-block">
+from PyQt4 import QtCore, QtGui
+from ui_imagedialog import Ui_ImageDialog
+
+class ImageDialog(QtGui.QDialog, Ui_ImageDialog):
+    def __init__(self):
+        QtGui.QDialog.__init__(self)
+
+        # Set up the user interface from Designer.
+        self.setupUi(self)
+
+        # Make some local modifications.
+        self.colorDepthCombo.addItem(&quot;2 colors (1 bit per pixel)&quot;)
+
+        # Connect up the buttons.
+        self.connect(self.okButton, QtCore.SIGNAL(&quot;clicked()&quot;),
+                     self, QtCore.SLOT(&quot;accept()&quot;))
+        self.connect(self.cancelButton, QtCore.SIGNAL(&quot;clicked()&quot;),
+                     self, QtCore.SLOT(&quot;reject()&quot;))
+</pre>
+<p>It is also possible to use the same approach used in PyQt v3.  This is shown in
+the final example:</p>
+<pre class="literal-block">
+from PyQt4 import QtCore, QtGui
+from ui_imagedialog import ImageDialog
+
+class MyImageDialog(ImageDialog):
+    def __init__(self):
+        ImageDialog.__init__(self)
+
+        # Make some local modifications.
+        self.colorDepthCombo.addItem(&quot;2 colors (1 bit per pixel)&quot;)
+
+        # Connect up the buttons.
+        self.connect(self.okButton, QtCore.SIGNAL(&quot;clicked()&quot;),
+                     self, QtCore.SLOT(&quot;accept()&quot;))
+        self.connect(self.cancelButton, QtCore.SIGNAL(&quot;clicked()&quot;),
+                     self, QtCore.SLOT(&quot;reject()&quot;))
+</pre>
+<p>For a full description see the Qt Designer Manual in the Qt Documentation.</p>
+</div>
+<div class="section" id="the-uic-module">
+<h2><a class="toc-backref" href="#id81">15.2&nbsp;&nbsp;&nbsp;The <tt class="docutils literal">uic</tt> Module</a></h2>
+<p>The <tt class="docutils literal">uic</tt> module contains the following functions and objects.</p>
+<dl class="docutils">
+<dt>widgetPluginPath</dt>
+<dd>This is a list of the directories that are searched for widget plugins.
+Initially it contains the name of the directory that contains the widget
+plugins included with PyQt.</dd>
+<dt>compileUi(uifile, pyfile, execute=False, indent=4, pyqt3_wrapper=False, from_imports=False)</dt>
+<dd><p class="first">This function generates a Python module that will create a user interface
+from a Qt Designer <tt class="docutils literal">.ui</tt> file.</p>
+<p><tt class="docutils literal">uifile</tt> is a file name or file-like object containing the <tt class="docutils literal">.ui</tt> file.</p>
+<p><tt class="docutils literal">pyfile</tt> is the file-like object to which the generated Python code will
+be written to.</p>
+<p><tt class="docutils literal">execute</tt> is optionally set if a small amount of additional code is to be
+generated that will display the user interface if the code is run as a
+standalone application.</p>
+<p><tt class="docutils literal">indent</tt> is the optional number of spaces used for indentation in the
+generated code.  If it is zero then a tab character is used instead.</p>
+<p><tt class="docutils literal">pyqt3_wrapper</tt> is optionally set if a small wrapper is to be generated
+that allows the generated code to be used as it is by PyQt v3 applications.</p>
+<p class="last"><tt class="docutils literal">from_imports</tt> is optionally set to generate import statements that are
+relative to <tt class="docutils literal">'.'</tt>.  At the moment this only applies to the import of
+resource modules.</p>
+</dd>
+<dt>compileUiDir(dir, recurse=False, map=None, **compileUi_args)</dt>
+<dd><p class="first">This function creates Python modules from Qt Designer <tt class="docutils literal">.ui</tt> files in a
+directory or directory tree.</p>
+<p><tt class="docutils literal">dir</tt> is the name of the directory to scan for files whose name ends
+with <tt class="docutils literal">.ui</tt>.  By default the generated Python module is created in the
+same directory ending with <tt class="docutils literal">.py</tt>.</p>
+<p><tt class="docutils literal">recurse</tt> is set if any sub-directories should be scanned.</p>
+<p><tt class="docutils literal">map</tt> is an optional callable that is passed the name of the directory
+containing the <tt class="docutils literal">.ui</tt> file and the name of the Python module that will be
+created.  The callable should return a tuple of the name of the directory
+in which the Python module will be created and the (possibly modified)
+name of the module.</p>
+<p class="last"><tt class="docutils literal">compileUi_args</tt> are any additional keyword arguments that are passed to
+the <tt class="docutils literal">compileUi()</tt> function that is called to create each Python module.</p>
+</dd>
+<dt>loadUiType(uifile, from_imports=False)</dt>
+<dd><p class="first">This function loads a Qt Designer <tt class="docutils literal">.ui</tt> file and returns a tuple of the
+generated <em>form class</em> and the <em>Qt base class</em>.  These can then be used to
+create any number of instances of the user interface without having to
+parse the <tt class="docutils literal">.ui</tt> file more than once.</p>
+<p><tt class="docutils literal">uifile</tt> is a file name or file-like object containing the <tt class="docutils literal">.ui</tt> file.</p>
+<p class="last"><tt class="docutils literal">from_imports</tt> is optionally set to use import statements that are
+relative to <tt class="docutils literal">'.'</tt>.  At the moment this only applies to the import of
+resource modules.</p>
+</dd>
+<dt>loadUi(uifile, baseinstance=None)</dt>
+<dd><p class="first">This function loads a Qt Designer <tt class="docutils literal">.ui</tt> file and returns an instance of
+the user interface.</p>
+<p><tt class="docutils literal">uifile</tt> is a file name or file-like object containing the <tt class="docutils literal">.ui</tt> file.</p>
+<p class="last"><tt class="docutils literal">baseinstance</tt> is an optional instance of the <em>Qt base class</em>.  If
+specified then the user interface is created in it.  Otherwise a new
+instance of the base class is automatically created.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="pyuic4">
+<h2><a class="toc-backref" href="#id82">15.3&nbsp;&nbsp;&nbsp;pyuic4</a></h2>
+<p>The <tt class="docutils literal">pyuic4</tt> utility is a command line interface to the <tt class="docutils literal">uic</tt> module.  The
+command has the following syntax:</p>
+<pre class="literal-block">
+pyuic4 [options] .ui-file
+</pre>
+<p>The full set of command line options is:</p>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span>, <span class="option">--help</span></kbd></td>
+<td>A help message is written to <tt class="docutils literal">stdout</tt>.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--version</span></kbd></td>
+<td>The version number is written to <tt class="docutils literal">stdout</tt>.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-i <var>N</var></span>, <span class="option">--indent=<var>N</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>The Python code is generated using an indentation of N
+spaces.  If N is 0 then a tab is used.  The default is
+4.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-o <var>FILE</var></span>, <span class="option">--output=<var>FILE</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>The Python code generated is written to the file FILE.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-p</span>, <span class="option">--preview</span></kbd></td>
+<td>The GUI is created dynamically and displayed.  No
+Python code is generated.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-w</span>, <span class="option">--pyqt3-wrapper</span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>The generated Python code includes a small wrapper that
+allows the GUI to be used in the same way as it is used
+in PyQt v3.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-x</span>, <span class="option">--execute</span></kbd></td>
+<td>The generated Python code includes a small amount of
+additional code that creates and displays the GUI when
+it is executes as a standalone application.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--from-imports</span></kbd></td>
+<td>Resource modules are imported using <tt class="docutils literal">from . import</tt>
+rather than a simple <tt class="docutils literal">import</tt>.</td></tr>
+</tbody>
+</table>
+<p>Note that code generated by <tt class="docutils literal">pyuic4</tt> is not guaranteed to be compatible with
+earlier versions of PyQt.  However, it is guaranteed to be compatible with
+later versions.  If you have no control over the version of PyQt the users of
+your application are using then you should run <tt class="docutils literal">pyuic4</tt>, or call
+<tt class="docutils literal">PyQt4.uic.compileUi()</tt>, as part of your installation process.  Another
+alternative would be to distribute the <tt class="docutils literal">.ui</tt> files (perhaps as part of a
+resource file) and have your application load them dynamically.</p>
+</div>
+<div class="section" id="writing-qt-designer-plugins">
+<h2><a class="toc-backref" href="#id83">15.4&nbsp;&nbsp;&nbsp;Writing Qt Designer Plugins</a></h2>
+<p>Qt Designer can be extended by writing plugins.  Normally this is done using
+C++ but PyQt also allows you to write plugins in Python.  Most of the time a
+plugin is used to expose a custom widget to Designer so that it appears in
+Designer's widget box just like any other widget.  It is possibe to change the
+widget's properties and to connect its signals and slots.</p>
+<p>It is also possible to add new functionality to Designer.  See the Qt
+documentation for the full details.  Here we will concentrate on describing
+how to write custom widgets in Python.</p>
+<p>The process of integrating Python custom widgets with Designer is very similar
+to that used with widget written using C++.  However, there are particular
+issues that have to be addressed.</p>
+<blockquote>
+<ul class="simple">
+<li>Designer needs to have a C++ plugin that conforms to the interface
+defined by the <tt class="docutils literal">QDesignerCustomWidgetInterface</tt> class.  (If the plugin
+exposes more than one custom widget then it must conform to the
+interface defined by the <tt class="docutils literal">QDesignerCustomWidgetCollectionInterface</tt>
+class.)  In addition the plugin class must sub-class <tt class="docutils literal">QObject</tt> as well
+as the interface class.  PyQt does not allow Python classes to be
+sub-classed from more than one Qt class.</li>
+<li>Designer can only connect Qt signals and slots.  It has no understanding
+of Python signals or callables.</li>
+<li>Designer can only edit Qt properties that represent C++ types.  It has no
+understanding of Python attributes or Python types.</li>
+</ul>
+</blockquote>
+<p>PyQt provides the following components and features to resolve these issues as
+simply as possible.</p>
+<blockquote>
+<ul>
+<li><p class="first">PyQt's QtDesigner module includes additional classes (all of which have a
+<tt class="docutils literal">QPy</tt> prefix) that are already sub-classed from the necessary Qt
+classes.  This avoids the need to sub-class from more than one Qt class
+in Python.  For example, where a C++ custom widget plugin would sub-class
+from <tt class="docutils literal">QObject</tt> and <tt class="docutils literal">QDesignerCustomWidgetInterface</tt>, a Python custom
+widget plugin would instead sub-class from
+<tt class="docutils literal">QPyDesignerCustomWidgetPlugin</tt>.</p>
+</li>
+<li><p class="first">PyQt installs a C++ plugin in Designer's plugin directory.  It conforms
+to the interface defined by the
+<tt class="docutils literal">QDesignerCustomWidgetCollectionInterface</tt> class.  It searches a
+configurable set of directories looking for Python plugins that
+implement a class sub-classed from <tt class="docutils literal">QPyDesignerCustomWidgetPlugin</tt>.
+Each class that is found is instantiated and the instance created is
+added to the custom widget collection.</p>
+<p>The <tt class="docutils literal">PYQTDESIGNERPATH</tt> environment variable specifies the set of
+directories to search for plugins.  Directory names are separated by a
+path separator (a semi-colon on Windows and a colon on other platforms).
+If a directory name is empty (ie. there are consecutive path separators
+or a leading or trailing path separator) then a set of default
+directories is automatically inserted at that point.  The default
+directories are the <tt class="docutils literal">python</tt> subdirectory of each directory that
+Designer searches for its own plugins.  If the environment variable is
+not set then only the default directories are searched.  If a file's
+basename does not end with <tt class="docutils literal">plugin</tt> then it is ignored.</p>
+</li>
+<li><p class="first">A Python custom widget may define new Qt signals using
+<tt class="docutils literal">QtCore.pyqtSignal()</tt>.</p>
+</li>
+<li><p class="first">A Python class method may be defined as a new Qt slot by using the
+<tt class="docutils literal">QtCore.pyqtSlot</tt> decorator.  For example:</p>
+<pre class="literal-block">
+# Define a Qt slot that takes a C++ integer argument.
+&#64;QtCore.pyqtSlot(int, name='addToTotal')
+def add_int_to_total(self, value):
+    pass
+
+# Define a similar slot that takes its name from the method.
+&#64;QtCore.pyqtSlot(int)
+def addToTotal(self, value):
+    pass
+</pre>
+</li>
+<li><p class="first">A new Qt property may be defined using the <tt class="docutils literal">QtCore.pyqtProperty()</tt>
+function.  It is used in the same way as the standard Python
+<tt class="docutils literal">property()</tt> function.  In fact, Qt properties defined in this way
+also behave as Python properties.  The full signature of the function is
+as follows:</p>
+<pre class="literal-block">
+pyqtProperty(type, fget=None, fset=None, freset=None, fdel=None, doc=None, designable=True, scriptable=True, stored=True, user=False, constant=False, final=False, notify=None)
+</pre>
+<p><tt class="docutils literal">type</tt> is the type of the property.  It is either a Python type object
+or a string that is the name of a C++ type.
+<tt class="docutils literal">freset</tt> is a function used to reset the value of the property to its
+default value.
+<tt class="docutils literal">designable</tt> sets the Qt DESIGNABLE flag.
+<tt class="docutils literal">scriptable</tt> sets the Qt SCRIPTABLE flag.
+<tt class="docutils literal">stored</tt> sets the Qt STORED flag.
+<tt class="docutils literal">user</tt> sets the Qt USER flag.
+<tt class="docutils literal">constant</tt> sets the Qt CONSTANT flag.
+<tt class="docutils literal">final</tt> sets the Qt FINAL flag.
+<tt class="docutils literal">notify</tt> is the notify signal.</p>
+<p>The remaining arguments are the same as those used by the standard
+<tt class="docutils literal">property()</tt> function.</p>
+<p>Qt makes no use of the <tt class="docutils literal">fdel</tt> function and Python makes no use of the
+<tt class="docutils literal">freset</tt> function, or the <tt class="docutils literal">designable</tt>, <tt class="docutils literal">scriptable</tt>, <tt class="docutils literal">stored</tt>,
+<tt class="docutils literal">user</tt>, <tt class="docutils literal">constant</tt> and <tt class="docutils literal">final</tt> flags.</p>
+<p>It is also possible to use <tt class="docutils literal">QtCore.pyqtProperty()</tt> as a decorator in
+the same way as the standard Python <tt class="docutils literal">property()</tt> function.  The
+following example shows how to define an <tt class="docutils literal">int</tt> property with a getter
+and setter:</p>
+<pre class="literal-block">
+&#64;QtCore.pyqtProperty(int)
+def total(self):
+    return self._total
+
+&#64;total.setter
+def total(self, value):
+    self._total = value
+</pre>
+<p>If you prefer the Qt terminology you may also use <tt class="docutils literal">write</tt> instead of
+<tt class="docutils literal">setter</tt> (and <tt class="docutils literal">read</tt> instead of <tt class="docutils literal">getter</tt>).</p>
+</li>
+</ul>
+</blockquote>
+<p>Note that the ability to define new Qt signals, slots and properties from
+Python is potentially useful to plugins conforming to any plugin interface and
+not just that used by Designer.</p>
+<p>For a simple but complete and fully documented example of a custom widget that
+defines new Qt signals, slots and properties, and its plugin, look in the
+<tt class="docutils literal">examples/designer/plugins</tt> directory of the PyQt source package.  The
+<tt class="docutils literal">widgets</tt> subdirectory contains the <tt class="docutils literal">pydemo.py</tt> custom widget and the
+<tt class="docutils literal">python</tt> subdirectory contains its <tt class="docutils literal">pydemoplugin.py</tt> plugin.</p>
+</div>
+</div>
+<div class="section" id="the-pyqt-resource-system">
+<h1><a class="toc-backref" href="#id84">16&nbsp;&nbsp;&nbsp;The PyQt Resource System</a></h1>
+<p>PyQt supports Qt's resource system.  This is a facility for embedding
+resources such as icons and translation files in an application.  This makes
+the packaging and distribution of those resources much easier.</p>
+<p>A <tt class="docutils literal">.qrc</tt> resource collection file is an XML file used to specify which
+resource files are to be embedded.  The application then refers to the resource
+files by their original names but preceded by a colon.</p>
+<p>For a full description, including the format of the <tt class="docutils literal">.qrc</tt> files, see the Qt
+Resource System in the Qt documentation.</p>
+<div class="section" id="pyrcc4">
+<h2><a class="toc-backref" href="#id85">16.1&nbsp;&nbsp;&nbsp;pyrcc4</a></h2>
+<p><tt class="docutils literal">pyrcc4</tt> is PyQt's equivalent to Qt's <tt class="docutils literal">rcc</tt> utility and is used in exactly
+the same way.  <tt class="docutils literal">pyrcc4</tt> reads the <tt class="docutils literal">.qrc</tt> file, and the resource files, and
+generates a Python module that only needs to be <tt class="docutils literal">import</tt> ed by the
+application in order for those resources to be made available just as if they
+were the original files.</p>
+<p>Starting with PyQt v4.5, <tt class="docutils literal">pyrcc</tt> generates code for Python v2.6 and later by
+default.  If you use the <tt class="docutils literal"><span class="pre">-py2</span></tt> command line option then <tt class="docutils literal">pyrcc</tt> will
+generate code for all Python v2.x versions.</p>
+<p><a class="reference internal" href="#pyrcc4">pyrcc4</a> will only be included if your copy of Qt includes the XML module.</p>
+</div>
+</div>
+<div class="section" id="internationalisation-of-pyqt-applications">
+<h1><a class="toc-backref" href="#id86">17&nbsp;&nbsp;&nbsp;Internationalisation of PyQt Applications</a></h1>
+<p>PyQt and Qt include a comprehensive set of tools for translating applications
+into local languages.  For a full description, see the Qt Linguist Manual in
+the Qt documentation.</p>
+<p>The process of internationalising an application comprises the following
+steps.</p>
+<blockquote>
+<ul class="simple">
+<li>The programmer uses <a class="reference internal" href="#pylupdate4">pylupdate4</a> to create or update a <tt class="docutils literal">.ts</tt>
+translation file for each language that the application is to be
+translated into.  A <tt class="docutils literal">.ts</tt> file is an XML file that contains the strings
+to be translated and the corresponding translations that have already
+been made.  <a class="reference internal" href="#pylupdate4">pylupdate4</a> can be run any number of times during
+development to update the <tt class="docutils literal">.ts</tt> files with the latest strings for
+translation.</li>
+<li>The translator uses Qt Linguist to update the <tt class="docutils literal">.ts</tt> files with
+translations of the strings.</li>
+<li>The release manager then uses Qt's <tt class="docutils literal">lrelease</tt> utility to convert the
+<tt class="docutils literal">.ts</tt> files to <tt class="docutils literal">.qm</tt> files which are compact binary equivalents used
+by the application.  If an application cannot find an appropriate <tt class="docutils literal">.qm</tt>
+file, or a particular string hasn't been translated, then the strings
+used in the original source code are used instead.</li>
+<li>The release manage may optionally use <a class="reference internal" href="#pyrcc4">pyrcc4</a> to embed the <tt class="docutils literal">.qm</tt>
+files, along with other application resources such as icons, in a Python
+module.  This may make packaging and distribution of the application
+easier.</li>
+</ul>
+</blockquote>
+<div class="section" id="pylupdate4">
+<h2><a class="toc-backref" href="#id87">17.1&nbsp;&nbsp;&nbsp;pylupdate4</a></h2>
+<p><tt class="docutils literal">pylupdate4</tt> is PyQt's equivalent to Qt's <tt class="docutils literal">lupdate</tt> utility and is used in
+exactly the same way.  A Qt <tt class="docutils literal">.pro</tt> project file is read that specifies the
+Python source files and Qt Designer interface files from which the text that
+needs to be translated is extracted.  The <tt class="docutils literal">.pro</tt> file also specifies the
+<tt class="docutils literal">.ts</tt> translation files that <tt class="docutils literal">pylupdate4</tt> updates (or creates if necessary)
+and are subsequently used by Qt Linguist.</p>
+<p><a class="reference internal" href="#pylupdate4">pylupdate4</a> will only be included if your copy of Qt includes the XML module.</p>
+</div>
+<div class="section" id="differences-between-pyqt-and-qt">
+<h2><a class="toc-backref" href="#id88">17.2&nbsp;&nbsp;&nbsp;Differences Between PyQt and Qt</a></h2>
+<p>Qt implements internationalisation support through the <tt class="docutils literal">QTranslator</tt> class,
+and the <tt class="docutils literal"><span class="pre">QCoreApplication::translate()</span></tt>, <tt class="docutils literal"><span class="pre">QObject::tr()</span></tt> and
+<tt class="docutils literal"><span class="pre">QObject::trUtf8()</span></tt> methods.  Usually the <tt class="docutils literal">tr()</tt> method is used to obtain
+the correct translation of a message.  The translation process uses a message
+context to allow the same message to be translated differently.  <tt class="docutils literal">tr()</tt> is
+actually generated by <tt class="docutils literal">moc</tt> and uses the hardcoded class name as the context.
+On the other hand, <tt class="docutils literal"><span class="pre">QApplication::translate()</span></tt> allows the context to be
+explicitly stated.</p>
+<p>Unfortunately, because of the way Qt implements <tt class="docutils literal">tr()</tt> (and <tt class="docutils literal">trUtf8()</tt>) it
+is not possible for PyQt to exactly reproduce its behaviour.  The PyQt
+implementation of <tt class="docutils literal">tr()</tt> (and <tt class="docutils literal">trUtf8()</tt>) uses the class name of the
+instance as the context.  The key difference, and the source of potential
+problems, is that the context is determined dynamically in PyQt, but is
+hardcoded in Qt.  In other words, the context of a translation may change
+depending on an instance's class hierarchy.  For example:</p>
+<pre class="literal-block">
+class A(QtCore.QObject):
+    def hello(self):
+        return self.tr(&quot;Hello&quot;)
+
+class B(A):
+    pass
+
+a = A()
+a.hello()
+
+b = B()
+b.hello()
+</pre>
+<p>In the above the message is translated by <tt class="docutils literal">a.hello()</tt> using a context of
+<tt class="docutils literal">A</tt>, and by <tt class="docutils literal">b.hello()</tt> using a context of <tt class="docutils literal">B</tt>.  In the equivalent C++
+version the context would be <tt class="docutils literal">A</tt> in both cases.</p>
+<p>The PyQt behaviour is unsatisfactory and may be changed in the future.  It is
+recommended that <tt class="docutils literal">QCoreApplication.translate()</tt> be used in preference to
+<tt class="docutils literal">tr()</tt> (and <tt class="docutils literal">trUtf8()</tt>).  This is guaranteed to work with current and
+future versions of PyQt and makes it much easier to share message files
+between Python and C++ code.  Below is the alternative implementation of <tt class="docutils literal">A</tt>
+that uses <tt class="docutils literal">QCoreApplication.translate()</tt>:</p>
+<pre class="literal-block">
+class A(QtCore.QObject):
+    def hello(self):
+        return QtCore.QCoreApplication.translate(&quot;A&quot;, &quot;Hello&quot;)
+</pre>
+</div>
+</div>
+<div class="section" id="the-dbus-support-module">
+<h1><a class="toc-backref" href="#id89">18&nbsp;&nbsp;&nbsp;The DBus Support Module</a></h1>
+<p>The DBus support module is installed as <tt class="docutils literal">dbus.mainloop.qt</tt> and provides
+support for the Qt event loop to the standard <tt class="docutils literal"><span class="pre">dbus-python</span></tt> language
+bindings package.  The module's API is almost identical to that of the
+<tt class="docutils literal">dbus.mainloop.glib</tt> modules that provides support for the GLib event loop.</p>
+<p>The <tt class="docutils literal">dbus.mainloop.qt</tt> module contains the following function.</p>
+<dl class="docutils">
+<dt>DBusQtMainLoop(set_as_default=False)</dt>
+<dd><p class="first">This function returns a <tt class="docutils literal">dbus.mainloop.NativeMainLoop</tt> object that
+uses the the Qt event loop.</p>
+<p class="last"><tt class="docutils literal">set_as_default</tt> is set to make the main loop instance the default for
+all new Connection and Bus instances.  It may only be specified as a
+keyword argument, and not as a positional argument.</p>
+</dd>
+</dl>
+<p>The following code fragment is all that is normally needed to set up the
+standard <tt class="docutils literal"><span class="pre">dbus-python</span></tt> language bindings package to be used with PyQt:</p>
+<pre class="literal-block">
+import dbus.mainloop.qt
+
+dbus.mainloop.qt.DBusQtMainLoop(set_as_default=True)
+</pre>
+</div>
+<div class="section" id="things-to-be-aware-of">
+<h1><a class="toc-backref" href="#id90">19&nbsp;&nbsp;&nbsp;Things to be Aware Of</a></h1>
+<div class="section" id="python-strings-qt-strings-and-unicode">
+<h2><a class="toc-backref" href="#id91">19.1&nbsp;&nbsp;&nbsp;Python Strings, Qt Strings and Unicode</a></h2>
+<p>PyQt uses the <tt class="docutils literal">QString</tt> class to represent Unicode strings, and the
+<tt class="docutils literal">QByteArray</tt> to represent byte arrays or strings.  In Python v3 the
+corresponding native object types are <tt class="docutils literal">str</tt> and <tt class="docutils literal">bytes</tt>.  In Python v2 the
+corresponding native object types are <tt class="docutils literal">unicode</tt> and <tt class="docutils literal">str</tt>.</p>
+<p>PyQt does its best to automatically convert between objects of the various
+types.  Explicit conversions can be easily made where necessary.</p>
+<p>In some cases PyQt will not perform automatic conversions where it is
+necessary to distinguish between different overloaded methods.</p>
+<p>For Python v3 the following conversions are done by default.</p>
+<blockquote>
+<ul class="simple">
+<li>If Qt expects a <tt class="docutils literal">char *</tt> (or a <tt class="docutils literal">const</tt> version) then PyQt will accept
+a <tt class="docutils literal">str</tt> or <tt class="docutils literal">QString</tt> that contains only ASCII characters, a
+<tt class="docutils literal">bytes</tt>, a <tt class="docutils literal">QByteArray</tt>, or a Python object that implements the
+buffer protocol.</li>
+<li>If Qt expects a <tt class="docutils literal">char</tt> (or a <tt class="docutils literal">const</tt> version) then PyQt will accept
+the same types as for <tt class="docutils literal">char *</tt> and also require that a single character
+is provided.</li>
+<li>If Qt expects a <tt class="docutils literal">signed char *</tt> or an <tt class="docutils literal">unsigned char *</tt> (or a
+<tt class="docutils literal">const</tt> version) then PyQt will accept a <tt class="docutils literal">bytes</tt>.</li>
+<li>If Qt expects a <tt class="docutils literal">signed char</tt> or an <tt class="docutils literal">unsigned char</tt> (or a <tt class="docutils literal">const</tt>
+version) then PyQt will accept a <tt class="docutils literal">bytes</tt> of length 1.</li>
+<li>If Qt expects a <tt class="docutils literal">QString</tt> then PyQt will accept a <tt class="docutils literal">str</tt>, a <tt class="docutils literal">bytes</tt>
+that contains only ASCII characters, a <tt class="docutils literal">QChar</tt> or a <tt class="docutils literal">QByteArray</tt>.</li>
+<li>If Qt expects a <tt class="docutils literal">QByteArray</tt> then PyQt will also accept a <tt class="docutils literal">str</tt> that
+contains only Latin-1 characters, or a <tt class="docutils literal">bytes</tt>.</li>
+</ul>
+</blockquote>
+<p>For Python v2 the following conversions are done by default.</p>
+<blockquote>
+<ul class="simple">
+<li>If Qt expects a <tt class="docutils literal">char *</tt>, <tt class="docutils literal">signed char *</tt> or an <tt class="docutils literal">unsigned char *</tt>
+(or a <tt class="docutils literal">const</tt> version) then PyQt will accept a <tt class="docutils literal">unicode</tt> or
+<tt class="docutils literal">QString</tt> that contains only ASCII characters, a <tt class="docutils literal">str</tt>, a
+<tt class="docutils literal">QByteArray</tt>, or a Python object that implements the buffer protocol.</li>
+<li>If Qt expects a <tt class="docutils literal">char</tt>, <tt class="docutils literal">signed char</tt> or an <tt class="docutils literal">unsigned char</tt> (or a
+<tt class="docutils literal">const</tt> version) then PyQt will accept the same types as for
+<tt class="docutils literal">char *</tt>, <tt class="docutils literal">signed char *</tt> and <tt class="docutils literal">unsigned char *</tt> and also require
+that a single character is provided.</li>
+<li>If Qt expects a <tt class="docutils literal">QString</tt> then PyQt will accept a <tt class="docutils literal">unicode</tt>, a
+<tt class="docutils literal">str</tt> that contains only ASCII characters, a <tt class="docutils literal">QChar</tt> or a
+<tt class="docutils literal">QByteArray</tt>.</li>
+<li>If Qt expects a <tt class="docutils literal">QByteArray</tt> then PyQt will accept a <tt class="docutils literal">unicode</tt> that
+contains only Latin-1 characters, or a <tt class="docutils literal">str</tt>.</li>
+</ul>
+</blockquote>
+<p>Note that the different behaviour between Python v2 and v3 is due to v3's
+reduced support for the buffer protocol.</p>
+</div>
+<div class="section" id="garbage-collection">
+<h2><a class="toc-backref" href="#id92">19.2&nbsp;&nbsp;&nbsp;Garbage Collection</a></h2>
+<p>C++ does not garbage collect unreferenced class instances, whereas Python does.
+In the following C++ fragment both colours exist even though the first can no
+longer be referenced from within the program:</p>
+<pre class="literal-block">
+col = new QColor();
+col = new QColor();
+</pre>
+<p>In the corresponding Python fragment, the first colour is destroyed when the
+second is assigned to <tt class="docutils literal">col</tt>:</p>
+<pre class="literal-block">
+col = QtGui.QColor()
+col = QtGui.QColor()
+</pre>
+<p>In Python, each colour must be assigned to different names.  Typically this is
+done within class definitions, so the code fragment would be something like:</p>
+<pre class="literal-block">
+self.col1 = QtGui.QColor()
+self.col2 = QtGui.QColor()
+</pre>
+<p>Sometimes a Qt class instance will maintain a pointer to another instance and
+will eventually call the destructor of that second instance.  The most common
+example is that a <tt class="docutils literal">QObject</tt> (and any of its sub-classes) keeps pointers to
+its children and will automatically call their destructors.  In these cases,
+the corresponding Python object will also keep a reference to the corresponding
+child objects.</p>
+<p>So, in the following Python fragment, the first <tt class="docutils literal">QLabel</tt> is not destroyed
+when the second is assigned to <tt class="docutils literal">lab</tt> because the parent <tt class="docutils literal">QWidget</tt> still has
+a reference to it:</p>
+<pre class="literal-block">
+parent = QtGui.QWidget()
+lab = QtGui.QLabel(&quot;First label&quot;, parent)
+lab = QtGui.QLabel(&quot;Second label&quot;, parent)
+</pre>
+</div>
+<div class="section" id="multiple-inheritance">
+<h2><a class="toc-backref" href="#id93">19.3&nbsp;&nbsp;&nbsp;Multiple Inheritance</a></h2>
+<p>It is not possible to define a new Python class that sub-classes from more than
+one Qt class.</p>
+</div>
+<div class="section" id="access-to-protected-member-functions">
+<h2><a class="toc-backref" href="#id94">19.4&nbsp;&nbsp;&nbsp;Access to Protected Member Functions</a></h2>
+<p>When an instance of a C++ class is not created from Python it is not possible
+to access the protected member functions, or emit any signals, of that
+instance.  Attempts to do so will raise a Python exception.  Also, any Python
+methods corresponding to the instance's virtual member functions will never be
+called.</p>
+</div>
+<div class="section" id="none-and-null">
+<h2><a class="toc-backref" href="#id95">19.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal">None</tt> and <tt class="docutils literal">NULL</tt></a></h2>
+<p>Throughout PyQt, the <tt class="docutils literal">None</tt> value can be specified wherever <tt class="docutils literal">NULL</tt> is
+acceptable to the underlying C++ code.</p>
+<p>Equally, <tt class="docutils literal">NULL</tt> is converted to <tt class="docutils literal">None</tt> whenever it is returned by the
+underlying C++ code.</p>
+</div>
+<div class="section" id="support-for-void">
+<h2><a class="toc-backref" href="#id96">19.6&nbsp;&nbsp;&nbsp;Support for <tt class="docutils literal">void *</tt></a></h2>
+<p>PyQt (actually SIP) represents <tt class="docutils literal">void *</tt> values as objects of type
+<tt class="docutils literal">sip.voidptr</tt>.  Such values are often used to pass the addresses of external
+objects between different Python modules.  To make this easier, a Python
+integer (or anything that Python can convert to an integer) can be used
+whenever a <tt class="docutils literal">sip.voidptr</tt> is expected.</p>
+<p>A <tt class="docutils literal">sip.voidptr</tt> may be converted to a Python integer by using the <tt class="docutils literal">int()</tt>
+builtin function.</p>
+<p>A <tt class="docutils literal">sip.voidptr</tt> may be converted to a Python string by using its
+<tt class="docutils literal">asstring()</tt> method.  The <tt class="docutils literal">asstring()</tt> method takes an optional integer
+argument which is the length of the data in bytes.</p>
+<p>A <tt class="docutils literal">sip.voidptr</tt> may also be given a size (ie. the size of the block of
+memory that is pointed to) by calling its <tt class="docutils literal">setsize()</tt> method.  If it has a
+size then it is also able to support Python's buffer protocol.  This means
+that it can be wrapped using Python's <tt class="docutils literal">buffer()</tt> builtin to create an object
+that treats the block of memory as a mutable list of bytes.  It also means
+that the Python <tt class="docutils literal">struct</tt> module can be used to unpack and pack binary data
+structures in memory, memory mapped files or shared memory.</p>
+</div>
+<div class="section" id="super-and-pyqt-classes">
+<h2><a class="toc-backref" href="#id97">19.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal">super</tt> and PyQt Classes</a></h2>
+<p>In versions of PyQt earlier than v4.5 there were restrictions on the use of
+<tt class="docutils literal">super</tt> with PyQt classes.  These restrictions no longer apply with v4.5 and
+later.</p>
+</div>
+</div>
+<div class="section" id="deploying-commercial-pyqt-applications">
+<h1><a class="toc-backref" href="#id98">20&nbsp;&nbsp;&nbsp;Deploying Commercial PyQt Applications</a></h1>
+<p>When deploying commercial PyQt applications it is necessary to discourage
+users from accessing the underlying PyQt modules for themselves.  A user that
+used the modules shipped with your application to develop new applications
+would themselves be considered a developer and would need their own commercial
+Qt and PyQt licenses.</p>
+<p>One solution to this problem is the <a class="reference external" href="http://www.riverbankcomputing.com/software/vendorid/">VendorID</a> package.  This allows
+you to build Python extension modules that can only be imported by a digitally
+signed custom interpreter.  The package enables you to create such an
+interpreter with your application embedded within it.  The result is an
+interpreter that can only run your application, and PyQt modules that can only
+be imported by that interpreter.  You can use the package to similarly restrict
+access to any extension module.</p>
+<p>In order to build PyQt with support for the VendorID package, pass the <tt class="docutils literal"><span class="pre">-i</span></tt>
+command line flag to <tt class="docutils literal">configure.py</tt>.</p>
+</div>
+<div class="section" id="the-pyqt-build-system">
+<h1><a class="toc-backref" href="#id99">21&nbsp;&nbsp;&nbsp;The PyQt Build System</a></h1>
+<p>The PyQt build system is an extension of the SIP build system and is
+implemented by the <tt class="docutils literal">pyqtconfig</tt> module, part of the <tt class="docutils literal">PyQt4</tt> package.  It
+can be used by configuration scripts of other bindings that build on top of
+PyQt and takes care of the details of the Qt installation.</p>
+<p>The module contains a number of classes.</p>
+<div class="section" id="pyqtconfig-classes">
+<h2><a class="toc-backref" href="#id100">21.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal">pyqtconfig</tt> Classes</a></h2>
+<dl class="docutils">
+<dt>Configuration(sipconfig.Configuration)</dt>
+<dd><p class="first">This class encapsulates configuration values that can be accessed as
+instance objects.</p>
+<p>The following configuration values are provided in addition to those
+provided by the super-class:</p>
+<blockquote>
+<dl class="docutils">
+<dt>pyqt_bin_dir</dt>
+<dd>The name of the directory where the PyQt utilities are installed.</dd>
+<dt>pyqt_config_args</dt>
+<dd>The command line passed to <tt class="docutils literal">configure.py</tt> when PyQt was
+configured.</dd>
+<dt>pyqt_mod_dir</dt>
+<dd>The name of the directory where the <tt class="docutils literal">PyQt4</tt> Python package is
+installed.</dd>
+<dt>pyqt_modules</dt>
+<dd>A space separated string of installed PyQt modules.  The <tt class="docutils literal">Qt</tt>
+module is not included.</dd>
+<dt>pyqt_sip_dir</dt>
+<dd>The name of the base directory where PyQt's <tt class="docutils literal">.sip</tt> files are
+installed.  Each module's <tt class="docutils literal">.sip</tt> files are installed in a
+sub-directory with the same name as the module.</dd>
+<dt>pyqt_sip_flags</dt>
+<dd>A space separated string of the <tt class="docutils literal">sip</tt> command line arguments used
+to build the PyQt modules.  These should also be used when
+building bindings that <tt class="docutils literal">%Import</tt> any PyQt modules.</dd>
+<dt>pyqt_version</dt>
+<dd>The PyQt version as a 3 part hexadecimal number (e.g. v4.0.1 is
+represented as <tt class="docutils literal">0x040001</tt>).</dd>
+<dt>pyqt_version_str</dt>
+<dd>The PyQt version as a string.  For development snapshots it will
+start with <tt class="docutils literal">snapshot-</tt>.</dd>
+<dt>qt_data_dir</dt>
+<dd>The value of <tt class="docutils literal"><span class="pre">QLibraryInfo::location(DataPath)</span></tt> for the Qt
+installation.</dd>
+<dt>qt_dir</dt>
+<dd>The root directory of the Qt installation (normally the directory
+that contains the <tt class="docutils literal">bin</tt> directory).</dd>
+<dt>qt_edition</dt>
+<dd>The Qt edition.</dd>
+<dt>qt_framework</dt>
+<dd>Set if Qt is built as a MacOS/X framework.</dd>
+<dt>qt_inc_dir</dt>
+<dd>The value of <tt class="docutils literal"><span class="pre">QLibraryInfo::location(HeadersPath)</span></tt> for the Qt
+installation.</dd>
+<dt>qt_lib_dir</dt>
+<dd>The value of <tt class="docutils literal"><span class="pre">QLibraryInfo::location(LibrariesPath)</span></tt> for the Qt
+installation.</dd>
+<dt>qt_threaded</dt>
+<dd>Set if Qt is built with thread support (always set for PyQt).</dd>
+<dt>qt_version</dt>
+<dd>The Qt version as a 3 part hexadecimal number (e.g. v4.1.2 is
+represented as <tt class="docutils literal">0x040102</tt>).</dd>
+<dt>qt_winconfig</dt>
+<dd>Additional Windows specific configuration.</dd>
+</dl>
+</blockquote>
+<dl class="last docutils">
+<dt>__init__(self, sub_cfg=None)</dt>
+<dd><p class="first">Initialise the instance.</p>
+<p class="last"><tt class="docutils literal">sub_cfg</tt> is an optional list of sub-class configurations.  It should
+only be used by the <tt class="docutils literal">__init__()</tt> method of a sub-class to append its
+own dictionary of configuration values before passing the list to its
+super-class.</p>
+</dd>
+</dl>
+</dd>
+<dt>QtAssistantModuleMakefile(QtNetworkModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QtAssistant</tt> module.</dd>
+<dt>QAxContainerModuleMakefile(QtGuiModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QAxContainer</tt> module.</dd>
+<dt>QtCoreModuleMakefile(sipconfig.SIPModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QtCore</tt> module.</dd>
+<dt>QtDeclarativeModuleMakefile(QtNetworkModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QtDeclarative</tt> module.</dd>
+<dt>QtGuiModuleMakefile(QtCoreModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QtGui</tt> module.</dd>
+<dt>QtHelpModuleMakefile(QtGuiModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QtHelp</tt> module.</dd>
+<dt>QtMultimediaModuleMakefile(QtGuiModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QtMultimedia</tt> module.</dd>
+<dt>QtNetworkModuleMakefile(QtCoreModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QtNetwork</tt> module.</dd>
+<dt>QtOpenGLModuleMakefile(QtGuiModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QtOpenGL</tt> module.</dd>
+<dt>QtScriptModuleMakefile(QtCoreModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QtScript</tt> module.</dd>
+<dt>QtSqlModuleMakefile(QtGuiModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QtSql</tt> module.</dd>
+<dt>QtSvgModuleMakefile(QtGuiModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QtSvg</tt> module.</dd>
+<dt>QtTestModuleMakefile(QtGuiModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QtTest</tt> module.</dd>
+<dt>QtWebKitModuleMakefile(QtNetworkModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QtWebKit</tt> module.</dd>
+<dt>QtXmlModuleMakefile(QtCoreModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QtXml</tt> module.</dd>
+<dt>QtXmlPatternsModuleMakefile(QtCoreModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">QtXmlPatterns</tt> module.</dd>
+<dt>phononModuleMakefile(QtGuiModuleMakefile)</dt>
+<dd>This class encapsulates a Makefile to build a SIP generated Python
+extension module that is built on the PyQt <tt class="docutils literal">phonon</tt> module.</dd>
+</dl>
+</div>
+</div>
+</div>
+</body>
+</html>

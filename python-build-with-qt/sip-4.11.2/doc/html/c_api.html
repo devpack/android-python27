@@ -1,0 +1,2198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>C API for Handwritten Code &mdash; SIP 4.11.2 Reference Guide</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '4.11.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="SIP 4.11.2 Reference Guide" href="index.html" />
+    <link rel="next" title="Using the C API when Embedding" href="embedding.html" />
+    <link rel="prev" title="Annotations" href="annotations.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="embedding.html" title="Using the C API when Embedding"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="annotations.html" title="Annotations"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">SIP 4.11.2 Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="c-api-for-handwritten-code">
+<span id="ref-c-api"></span><h1>C API for Handwritten Code<a class="headerlink" href="#c-api-for-handwritten-code" title="Permalink to this headline">¶</a></h1>
+<p>In this section we describe the API that can be used by handwritten code in
+specification files.</p>
+<dl class="cmacro">
+<dt id="SIP_API_MAJOR_NR">
+<tt class="descname">SIP_API_MAJOR_NR</tt><a class="headerlink" href="#SIP_API_MAJOR_NR" title="Permalink to this definition">¶</a></dt>
+<dd>This is a C preprocessor symbol that defines the major number of the SIP
+API.  Its value is a number.  There is no direct relationship between this
+and the SIP version number.</dd></dl>
+
+<dl class="cmacro">
+<dt id="SIP_API_MINOR_NR">
+<tt class="descname">SIP_API_MINOR_NR</tt><a class="headerlink" href="#SIP_API_MINOR_NR" title="Permalink to this definition">¶</a></dt>
+<dd>This is a C preprocessor symbol that defines the minor number of the SIP
+API.  Its value is a number.  There is no direct relationship between this
+and the SIP version number.</dd></dl>
+
+<dl class="cmacro">
+<dt id="SIP_BLOCK_THREADS">
+<tt class="descname">SIP_BLOCK_THREADS</tt><a class="headerlink" href="#SIP_BLOCK_THREADS" title="Permalink to this definition">¶</a></dt>
+<dd>This is a C preprocessor macro that will make sure the Python Global
+Interpreter Lock (GIL) is acquired.  Python API calls must only be made
+when the GIL has been acquired.  There must be a corresponding
+<a title="SIP_UNBLOCK_THREADS" class="reference internal" href="#SIP_UNBLOCK_THREADS"><tt class="xref docutils literal"><span class="pre">SIP_UNBLOCK_THREADS</span></tt></a> at the same lexical scope.</dd></dl>
+
+<dl class="cmacro">
+<dt id="SIP_NO_CONVERTORS">
+<tt class="descname">SIP_NO_CONVERTORS</tt><a class="headerlink" href="#SIP_NO_CONVERTORS" title="Permalink to this definition">¶</a></dt>
+<dd>This is a flag used by various type convertors that suppresses the use of a
+type&#8217;s <a class="reference external" href="directives.html#directive-%ConvertToTypeCode"><tt class="xref docutils literal"><span class="pre">%ConvertToTypeCode</span></tt></a>.</dd></dl>
+
+<dl class="cmacro">
+<dt id="SIP_NOT_NONE">
+<tt class="descname">SIP_NOT_NONE</tt><a class="headerlink" href="#SIP_NOT_NONE" title="Permalink to this definition">¶</a></dt>
+<dd>This is a flag used by various type convertors that causes the conversion
+to fail if the Python object being converted is <tt class="docutils literal"><span class="pre">Py_None</span></tt>.</dd></dl>
+
+<dl class="cmacro">
+<dt id="SIP_PROTECTED_IS_PUBLIC">
+<tt class="descname">SIP_PROTECTED_IS_PUBLIC</tt><a class="headerlink" href="#SIP_PROTECTED_IS_PUBLIC" title="Permalink to this definition">¶</a></dt>
+<dd><p>
+<span class="versionmodified">New in version 4.10.</span></p>
+<p>This is a C preprocessor symbol that is defined automatically by the build
+system to specify that the generated code is being compiled with
+<tt class="docutils literal"><span class="pre">protected</span></tt> redefined as <tt class="docutils literal"><span class="pre">public</span></tt>.  This allows handwritten code to
+determine if the generated helper functions for accessing protected C++
+functions are available (see <a class="reference external" href="directives.html#directive-%MethodCode"><tt class="xref docutils literal"><span class="pre">%MethodCode</span></tt></a>).</p>
+</dd></dl>
+
+<dl class="cmacro">
+<dt id="SIP_SSIZE_T">
+<tt class="descname">SIP_SSIZE_T</tt><a class="headerlink" href="#SIP_SSIZE_T" title="Permalink to this definition">¶</a></dt>
+<dd>This is a C preprocessor macro that is defined as <tt class="docutils literal"><span class="pre">Py_ssize_t</span></tt> for Python
+v2.5 and later, and as <tt class="docutils literal"><span class="pre">int</span></tt> for earlier versions of Python.  It makes it
+easier to write PEP 353 compliant handwritten code.</dd></dl>
+
+<dl class="cmacro">
+<dt id="SIP_UNBLOCK_THREADS">
+<tt class="descname">SIP_UNBLOCK_THREADS</tt><a class="headerlink" href="#SIP_UNBLOCK_THREADS" title="Permalink to this definition">¶</a></dt>
+<dd>This is a C preprocessor macro that will restore the Python Global
+Interpreter Lock (GIL) to the state it was prior to the corresponding
+<a title="SIP_BLOCK_THREADS" class="reference internal" href="#SIP_BLOCK_THREADS"><tt class="xref docutils literal"><span class="pre">SIP_BLOCK_THREADS</span></tt></a>.</dd></dl>
+
+<dl class="cmacro">
+<dt id="SIP_USE_PYCAPSULE">
+<tt class="descname">SIP_USE_PYCAPSULE</tt><a class="headerlink" href="#SIP_USE_PYCAPSULE" title="Permalink to this definition">¶</a></dt>
+<dd><p>
+<span class="versionmodified">New in version 4.11.</span></p>
+<p>This is a C preprocessor symbol that is defined when <tt class="docutils literal"><span class="pre">PyCapsule</span></tt> objects
+are being used rather than the (now deprecated) <tt class="docutils literal"><span class="pre">PyCObject</span></tt> objects.</p>
+</dd></dl>
+
+<dl class="cmacro">
+<dt id="SIP_VERSION">
+<tt class="descname">SIP_VERSION</tt><a class="headerlink" href="#SIP_VERSION" title="Permalink to this definition">¶</a></dt>
+<dd>This is a C preprocessor symbol that defines the SIP version number
+represented as a 3 part hexadecimal number (e.g. v4.0.0 is represented as
+<tt class="docutils literal"><span class="pre">0x040000</span></tt>).</dd></dl>
+
+<dl class="cmacro">
+<dt id="SIP_VERSION_STR">
+<tt class="descname">SIP_VERSION_STR</tt><a class="headerlink" href="#SIP_VERSION_STR" title="Permalink to this definition">¶</a></dt>
+<dd>This is a C preprocessor symbol that defines the SIP version number
+represented as a string.  For development snapshots it will start with
+<tt class="docutils literal"><span class="pre">snapshot-</span></tt>.</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipBadCallableArg">
+sipErrorState <tt class="descname">sipBadCallableArg</tt><big>(</big>int<em> arg_nr</em>, PyObject<em> *arg</em><big>)</big><a class="headerlink" href="#sipBadCallableArg" title="Permalink to this definition">¶</a></dt>
+<dd><p>
+<span class="versionmodified">New in version 4.10.</span></p>
+<p>This is called from <a class="reference external" href="directives.html#directive-%MethodCode"><tt class="xref docutils literal"><span class="pre">%MethodCode</span></tt></a> to raise a Python exception
+when an argument to a function, a C++ constructor or method is found to
+have an unexpected type.  This should be used when the
+<a class="reference external" href="directives.html#directive-%MethodCode"><tt class="xref docutils literal"><span class="pre">%MethodCode</span></tt></a> does additional type checking of the supplied
+arguments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>arg_nr</em> &#8211; the number of the argument.  Arguments are numbered from 0 but are
+numbered from 1 in the detail of the exception.</li>
+<li><em>arg</em> &#8211; the argument.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the value that should be assigned to <tt class="docutils literal"><span class="pre">sipError</span></tt>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipBadCatcherResult">
+void <tt class="descname">sipBadCatcherResult</tt><big>(</big>PyObject<em> *method</em><big>)</big><a class="headerlink" href="#sipBadCatcherResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>This raises a Python exception when the result of a Python reimplementation
+of a C++ method doesn&#8217;t have the expected type.  It is normally called by
+handwritten code specified with the <a class="reference external" href="directives.html#directive-%VirtualCatcherCode"><tt class="xref docutils literal"><span class="pre">%VirtualCatcherCode</span></tt></a>
+directive.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>method</em> &#8211; the Python method and would normally be the supplied <tt class="docutils literal"><span class="pre">sipMethod</span></tt>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipBadLengthForSlice">
+void <tt class="descname">sipBadLengthForSlice</tt><big>(</big><a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T">SIP_SSIZE_T</a><em> seqlen</em>, <a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T">SIP_SSIZE_T</a><em> slicelen</em><big>)</big><a class="headerlink" href="#sipBadLengthForSlice" title="Permalink to this definition">¶</a></dt>
+<dd><p>This raises a Python exception when the length of a slice object is
+inappropriate for a sequence-like object.  It is normally called by
+handwritten code specified for <tt class="xref docutils literal"><span class="pre">__setitem__()</span></tt> methods.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>seqlen</em> &#8211; the length of the sequence.</li>
+<li><em>slicelen</em> &#8211; the length of the slice.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipBuildResult">
+PyObject *<tt class="descname">sipBuildResult</tt><big>(</big>int<em> *iserr</em>, const char<em> *format</em>, ...<big>)</big><a class="headerlink" href="#sipBuildResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>This creates a Python object based on a format string and associated
+values in a similar way to the Python <tt class="xref docutils literal"><span class="pre">Py_BuildValue()</span></tt> function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>iserr</em> &#8211; if this is not <tt class="docutils literal"><span class="pre">NULL</span></tt> then the location it points to is set to a
+non-zero value.</li>
+<li><em>format</em> &#8211; the string of format characters.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">If there was an error then <tt class="docutils literal"><span class="pre">NULL</span></tt> is returned and a Python exception
+is raised.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If the format string begins and ends with parentheses then a tuple of
+objects is created.  If it contains more than one format character then
+parentheses must be specified.</p>
+<p>In the following description the first letter is the format character, the
+entry in parentheses is the Python object type that the format character
+will create, and the entry in brackets are the types of the C/C++ values
+to be passed.</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">a</span></tt> (string) [char]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">char</span></tt> to a Python v2 or v3 string object.</dd>
+<dt><tt class="docutils literal"><span class="pre">b</span></tt> (boolean) [int]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">int</span></tt> to a Python boolean.</dd>
+<dt><tt class="docutils literal"><span class="pre">c</span></tt> (string/bytes) [char]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">char</span></tt> to a Python v2 string object or a Python v3
+bytes object.</dd>
+<dt><tt class="docutils literal"><span class="pre">d</span></tt> (float) [double]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">double</span></tt> to a Python floating point number.</dd>
+<dt><tt class="docutils literal"><span class="pre">e</span></tt> (integer) [enum]</dt>
+<dd>Convert an anonymous C/C++ <tt class="docutils literal"><span class="pre">enum</span></tt> to a Python integer.</dd>
+<dt><tt class="docutils literal"><span class="pre">f</span></tt> (float) [float]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">float</span></tt> to a Python floating point number.</dd>
+<dt><tt class="docutils literal"><span class="pre">g</span></tt> (string/bytes) [char *, <a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T"><tt class="xref docutils literal"><span class="pre">SIP_SSIZE_T</span></tt></a>]</dt>
+<dd>Convert a C/C++ character array and its length to a Python v2 string
+object or a Python v3 bytes object.  If the array is <tt class="docutils literal"><span class="pre">NULL</span></tt> then the
+length is ignored and the result is <tt class="docutils literal"><span class="pre">Py_None</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">h</span></tt> (integer) [short]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">short</span></tt> to a Python integer.</dd>
+<dt><tt class="docutils literal"><span class="pre">i</span></tt> (integer) [int]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">int</span></tt> to a Python integer.</dd>
+<dt><tt class="docutils literal"><span class="pre">l</span></tt> (long) [long]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">long</span></tt> to a Python integer.</dd>
+<dt><tt class="docutils literal"><span class="pre">m</span></tt> (long) [unsigned long]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">unsigned</span> <span class="pre">long</span></tt> to a Python long.</dd>
+<dt><tt class="docutils literal"><span class="pre">n</span></tt> (long) [long long]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">long</span> <span class="pre">long</span></tt> to a Python long.</dd>
+<dt><tt class="docutils literal"><span class="pre">o</span></tt> (long) [unsigned long long]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">unsigned</span> <span class="pre">long</span> <span class="pre">long</span></tt> to a Python long.</dd>
+<dt><tt class="docutils literal"><span class="pre">r</span></tt> (wrapped instance) [<em>type</em> *, <a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T"><tt class="xref docutils literal"><span class="pre">SIP_SSIZE_T</span></tt></a>, const <tt class="xref docutils literal"><span class="pre">sipTypeDef</span></tt> *]</dt>
+<dd>Convert an array of C structures, C++ classes or mapped type instances
+to a Python tuple.  Note that copies of the array elements are made.</dd>
+<dt><tt class="docutils literal"><span class="pre">s</span></tt> (string/bytes) [char *]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">'\0'</span></tt> terminated string to a Python v2 string object
+or a Python v3 bytes object.  If the string pointer is <tt class="docutils literal"><span class="pre">NULL</span></tt> then
+the result is <tt class="docutils literal"><span class="pre">Py_None</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">t</span></tt> (long) [unsigned short]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">unsigned</span> <span class="pre">short</span></tt> to a Python long.</dd>
+<dt><tt class="docutils literal"><span class="pre">u</span></tt> (long) [unsigned int]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">unsigned</span> <span class="pre">int</span></tt> to a Python long.</dd>
+<dt><tt class="docutils literal"><span class="pre">w</span></tt> (unicode/string) [wchar_t]</dt>
+<dd>Convert a C/C++ wide character to a Python v2 unicode object or a
+Python v3 string object.</dd>
+<dt><tt class="docutils literal"><span class="pre">x</span></tt> (unicode/string) [wchar_t *]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">L'\0'</span></tt> terminated wide character string to a Python
+v2 unicode object or a Python v3 string object.  If the string pointer
+is <tt class="docutils literal"><span class="pre">NULL</span></tt> then the result is <tt class="docutils literal"><span class="pre">Py_None</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">A</span></tt> (string) [char *]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">'\0'</span></tt> terminated string to a Python v2 or v3 string
+object.  If the string pointer is <tt class="docutils literal"><span class="pre">NULL</span></tt> then the result is
+<tt class="docutils literal"><span class="pre">Py_None</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">B</span></tt> (wrapped instance) [<em>type</em> *, <a title="sipWrapperType" class="reference internal" href="#sipWrapperType"><tt class="xref docutils literal"><span class="pre">sipWrapperType</span></tt></a> *, PyObject *]</dt>
+<dd><p class="first">Convert a new C structure or a new C++ class instance to a Python class
+instance object.  Ownership of the structure or instance is determined
+by the <tt class="docutils literal"><span class="pre">PyObject</span> <span class="pre">*</span></tt> argument.  If it is <tt class="docutils literal"><span class="pre">NULL</span></tt> and the instance has
+already been wrapped then the ownership is unchanged.  If it is
+<tt class="docutils literal"><span class="pre">NULL</span></tt> or <tt class="docutils literal"><span class="pre">Py_None</span></tt> then ownership will be with Python.  Otherwise
+ownership will be with C/C++ and the instance associated with the
+<tt class="docutils literal"><span class="pre">PyObject</span> <span class="pre">*</span></tt> argument.  The Python class is influenced by any
+applicable <a class="reference external" href="directives.html#directive-%ConvertToSubClassCode"><tt class="xref docutils literal"><span class="pre">%ConvertToSubClassCode</span></tt></a> code.</p>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use <tt class="docutils literal"><span class="pre">N</span></tt>.</p>
+</div>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">C</span></tt> (wrapped instance) [<em>type</em> *, <a title="sipWrapperType" class="reference internal" href="#sipWrapperType"><tt class="xref docutils literal"><span class="pre">sipWrapperType</span></tt></a> *, PyObject *]</dt>
+<dd><p class="first">Convert a C structure or a C++ class instance to a Python class
+instance object.  If the structure or class instance has already been
+wrapped then the result is a new reference to the existing class
+instance object.  Ownership of the structure or instance is determined
+by the <tt class="docutils literal"><span class="pre">PyObject</span> <span class="pre">*</span></tt> argument.  If it is <tt class="docutils literal"><span class="pre">NULL</span></tt> and the instance has
+already been wrapped then the ownership is unchanged.  If it is
+<tt class="docutils literal"><span class="pre">NULL</span></tt> and the instance is newly wrapped then ownership will be with
+C/C++.  If it is <tt class="docutils literal"><span class="pre">Py_None</span></tt> then ownership is transferred to Python
+via a call to <a title="sipTransferBack" class="reference internal" href="#sipTransferBack"><tt class="xref docutils literal"><span class="pre">sipTransferBack()</span></tt></a>.  Otherwise ownership is
+transferred to C/C++ and the instance associated with the
+<tt class="docutils literal"><span class="pre">PyObject</span> <span class="pre">*</span></tt> argument via a call to <a title="sipTransferTo" class="reference internal" href="#sipTransferTo"><tt class="xref docutils literal"><span class="pre">sipTransferTo()</span></tt></a>.  The
+Python class is influenced by any applicable
+<a class="reference external" href="directives.html#directive-%ConvertToSubClassCode"><tt class="xref docutils literal"><span class="pre">%ConvertToSubClassCode</span></tt></a> code.</p>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use <tt class="docutils literal"><span class="pre">D</span></tt>.</p>
+</div>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">D</span></tt> (wrapped instance) [<em>type</em> *, const <tt class="xref docutils literal"><span class="pre">sipTypeDef</span></tt> *, PyObject *]</dt>
+<dd>Convert a C structure, C++ class or mapped type instance to a Python
+object.  If the instance has already been wrapped then the result is a
+new reference to the existing object.  Ownership of the instance is
+determined by the <tt class="docutils literal"><span class="pre">PyObject</span> <span class="pre">*</span></tt> argument.  If it is <tt class="docutils literal"><span class="pre">NULL</span></tt> and the
+instance has already been wrapped then the ownership is unchanged.  If
+it is <tt class="docutils literal"><span class="pre">NULL</span></tt> and the instance is newly wrapped then ownership will be
+with C/C++.  If it is <tt class="docutils literal"><span class="pre">Py_None</span></tt> then ownership is transferred to
+Python via a call to <a title="sipTransferBack" class="reference internal" href="#sipTransferBack"><tt class="xref docutils literal"><span class="pre">sipTransferBack()</span></tt></a>.  Otherwise ownership
+is transferred to C/C++ and the instance associated with the
+<tt class="docutils literal"><span class="pre">PyObject</span> <span class="pre">*</span></tt> argument via a call to <a title="sipTransferTo" class="reference internal" href="#sipTransferTo"><tt class="xref docutils literal"><span class="pre">sipTransferTo()</span></tt></a>.  The
+Python class is influenced by any applicable
+<a class="reference external" href="directives.html#directive-%ConvertToSubClassCode"><tt class="xref docutils literal"><span class="pre">%ConvertToSubClassCode</span></tt></a> code.</dd>
+<dt><tt class="docutils literal"><span class="pre">E</span></tt> (wrapped enum) [enum, PyTypeObject *]</dt>
+<dd><p class="first">Convert a named C/C++ <tt class="docutils literal"><span class="pre">enum</span></tt> to an instance of the corresponding
+Python named enum type.</p>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use <tt class="docutils literal"><span class="pre">F</span></tt>.</p>
+</div>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">F</span></tt> (wrapped enum) [enum, <tt class="xref docutils literal"><span class="pre">sipTypeDef</span></tt> *]</dt>
+<dd>Convert a named C/C++ <tt class="docutils literal"><span class="pre">enum</span></tt> to an instance of the corresponding
+Python named enum type.</dd>
+<dt><tt class="docutils literal"><span class="pre">G</span></tt> (unicode) [wchar_t *, <a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T"><tt class="xref docutils literal"><span class="pre">SIP_SSIZE_T</span></tt></a>]</dt>
+<dd>Convert a C/C++ wide character array and its length to a Python unicode
+object.  If the array is <tt class="docutils literal"><span class="pre">NULL</span></tt> then the length is ignored and the
+result is <tt class="docutils literal"><span class="pre">Py_None</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">N</span></tt> (wrapped instance) [<em>type</em> *, <tt class="xref docutils literal"><span class="pre">sipTypeDef</span></tt> *, PyObject *]</dt>
+<dd>Convert a new C structure, C++ class or mapped type instance to a
+Python object.  Ownership of the instance is determined by the
+<tt class="docutils literal"><span class="pre">PyObject</span> <span class="pre">*</span></tt> argument.  If it is <tt class="docutils literal"><span class="pre">NULL</span></tt> and the instance has
+already been wrapped then the ownership is unchanged.  If it is
+<tt class="docutils literal"><span class="pre">NULL</span></tt> or <tt class="docutils literal"><span class="pre">Py_None</span></tt> then ownership will be with Python.  Otherwise
+ownership will be with C/C++ and the instance associated with the
+<tt class="docutils literal"><span class="pre">PyObject</span> <span class="pre">*</span></tt> argument.  The Python class is influenced by any
+applicable <a class="reference external" href="directives.html#directive-%ConvertToSubClassCode"><tt class="xref docutils literal"><span class="pre">%ConvertToSubClassCode</span></tt></a> code.</dd>
+<dt><tt class="docutils literal"><span class="pre">R</span></tt> (object) [PyObject *]</dt>
+<dd>The result is value passed without any conversions.  The reference
+count is unaffected, i.e. a reference is taken.</dd>
+<dt><tt class="docutils literal"><span class="pre">S</span></tt> (object) [PyObject *]</dt>
+<dd>The result is value passed without any conversions.  The reference
+count is incremented.</dd>
+<dt><tt class="docutils literal"><span class="pre">V</span></tt> (sip.voidptr) [void *]</dt>
+<dd>Convert a C/C++ <tt class="docutils literal"><span class="pre">void</span> <span class="pre">*</span></tt> Python <a title="sip.voidptr" class="reference external" href="python_api.html#sip.voidptr"><tt class="xref docutils literal"><span class="pre">sip.voidptr</span></tt></a> object.</dd>
+</dl>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipCallMethod">
+PyObject *<tt class="descname">sipCallMethod</tt><big>(</big>int<em> *iserr</em>, PyObject<em> *method</em>, const char<em> *format</em>, ...<big>)</big><a class="headerlink" href="#sipCallMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>This calls a Python method passing a tuple of arguments based on a format
+string and associated values in a similar way to the Python
+<tt class="xref docutils literal"><span class="pre">PyObject_CallObject()</span></tt> function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>iserr</em> &#8211; if this is not <tt class="docutils literal"><span class="pre">NULL</span></tt> then the location it points to is set to a
+non-zero value if there was an error.</li>
+<li><em>method</em> &#8211; the Python bound method to call.</li>
+<li><em>format</em> &#8211; the string of format characters (see <a title="sipBuildResult" class="reference internal" href="#sipBuildResult"><tt class="xref docutils literal"><span class="pre">sipBuildResult()</span></tt></a>).</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">If there was an error then <tt class="docutils literal"><span class="pre">NULL</span></tt> is returned and a Python exception
+is raised.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>It is normally called by handwritten code specified with the
+<a class="reference external" href="directives.html#directive-%VirtualCatcherCode"><tt class="xref docutils literal"><span class="pre">%VirtualCatcherCode</span></tt></a> directive with method being the supplied
+<tt class="docutils literal"><span class="pre">sipMethod</span></tt>.</p>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipCanConvertToEnum">
+int <tt class="descname">sipCanConvertToEnum</tt><big>(</big>PyObject<em> *obj</em>, const sipTypeDef<em> *td</em><big>)</big><a class="headerlink" href="#sipCanConvertToEnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>This checks if a Python object can be converted to a named enum.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>obj</em> &#8211; the Python object.</li>
+<li><em>td</em> &#8211; the enum&#8217;s <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a non-zero value if the object can be converted.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipCanConvertToInstance">
+int <tt class="descname">sipCanConvertToInstance</tt><big>(</big>PyObject<em> *obj</em>, <a title="sipWrapperType" class="reference internal" href="#sipWrapperType">sipWrapperType</a><em> *type</em>, int<em> flags</em><big>)</big><a class="headerlink" href="#sipCanConvertToInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>This checks if a Python object can be converted to an instance of a C
+structure or C++ class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>obj</em> &#8211; the Python object.</li>
+<li><em>type</em> &#8211; the C/C++ type&#8217;s <a class="reference internal" href="#ref-type-objects"><em>generated type object</em></a>.</li>
+<li><em>flags</em> &#8211; any combination of the <a title="SIP_NOT_NONE" class="reference internal" href="#SIP_NOT_NONE"><tt class="xref docutils literal"><span class="pre">SIP_NOT_NONE</span></tt></a> and
+<a title="SIP_NO_CONVERTORS" class="reference internal" href="#SIP_NO_CONVERTORS"><tt class="xref docutils literal"><span class="pre">SIP_NO_CONVERTORS</span></tt></a> flags.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a non-zero value if the object can be converted.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipCanConvertToType" class="reference internal" href="#sipCanConvertToType"><tt class="xref docutils literal"><span class="pre">sipCanConvertToType()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipCanConvertToMappedType">
+int <tt class="descname">sipCanConvertToMappedType</tt><big>(</big>PyObject<em> *obj</em>, const sipMappedType<em> *mt</em>, int<em> flags</em><big>)</big><a class="headerlink" href="#sipCanConvertToMappedType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This checks if a Python object can be converted to an instance of a C
+structure or C++ class which has been implemented as a mapped type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>obj</em> &#8211; the Python object.</li>
+<li><em>mt</em> &#8211; the opaque structure returned by <a title="sipFindMappedType" class="reference internal" href="#sipFindMappedType"><tt class="xref docutils literal"><span class="pre">sipFindMappedType()</span></tt></a>.</li>
+<li><em>flags</em> &#8211; this may be the <a title="SIP_NOT_NONE" class="reference internal" href="#SIP_NOT_NONE"><tt class="xref docutils literal"><span class="pre">SIP_NOT_NONE</span></tt></a> flag.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a non-zero value if the object can be converted.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipCanConvertToType" class="reference internal" href="#sipCanConvertToType"><tt class="xref docutils literal"><span class="pre">sipCanConvertToType()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipCanConvertToType">
+int <tt class="descname">sipCanConvertToType</tt><big>(</big>PyObject<em> *obj</em>, const sipTypeDef<em> *td</em>, int<em> flags</em><big>)</big><a class="headerlink" href="#sipCanConvertToType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This checks if a Python object can be converted to an instance of a C
+structure, C++ class or mapped type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>obj</em> &#8211; the Python object.</li>
+<li><em>td</em> &#8211; the C/C++ type&#8217;s <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a>.</li>
+<li><em>flags</em> &#8211; any combination of the <a title="SIP_NOT_NONE" class="reference internal" href="#SIP_NOT_NONE"><tt class="xref docutils literal"><span class="pre">SIP_NOT_NONE</span></tt></a> and
+<a title="SIP_NO_CONVERTORS" class="reference internal" href="#SIP_NO_CONVERTORS"><tt class="xref docutils literal"><span class="pre">SIP_NO_CONVERTORS</span></tt></a> flags.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a non-zero value if the object can be converted.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipClassName">
+PyObject *<tt class="descname">sipClassName</tt><big>(</big>PyObject<em> *obj</em><big>)</big><a class="headerlink" href="#sipClassName" title="Permalink to this definition">¶</a></dt>
+<dd><p>This gets the class name of a wrapped instance as a Python string.  It
+comes with a reference.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>obj</em> &#8211; the wrapped instance.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the name of the instance&#8217;s class.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This is deprecated from SIP v4.8.  Instead you should use the
+following:</p>
+<div class="last highlight-python"><pre>PyString_FromString(obj-&gt;ob_type-&gt;tp_name)</pre>
+</div>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertFromConstVoidPtr">
+PyObject *<tt class="descname">sipConvertFromConstVoidPtr</tt><big>(</big>const void<em> *cpp</em><big>)</big><a class="headerlink" href="#sipConvertFromConstVoidPtr" title="Permalink to this definition">¶</a></dt>
+<dd><p>This creates a <a title="sip.voidptr" class="reference external" href="python_api.html#sip.voidptr"><tt class="xref docutils literal"><span class="pre">sip.voidptr</span></tt></a> object for a memory address.  The
+object will not be writeable and has no associated size.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>cpp</em> &#8211; the memory address.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the <a title="sip.voidptr" class="reference external" href="python_api.html#sip.voidptr"><tt class="xref docutils literal"><span class="pre">sip.voidptr</span></tt></a> object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertFromConstVoidPtrAndSize">
+PyObject *<tt class="descname">sipConvertFromConstVoidPtrAndSize</tt><big>(</big>const void<em> *cpp</em>, <a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T">SIP_SSIZE_T</a><em> size</em><big>)</big><a class="headerlink" href="#sipConvertFromConstVoidPtrAndSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>This creates a <a title="sip.voidptr" class="reference external" href="python_api.html#sip.voidptr"><tt class="xref docutils literal"><span class="pre">sip.voidptr</span></tt></a> object for a memory address.  The
+object will not be writeable and can be used as an immutable buffer object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>cpp</em> &#8211; the memory address.</li>
+<li><em>size</em> &#8211; the size associated with the address.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the <a title="sip.voidptr" class="reference external" href="python_api.html#sip.voidptr"><tt class="xref docutils literal"><span class="pre">sip.voidptr</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertFromEnum">
+PyObject *<tt class="descname">sipConvertFromEnum</tt><big>(</big>int<em> eval</em>, const sipTypeDef<em> *td</em><big>)</big><a class="headerlink" href="#sipConvertFromEnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a named C/C++ <tt class="docutils literal"><span class="pre">enum</span></tt> to an instance of the corresponding
+generated Python type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>eval</em> &#8211; the enumerated value to convert.</li>
+<li><em>td</em> &#8211; the enum&#8217;s <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the Python object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertFromInstance">
+PyObject *<tt class="descname">sipConvertFromInstance</tt><big>(</big>void<em> *cpp</em>, <a title="sipWrapperType" class="reference internal" href="#sipWrapperType">sipWrapperType</a><em> *type</em>, PyObject<em> *transferObj</em><big>)</big><a class="headerlink" href="#sipConvertFromInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a C structure or a C++ class instance to an instance of the
+corresponding generated Python type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>cpp</em> &#8211; the C/C++ instance.</li>
+<li><em>type</em> &#8211; the type&#8217;s <a class="reference internal" href="#ref-type-objects"><em>generated type object</em></a>.</li>
+<li><em>transferObj</em> &#8211; this controls the ownership of the returned value.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the Python object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If the C/C++ instance has already been wrapped then the result is a
+new reference to the existing class instance object.</p>
+<p>If <em>transferObj</em> is <tt class="docutils literal"><span class="pre">NULL</span></tt> and the instance has already been wrapped then
+the ownership is unchanged.</p>
+<p>If <em>transferObj</em> is <tt class="docutils literal"><span class="pre">NULL</span></tt> and the instance is newly wrapped then
+ownership will be with C/C++.</p>
+<p>If <em>transferObj</em> is <tt class="docutils literal"><span class="pre">Py_None</span></tt> then ownership is transferred to Python via
+a call to <a title="sipTransferBack" class="reference internal" href="#sipTransferBack"><tt class="xref docutils literal"><span class="pre">sipTransferBack()</span></tt></a>.</p>
+<p>Otherwise ownership is transferred to C/C++ and the instance associated
+with <em>transferObj</em> via a call to <a title="sipTransferTo" class="reference internal" href="#sipTransferTo"><tt class="xref docutils literal"><span class="pre">sipTransferTo()</span></tt></a>.</p>
+<p>The Python type is influenced by any applicable
+<a class="reference external" href="directives.html#directive-%ConvertToSubClassCode"><tt class="xref docutils literal"><span class="pre">%ConvertToSubClassCode</span></tt></a> code.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipConvertFromType" class="reference internal" href="#sipConvertFromType"><tt class="xref docutils literal"><span class="pre">sipConvertFromType()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertFromMappedType">
+PyObject *<tt class="descname">sipConvertFromMappedType</tt><big>(</big>void<em> *cpp</em>, const sipMappedType<em> *mt</em>, PyObject<em> *transferObj</em><big>)</big><a class="headerlink" href="#sipConvertFromMappedType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a C structure or a C++ class instance wrapped as a mapped
+type to an instance of the corresponding generated Python type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>cpp</em> &#8211; the C/C++ instance.</li>
+<li><em>mt</em> &#8211; the opaque structure returned by <a title="sipFindMappedType" class="reference internal" href="#sipFindMappedType"><tt class="xref docutils literal"><span class="pre">sipFindMappedType()</span></tt></a>.</li>
+<li><em>transferObj</em> &#8211; this controls the ownership of the returned value.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the Python object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>transferObj</em>  is <tt class="docutils literal"><span class="pre">NULL</span></tt> then the ownership is unchanged.</p>
+<p>If <em>transferObj</em> is <tt class="docutils literal"><span class="pre">Py_None</span></tt> then ownership is transferred to Python
+via a call to <a title="sipTransferBack" class="reference internal" href="#sipTransferBack"><tt class="xref docutils literal"><span class="pre">sipTransferBack()</span></tt></a>.</p>
+<p>Otherwise ownership is transferred to C/C++ and the instance associated
+with <em>transferObj</em> argument via a call to <a title="sipTransferTo" class="reference internal" href="#sipTransferTo"><tt class="xref docutils literal"><span class="pre">sipTransferTo()</span></tt></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipConvertFromType" class="reference internal" href="#sipConvertFromType"><tt class="xref docutils literal"><span class="pre">sipConvertFromType()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertFromNamedEnum">
+PyObject *<tt class="descname">sipConvertFromNamedEnum</tt><big>(</big>int<em> eval</em>, PyTypeObject<em> *type</em><big>)</big><a class="headerlink" href="#sipConvertFromNamedEnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a named C/C++ <tt class="docutils literal"><span class="pre">enum</span></tt> to an instance of the corresponding
+generated Python type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>eval</em> &#8211; the enumerated value to convert.</li>
+<li><em>type</em> &#8211; the enum&#8217;s <a class="reference internal" href="#ref-type-objects"><em>generated type object</em></a>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the Python object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipConvertFromEnum" class="reference internal" href="#sipConvertFromEnum"><tt class="xref docutils literal"><span class="pre">sipConvertFromEnum()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertFromNewInstance">
+PyObject *<tt class="descname">sipConvertFromNewInstance</tt><big>(</big>void<em> *cpp</em>, <a title="sipWrapperType" class="reference internal" href="#sipWrapperType">sipWrapperType</a><em> *type</em>, PyObject<em> *transferObj</em><big>)</big><a class="headerlink" href="#sipConvertFromNewInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a new C structure or a C++ class instance to an instance of
+the corresponding generated Python type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>cpp</em> &#8211; the C/C++ instance.</li>
+<li><em>type</em> &#8211; the type&#8217;s <a class="reference internal" href="#ref-type-objects"><em>generated type object</em></a>.</li>
+<li><em>transferObj</em> &#8211; this controls the ownership of the returned value.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the Python object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>transferObj</em> is <tt class="docutils literal"><span class="pre">NULL</span></tt> or <tt class="docutils literal"><span class="pre">Py_None</span></tt> then ownership will be with
+Python.</p>
+<p>Otherwise ownership will be with C/C++ and the instance associated with
+<em>transferObj</em>.</p>
+<p>The Python type is influenced by any applicable
+<a class="reference external" href="directives.html#directive-%ConvertToSubClassCode"><tt class="xref docutils literal"><span class="pre">%ConvertToSubClassCode</span></tt></a> code.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipConvertFromNewType" class="reference internal" href="#sipConvertFromNewType"><tt class="xref docutils literal"><span class="pre">sipConvertFromNewType()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertFromNewType">
+PyObject *<tt class="descname">sipConvertFromNewType</tt><big>(</big>void<em> *cpp</em>, const sipTypeDef<em> *td</em>, PyObject<em> *transferObj</em><big>)</big><a class="headerlink" href="#sipConvertFromNewType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a new C structure or a C++ class instance to an instance of
+the corresponding generated Python type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>cpp</em> &#8211; the C/C++ instance.</li>
+<li><em>td</em> &#8211; the type&#8217;s <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a>.</li>
+<li><em>transferObj</em> &#8211; this controls the ownership of the returned value.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the Python object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>transferObj</em> is <tt class="docutils literal"><span class="pre">NULL</span></tt> or <tt class="docutils literal"><span class="pre">Py_None</span></tt> then ownership will be with
+Python.</p>
+<p>Otherwise ownership will be with C/C++ and the instance associated with
+<em>transferObj</em>.</p>
+<p>The Python type is influenced by any applicable
+<a class="reference external" href="directives.html#directive-%ConvertToSubClassCode"><tt class="xref docutils literal"><span class="pre">%ConvertToSubClassCode</span></tt></a> code.</p>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertFromSequenceIndex">
+<a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T">SIP_SSIZE_T</a> <tt class="descname">sipConvertFromSequenceIndex</tt><big>(</big><a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T">SIP_SSIZE_T</a><em> idx</em>, <a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T">SIP_SSIZE_T</a><em> len</em><big>)</big><a class="headerlink" href="#sipConvertFromSequenceIndex" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a Python sequence index (i.e. where a negative value refers
+to the offset from the end of the sequence) to a C/C++ array index.  If the
+index was out of range then a negative value is returned and a Python
+exception raised.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>idx</em> &#8211; the sequence index.</li>
+<li><em>len</em> &#8211; the length of the sequence.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the unsigned array index.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertFromSliceObject">
+int <tt class="descname">sipConvertFromSliceObject</tt><big>(</big>PyObject<em> *slice</em>, <a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T">SIP_SSIZE_T</a><em> length</em>, <a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T">SIP_SSIZE_T</a><em> *start</em>, <a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T">SIP_SSIZE_T</a><em> *stop</em>, <a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T">SIP_SSIZE_T</a><em> *step</em>, <a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T">SIP_SSIZE_T</a><em> *slicelength</em><big>)</big><a class="headerlink" href="#sipConvertFromSliceObject" title="Permalink to this definition">¶</a></dt>
+<dd>This is a thin wrapper around the Python <tt class="xref docutils literal"><span class="pre">PySlice_GetIndicesEx()</span></tt>
+function provided to make it easier to write handwritten code that is
+compatible with SIP v3.x and versions of Python earlier that v2.3.</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertFromType">
+PyObject *<tt class="descname">sipConvertFromType</tt><big>(</big>void<em> *cpp</em>, const sipTypeDef<em> *td</em>, PyObject<em> *transferObj</em><big>)</big><a class="headerlink" href="#sipConvertFromType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a C structure or a C++ class instance to an instance of the
+corresponding generated Python type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>cpp</em> &#8211; the C/C++ instance.</li>
+<li><em>td</em> &#8211; the type&#8217;s <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a>.</li>
+<li><em>transferObj</em> &#8211; this controls the ownership of the returned value.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the Python object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If the C/C++ instance has already been wrapped then the result is a new
+reference to the existing object.</p>
+<p>If <em>transferObj</em> is <tt class="docutils literal"><span class="pre">NULL</span></tt> and the instance has already been wrapped then
+the ownership is unchanged.</p>
+<p>If <em>transferObj</em> is <tt class="docutils literal"><span class="pre">NULL</span></tt> and the instance is newly wrapped then
+ownership will be with C/C++.</p>
+<p>If <em>transferObj</em> is <tt class="docutils literal"><span class="pre">Py_None</span></tt> then ownership is transferred to Python via
+a call to <a title="sipTransferBack" class="reference internal" href="#sipTransferBack"><tt class="xref docutils literal"><span class="pre">sipTransferBack()</span></tt></a>.</p>
+<p>Otherwise ownership is transferred to C/C++ and the instance associated
+with <em>transferObj</em> via a call to <a title="sipTransferTo" class="reference internal" href="#sipTransferTo"><tt class="xref docutils literal"><span class="pre">sipTransferTo()</span></tt></a>.</p>
+<p>The Python class is influenced by any applicable
+<a class="reference external" href="directives.html#directive-%ConvertToSubClassCode"><tt class="xref docutils literal"><span class="pre">%ConvertToSubClassCode</span></tt></a> code.</p>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertFromVoidPtr">
+PyObject *<tt class="descname">sipConvertFromVoidPtr</tt><big>(</big>void<em> *cpp</em><big>)</big><a class="headerlink" href="#sipConvertFromVoidPtr" title="Permalink to this definition">¶</a></dt>
+<dd><p>This creates a <a title="sip.voidptr" class="reference external" href="python_api.html#sip.voidptr"><tt class="xref docutils literal"><span class="pre">sip.voidptr</span></tt></a> object for a memory address.  The
+object will be writeable but has no associated size.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>cpp</em> &#8211; the memory address.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the <a title="sip.voidptr" class="reference external" href="python_api.html#sip.voidptr"><tt class="xref docutils literal"><span class="pre">sip.voidptr</span></tt></a> object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertFromVoidPtrAndSize">
+PyObject *<tt class="descname">sipConvertFromVoidPtrAndSize</tt><big>(</big>void<em> *cpp</em>, <a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T">SIP_SSIZE_T</a><em> size</em><big>)</big><a class="headerlink" href="#sipConvertFromVoidPtrAndSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>This creates a <a title="sip.voidptr" class="reference external" href="python_api.html#sip.voidptr"><tt class="xref docutils literal"><span class="pre">sip.voidptr</span></tt></a> object for a memory address.  The
+object will be writeable and can be used as a mutable buffer object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>cpp</em> &#8211; the memory address.</li>
+<li><em>size</em> &#8211; the size associated with the address.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the <a title="sip.voidptr" class="reference external" href="python_api.html#sip.voidptr"><tt class="xref docutils literal"><span class="pre">sip.voidptr</span></tt></a> object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertToInstance">
+void *<tt class="descname">sipConvertToInstance</tt><big>(</big>PyObject<em> *obj</em>, <a title="sipWrapperType" class="reference internal" href="#sipWrapperType">sipWrapperType</a><em> *type</em>, PyObject<em> *transferObj</em>, int<em> flags</em>, int<em> *state</em>, int<em> *iserr</em><big>)</big><a class="headerlink" href="#sipConvertToInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a Python object to an instance of a C structure or C++ class
+assuming that a previous call to <a title="sipCanConvertToInstance" class="reference internal" href="#sipCanConvertToInstance"><tt class="xref docutils literal"><span class="pre">sipCanConvertToInstance()</span></tt></a> has
+been successful.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>obj</em> &#8211; the Python object.</li>
+<li><em>type</em> &#8211; the type&#8217;s <a class="reference internal" href="#ref-type-objects"><em>generated type object</em></a>.</li>
+<li><em>transferObj</em> &#8211; this controls any ownership changes to <em>obj</em>.</li>
+<li><em>flags</em> &#8211; any combination of the <a title="SIP_NOT_NONE" class="reference internal" href="#SIP_NOT_NONE"><tt class="xref docutils literal"><span class="pre">SIP_NOT_NONE</span></tt></a> and
+<a title="SIP_NO_CONVERTORS" class="reference internal" href="#SIP_NO_CONVERTORS"><tt class="xref docutils literal"><span class="pre">SIP_NO_CONVERTORS</span></tt></a> flags.</li>
+<li><em>state</em> &#8211; the state of the returned C/C++ instance is returned via this pointer.</li>
+<li><em>iserr</em> &#8211; the error flag is passed and updated via this pointer.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the C/C++ instance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>transferObj</em> is <tt class="docutils literal"><span class="pre">NULL</span></tt> then the ownership is unchanged.</p>
+<p>If <em>transferObj</em> is <tt class="docutils literal"><span class="pre">Py_None</span></tt> then ownership is transferred to Python via
+a call to <a title="sipTransferBack" class="reference internal" href="#sipTransferBack"><tt class="xref docutils literal"><span class="pre">sipTransferBack()</span></tt></a>.</p>
+<p>Otherwise ownership is transferred to C/C++ and <em>obj</em> associated with
+<em>transferObj</em> via a call to <a title="sipTransferTo" class="reference internal" href="#sipTransferTo"><tt class="xref docutils literal"><span class="pre">sipTransferTo()</span></tt></a>.</p>
+<p>If <em>state</em> is not <tt class="docutils literal"><span class="pre">NULL</span></tt> then the location it points to is set to
+describe the state of the returned C/C++ instance and is the value returned
+by any <a class="reference external" href="directives.html#directive-%ConvertToTypeCode"><tt class="xref docutils literal"><span class="pre">%ConvertToTypeCode</span></tt></a>.  The calling code must then release
+the value at some point to prevent a memory leak by calling
+<a title="sipReleaseInstance" class="reference internal" href="#sipReleaseInstance"><tt class="xref docutils literal"><span class="pre">sipReleaseInstance()</span></tt></a>.</p>
+<p>If there is an error then the location <em>iserr</em> points to is set to a
+non-zero value.  If it was initially a non-zero value then the conversion
+isn&#8217;t attempted in the first place.  (This allows several calls to be made
+that share the same error flag so that it only needs to be tested once
+rather than after each call.)</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipConvertToType" class="reference internal" href="#sipConvertToType"><tt class="xref docutils literal"><span class="pre">sipConvertToType()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertToMappedType">
+void *<tt class="descname">sipConvertToMappedType</tt><big>(</big>PyObject<em> *obj</em>, const sipMappedType<em> *mt</em>, PyObject<em> *transferObj</em>, int<em> flags</em>, int<em> *state</em>, int<em> *iserr</em><big>)</big><a class="headerlink" href="#sipConvertToMappedType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a Python object to an instance of a C structure or C++
+class that is implemented as a mapped type assuming that a previous call to
+<a title="sipCanConvertToMappedType" class="reference internal" href="#sipCanConvertToMappedType"><tt class="xref docutils literal"><span class="pre">sipCanConvertToMappedType()</span></tt></a> has been successful.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>obj</em> &#8211; the Python object.</li>
+<li><em>mt</em> &#8211; the opaque structure returned by <a title="sipFindMappedType" class="reference internal" href="#sipFindMappedType"><tt class="xref docutils literal"><span class="pre">sipFindMappedType()</span></tt></a>.</li>
+<li><em>transferObj</em> &#8211; this controls any ownership changes to <em>obj</em>.</li>
+<li><em>flags</em> &#8211; this may be the <a title="SIP_NOT_NONE" class="reference internal" href="#SIP_NOT_NONE"><tt class="xref docutils literal"><span class="pre">SIP_NOT_NONE</span></tt></a> flag.</li>
+<li><em>state</em> &#8211; the state of the returned C/C++ instance is returned via this pointer.</li>
+<li><em>iserr</em> &#8211; the error flag is passed and updated via this pointer.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the C/C++ instance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>transferObj</em> is <tt class="docutils literal"><span class="pre">NULL</span></tt> then the ownership is unchanged.</p>
+<p>If <em>transferObj</em> is <tt class="docutils literal"><span class="pre">Py_None</span></tt> then ownership is transferred to Python via
+a call to <a title="sipTransferBack" class="reference internal" href="#sipTransferBack"><tt class="xref docutils literal"><span class="pre">sipTransferBack()</span></tt></a>.</p>
+<p>Otherwise ownership is transferred to C/C++ and <em>obj</em> associated with
+<em>transferObj</em> via a call to <a title="sipTransferTo" class="reference internal" href="#sipTransferTo"><tt class="xref docutils literal"><span class="pre">sipTransferTo()</span></tt></a>.</p>
+<p>If <em>state</em> is not <tt class="docutils literal"><span class="pre">NULL</span></tt> then the location it points to is set to
+describe the state of the returned C/C++ instance and is the value returned
+by any <a class="reference external" href="directives.html#directive-%ConvertToTypeCode"><tt class="xref docutils literal"><span class="pre">%ConvertToTypeCode</span></tt></a>.  The calling code must then release
+the value at some point to prevent a memory leak by calling
+<a title="sipReleaseMappedType" class="reference internal" href="#sipReleaseMappedType"><tt class="xref docutils literal"><span class="pre">sipReleaseMappedType()</span></tt></a>.</p>
+<p>If there is an error then the location <em>iserr</em> points to is set to a
+non-zero value.  If it was initially a non-zero value then the conversion
+isn&#8217;t attempted in the first place.  (This allows several calls to be made
+that share the same error flag so that it only needs to be tested once
+rather than after each call.)</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipConvertToType" class="reference internal" href="#sipConvertToType"><tt class="xref docutils literal"><span class="pre">sipConvertToType()</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertToType">
+void *<tt class="descname">sipConvertToType</tt><big>(</big>PyObject<em> *obj</em>, const sipTypeDef<em> *td</em>, PyObject<em> *transferObj</em>, int<em> flags</em>, int<em> *state</em>, int<em> *iserr</em><big>)</big><a class="headerlink" href="#sipConvertToType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a Python object to an instance of a C structure, C++ class or
+mapped type assuming that a previous call to <a title="sipCanConvertToType" class="reference internal" href="#sipCanConvertToType"><tt class="xref docutils literal"><span class="pre">sipCanConvertToType()</span></tt></a>
+has been successful.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>obj</em> &#8211; the Python object.</li>
+<li><em>td</em> &#8211; the type&#8217;s <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a>.</li>
+<li><em>transferObj</em> &#8211; this controls any ownership changes to <em>obj</em>.</li>
+<li><em>flags</em> &#8211; any combination of the <a title="SIP_NOT_NONE" class="reference internal" href="#SIP_NOT_NONE"><tt class="xref docutils literal"><span class="pre">SIP_NOT_NONE</span></tt></a> and
+<a title="SIP_NO_CONVERTORS" class="reference internal" href="#SIP_NO_CONVERTORS"><tt class="xref docutils literal"><span class="pre">SIP_NO_CONVERTORS</span></tt></a> flags.</li>
+<li><em>state</em> &#8211; the state of the returned C/C++ instance is returned via this pointer.</li>
+<li><em>iserr</em> &#8211; the error flag is passed and updated via this pointer.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the C/C++ instance.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>transferObj</em> is <tt class="docutils literal"><span class="pre">NULL</span></tt> then the ownership is unchanged.  If it is
+<tt class="docutils literal"><span class="pre">Py_None</span></tt> then ownership is transferred to Python via a call to
+<a title="sipTransferBack" class="reference internal" href="#sipTransferBack"><tt class="xref docutils literal"><span class="pre">sipTransferBack()</span></tt></a>.</p>
+<p>Otherwise ownership is transferred to C/C++ and <em>obj</em> associated with
+<em>transferObj</em> via a call to <a title="sipTransferTo" class="reference internal" href="#sipTransferTo"><tt class="xref docutils literal"><span class="pre">sipTransferTo()</span></tt></a>.</p>
+<p>If <em>state</em> is not <tt class="docutils literal"><span class="pre">NULL</span></tt> then the location it points to is set to
+describe the state of the returned C/C++ instance and is the value returned
+by any <a class="reference external" href="directives.html#directive-%ConvertToTypeCode"><tt class="xref docutils literal"><span class="pre">%ConvertToTypeCode</span></tt></a>.  The calling code must then release
+the value at some point to prevent a memory leak by calling
+<a title="sipReleaseType" class="reference internal" href="#sipReleaseType"><tt class="xref docutils literal"><span class="pre">sipReleaseType()</span></tt></a>.</p>
+<p>If there is an error then the location <em>iserr</em> points to is set to a
+non-zero value.  If it was initially a non-zero value then the conversion
+isn&#8217;t attempted in the first place.  (This allows several calls to be made
+that share the same error flag so that it only needs to be tested once
+rather than after each call.)</p>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipConvertToVoidPtr">
+void *<tt class="descname">sipConvertToVoidPtr</tt><big>(</big>PyObject<em> *obj</em><big>)</big><a class="headerlink" href="#sipConvertToVoidPtr" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a Python object to a memory address.
+<tt class="xref docutils literal"><span class="pre">PyErr_Occurred()</span></tt> must be used to determine if the conversion was
+successful.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>obj</em> &#8211; the Python object which may be <tt class="docutils literal"><span class="pre">Py_None</span></tt>, a <a title="sip.voidptr" class="reference external" href="python_api.html#sip.voidptr"><tt class="xref docutils literal"><span class="pre">sip.voidptr</span></tt></a> or a
+<tt class="xref docutils literal"><span class="pre">PyCObject</span></tt>.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the memory address.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipExportSymbol">
+int <tt class="descname">sipExportSymbol</tt><big>(</big>const char<em> *name</em>, void<em> *sym</em><big>)</big><a class="headerlink" href="#sipExportSymbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Python does not allow extension modules to directly access symbols in
+another extension module.  This exports a symbol, referenced by a name,
+that can subsequently be imported, using <a title="sipImportSymbol" class="reference internal" href="#sipImportSymbol"><tt class="xref docutils literal"><span class="pre">sipImportSymbol()</span></tt></a>, by
+another module.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>name</em> &#8211; the name of the symbol.</li>
+<li><em>sym</em> &#8211; the value of the symbol.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">0 if there was no error.  A negative value is returned if <em>name</em> is
+already associated with a symbol or there was some other error.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipFindClass">
+<a title="sipWrapperType" class="reference internal" href="#sipWrapperType">sipWrapperType</a> *<tt class="descname">sipFindClass</tt><big>(</big>const char<em> *type</em><big>)</big><a class="headerlink" href="#sipFindClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns a pointer to the <a class="reference internal" href="#ref-type-objects"><em>generated type object
+</em></a> corresponding to a C/C++ type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>type</em> &#8211; the C/C++ declaration of the type.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the generated type object.  This will not change and may be saved in a
+static cache.  <tt class="docutils literal"><span class="pre">NULL</span></tt> is returned if the C/C++ type doesn&#8217;t exist.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipFindType" class="reference internal" href="#sipFindType"><tt class="xref docutils literal"><span class="pre">sipFindType()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipFindMappedType">
+const sipMappedType *<tt class="descname">sipFindMappedType</tt><big>(</big>const char<em> *type</em><big>)</big><a class="headerlink" href="#sipFindMappedType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns a pointer to an opaque structure describing a mapped type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>type</em> &#8211; the C/C++ declaration of the type.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the opaque structure.  This will not change and may be saved in a
+static cache.  <tt class="docutils literal"><span class="pre">NULL</span></tt> is returned if the C/C++ type doesn&#8217;t exist.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipFindType" class="reference internal" href="#sipFindType"><tt class="xref docutils literal"><span class="pre">sipFindType()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipFindNamedEnum">
+PyTypeObject *<tt class="descname">sipFindNamedEnum</tt><big>(</big>const char<em> *type</em><big>)</big><a class="headerlink" href="#sipFindNamedEnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns a pointer to the <a class="reference internal" href="#ref-enum-type-objects"><em>generated Python type object</em></a> corresponding to a named C/C++ enum.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>type</em> &#8211; the C/C++ declaration of the enum.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the generated Python type object.  This will not change and may be
+saved in a static cache.  <tt class="docutils literal"><span class="pre">NULL</span></tt> is returned if the C/C++ enum
+doesn&#8217;t exist.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipFindType" class="reference internal" href="#sipFindType"><tt class="xref docutils literal"><span class="pre">sipFindType()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipFindType">
+const sipTypeDef *<tt class="descname">sipFindType</tt><big>(</big>const char<em> *type</em><big>)</big><a class="headerlink" href="#sipFindType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns a pointer to the <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a> corresponding to a C/C++ type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>type</em> &#8211; the C/C++ declaration of the type.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the generated type structure.  This will not change and may be saved in
+a static cache.  <tt class="docutils literal"><span class="pre">NULL</span></tt> is returned if the C/C++ type doesn&#8217;t exist.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipForceConvertToInstance">
+void *<tt class="descname">sipForceConvertToInstance</tt><big>(</big>PyObject<em> *obj</em>, <a title="sipWrapperType" class="reference internal" href="#sipWrapperType">sipWrapperType</a><em> *type</em>, PyObject<em> *transferObj</em>, int<em> flags</em>, int<em> *state</em>, int<em> *iserr</em><big>)</big><a class="headerlink" href="#sipForceConvertToInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a Python object to an instance of a C structure or C++ class
+by calling <a title="sipCanConvertToInstance" class="reference internal" href="#sipCanConvertToInstance"><tt class="xref docutils literal"><span class="pre">sipCanConvertToInstance()</span></tt></a> and, if it is successfull,
+calling <a title="sipConvertToInstance" class="reference internal" href="#sipConvertToInstance"><tt class="xref docutils literal"><span class="pre">sipConvertToInstance()</span></tt></a>.</p>
+<p>See <a title="sipConvertToInstance" class="reference internal" href="#sipConvertToInstance"><tt class="xref docutils literal"><span class="pre">sipConvertToInstance()</span></tt></a> for a full description of the
+arguments.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipForceConvertToType" class="reference internal" href="#sipForceConvertToType"><tt class="xref docutils literal"><span class="pre">sipForceConvertToType()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipForceConvertToMappedType">
+void *<tt class="descname">sipForceConvertToMappedType</tt><big>(</big>PyObject<em> *obj</em>, const sipMappedType<em> *mt</em>, PyObject<em> *transferObj</em>, int<em> flags</em>, int<em> *state</em>, int<em> *iserr</em><big>)</big><a class="headerlink" href="#sipForceConvertToMappedType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a Python object to an instance of a C structure or C++ class
+which has been implemented as a mapped type by calling
+<a title="sipCanConvertToMappedType" class="reference internal" href="#sipCanConvertToMappedType"><tt class="xref docutils literal"><span class="pre">sipCanConvertToMappedType()</span></tt></a> and, if it is successfull, calling
+<a title="sipConvertToMappedType" class="reference internal" href="#sipConvertToMappedType"><tt class="xref docutils literal"><span class="pre">sipConvertToMappedType()</span></tt></a>.</p>
+<p>See <a title="sipConvertToMappedType" class="reference internal" href="#sipConvertToMappedType"><tt class="xref docutils literal"><span class="pre">sipConvertToMappedType()</span></tt></a> for a full description of the
+arguments.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipForceConvertToType" class="reference internal" href="#sipForceConvertToType"><tt class="xref docutils literal"><span class="pre">sipForceConvertToType()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipForceConvertToType">
+void *<tt class="descname">sipForceConvertToType</tt><big>(</big>PyObject<em> *obj</em>, const sipTypeDef<em> *td</em>, PyObject<em> *transferObj</em>, int<em> flags</em>, int<em> *state</em>, int<em> *iserr</em><big>)</big><a class="headerlink" href="#sipForceConvertToType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a Python object to an instance of a C structure, C++ class or
+mapped type by calling <a title="sipCanConvertToType" class="reference internal" href="#sipCanConvertToType"><tt class="xref docutils literal"><span class="pre">sipCanConvertToType()</span></tt></a> and, if it is
+successfull, calling <a title="sipConvertToType" class="reference internal" href="#sipConvertToType"><tt class="xref docutils literal"><span class="pre">sipConvertToType()</span></tt></a>.</p>
+<p>See <a title="sipConvertToType" class="reference internal" href="#sipConvertToType"><tt class="xref docutils literal"><span class="pre">sipConvertToType()</span></tt></a> for a full description of the arguments.</p>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipFree">
+void <tt class="descname">sipFree</tt><big>(</big>void<em> *mem</em><big>)</big><a class="headerlink" href="#sipFree" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns an area of memory allocated by <a title="sipMalloc" class="reference internal" href="#sipMalloc"><tt class="xref docutils literal"><span class="pre">sipMalloc()</span></tt></a> to the
+heap.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>mem</em> &#8211; the memory address.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipGetPyObject">
+PyObject *<tt class="descname">sipGetPyObject</tt><big>(</big>void<em> *cppptr</em>, const sipTypeDef<em> *td</em><big>)</big><a class="headerlink" href="#sipGetPyObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns a borrowed reference to the Python object for a C structure or
+C++ class instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>cppptr</em> &#8211; the pointer to the C/C++ instance.</li>
+<li><em>td</em> &#8211; the <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a> corresponding
+to the C/C++ type.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the Python object or <tt class="docutils literal"><span class="pre">NULL</span></tt> (and no exception is raised) if the
+C/C++ instance hasn&#8217;t been wrapped.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipGetState">
+int <tt class="descname">sipGetState</tt><big>(</big>PyObject<em> *transferObj</em><big>)</big><a class="headerlink" href="#sipGetState" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference external" href="directives.html#directive-%ConvertToTypeCode"><tt class="xref docutils literal"><span class="pre">%ConvertToTypeCode</span></tt></a> directive requires that the provided
+code returns an <tt class="docutils literal"><span class="pre">int</span></tt> describing the state of the converted value.  The
+state usually depends on any transfers of ownership that have been
+requested.  This is a convenience function that returns the correct state
+when the converted value is a temporary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>transferObj</em> &#8211; the object that describes the requested transfer of ownership.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the state of the converted value.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipGetWrapper">
+PyObject *<tt class="descname">sipGetWrapper</tt><big>(</big>void<em> *cppptr</em>, <a title="sipWrapperType" class="reference internal" href="#sipWrapperType">sipWrapperType</a><em> *type</em><big>)</big><a class="headerlink" href="#sipGetWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns a borrowed reference to the wrapped instance object for a C
+structure or C++ class instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>cppptr</em> &#8211; the pointer to the C/C++ instance.</li>
+<li><em>type</em> &#8211; the <a class="reference internal" href="#ref-type-objects"><em>generated type object</em></a> corresponding to
+the C/C++ type.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the Python object or <tt class="docutils literal"><span class="pre">NULL</span></tt> (and no exception is raised) if the
+C/C++ instance hasn&#8217;t been wrapped.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipGetPyObject" class="reference internal" href="#sipGetPyObject"><tt class="xref docutils literal"><span class="pre">sipGetPyObject()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipImportSymbol">
+void *<tt class="descname">sipImportSymbol</tt><big>(</big>const char<em> *name</em><big>)</big><a class="headerlink" href="#sipImportSymbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Python does not allow extension modules to directly access symbols in
+another extension module.  This imports a symbol, referenced by a name,
+that has previously been exported, using <a title="sipExportSymbol" class="reference internal" href="#sipExportSymbol"><tt class="xref docutils literal"><span class="pre">sipExportSymbol()</span></tt></a>, by
+another module.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>name</em> &#8211; the name of the symbol.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the value of the symbol.  <tt class="docutils literal"><span class="pre">NULL</span></tt> is returned if there is no such
+symbol.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="ctype">
+<dt id="sipIntTypeClassMap">
+<tt class="descname">sipIntTypeClassMap</tt><a class="headerlink" href="#sipIntTypeClassMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>This C structure is used with <a title="sipMapIntToClass" class="reference internal" href="#sipMapIntToClass"><tt class="xref docutils literal"><span class="pre">sipMapIntToClass()</span></tt></a> to define a
+mapping between integer based RTTI and <a class="reference internal" href="#ref-type-objects"><em>generated type objects</em></a>.  The structure elements are as follows.</p>
+<dl class="cmember">
+<dt id="typeInt">
+int <tt class="descname">typeInt</tt><a class="headerlink" href="#typeInt" title="Permalink to this definition">¶</a></dt>
+<dd>The integer RTTI.</dd></dl>
+
+<dl class="cmember">
+<dt>
+<tt class="descname">sipWrapperType **pyType.</tt></dt>
+<dd>A pointer to the corresponding generated type object.</dd></dl>
+
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipIsAPIEnabled">
+int <tt class="descname">sipIsAPIEnabled</tt><big>(</big>const char<em> *name</em>, int<em> from</em>, int<em> to</em><big>)</big><a class="headerlink" href="#sipIsAPIEnabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>
+<span class="versionmodified">New in version 4.9.</span></p>
+<p>This checks to see if the current version number of an API falls within a
+given range.  See <a class="reference external" href="using.html#ref-incompat-apis"><em>Managing Incompatible APIs</em></a> for more detail.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>name</em> &#8211; the name of the API.</li>
+<li><em>from</em> &#8211; the lower bound of the range.  For the API to be enabled its version
+number must be greater than or equal to <em>from</em>.  If <em>from</em> is 0 then
+this check isn&#8217;t made.</li>
+<li><em>to</em> &#8211; the upper bound of the range.  For the API to be enabled its version
+number must be less than <em>to</em>.  If <em>to</em> is 0 then this check isn&#8217;t
+made.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a non-zero value if the API is enabled.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipLong_AsUnsignedLong">
+unsigned long <tt class="descname">sipLong_AsUnsignedLong</tt><big>(</big>PyObject<em> *obj</em><big>)</big><a class="headerlink" href="#sipLong_AsUnsignedLong" title="Permalink to this definition">¶</a></dt>
+<dd>This function is a thin wrapper around <tt class="xref docutils literal"><span class="pre">PyLong_AsUnsignedLong()</span></tt>
+that works around a bug in Python v2.3.x and earlier when converting
+integer objects.</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipMalloc">
+void *<tt class="descname">sipMalloc</tt><big>(</big>size_t<em> nbytes</em><big>)</big><a class="headerlink" href="#sipMalloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>This allocates an area of memory on the heap using the Python
+<tt class="xref docutils literal"><span class="pre">PyMem_Malloc()</span></tt> function.  The memory is freed by calling
+<a title="sipFree" class="reference internal" href="#sipFree"><tt class="xref docutils literal"><span class="pre">sipFree()</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>nbytes</em> &#8211; the number of bytes to allocate.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the memory address.  If there was an error then <tt class="docutils literal"><span class="pre">NULL</span></tt> is returned
+and a Python exception raised.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipMapIntToClass">
+<a title="sipWrapperType" class="reference internal" href="#sipWrapperType">sipWrapperType</a> *<tt class="descname">sipMapIntToClass</tt><big>(</big>int<em> type</em>, const <a title="sipIntTypeClassMap" class="reference internal" href="#sipIntTypeClassMap">sipIntTypeClassMap</a><em> *map</em>, int<em> maplen</em><big>)</big><a class="headerlink" href="#sipMapIntToClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>This can be used in <a class="reference external" href="directives.html#directive-%ConvertToSubClassCode"><tt class="xref docutils literal"><span class="pre">%ConvertToSubClassCode</span></tt></a> code as a
+convenient way of converting integer based RTTI to the corresponding
+<a class="reference internal" href="#ref-type-objects"><em>generated type object</em></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>type</em> &#8211; the integer RTTI.</li>
+<li><em>map</em> &#8211; the table of known RTTI and the corresponding type objects (see
+<a title="sipIntTypeClassMap" class="reference internal" href="#sipIntTypeClassMap"><tt class="xref docutils literal"><span class="pre">sipIntTypeClassMap</span></tt></a>).  The entries in the table must be sorted
+in ascending order of RTTI.</li>
+<li><em>maplen</em> &#8211; the number of entries in the table.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the corresponding type object, or <tt class="docutils literal"><span class="pre">NULL</span></tt> if <em>type</em> wasn&#8217;t in <em>map</em>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipMapStringToClass">
+<a title="sipWrapperType" class="reference internal" href="#sipWrapperType">sipWrapperType</a> *<tt class="descname">sipMapStringToClass</tt><big>(</big>char<em> *type</em>, const <a title="sipStringTypeClassMap" class="reference internal" href="#sipStringTypeClassMap">sipStringTypeClassMap</a><em> *map</em>, int<em> maplen</em><big>)</big><a class="headerlink" href="#sipMapStringToClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>This can be used in <a class="reference external" href="directives.html#directive-%ConvertToSubClassCode"><tt class="xref docutils literal"><span class="pre">%ConvertToSubClassCode</span></tt></a> code as a
+convenient way of converting <tt class="docutils literal"><span class="pre">'\0'</span></tt> terminated string based RTTI to the
+corresponding <a class="reference internal" href="#ref-type-objects"><em>generated type object</em></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>type</em> &#8211; the string RTTI.</li>
+<li><em>map</em> &#8211; the table of known RTTI and the corresponding type objects (see
+<a title="sipStringTypeClassMap" class="reference internal" href="#sipStringTypeClassMap"><tt class="xref docutils literal"><span class="pre">sipStringTypeClassMap</span></tt></a>).  The entries in the table must be
+sorted in ascending order of RTTI.</li>
+<li><em>maplen</em> &#8211; the number of entries in the table.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the corresponding type object, or <tt class="docutils literal"><span class="pre">NULL</span></tt> if <em>type</em> wasn&#8217;t in <em>map</em>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipParseResult">
+int <tt class="descname">sipParseResult</tt><big>(</big>int<em> *iserr</em>, PyObject<em> *method</em>, PyObject<em> *result</em>, const char<em> *format</em>, ...<big>)</big><a class="headerlink" href="#sipParseResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>This converts a Python object (usually returned by a method) to C/C++ based
+on a format string and associated values in a similar way to the Python
+<tt class="xref docutils literal"><span class="pre">PyArg_ParseTuple()</span></tt> function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>iserr</em> &#8211; if this is not <tt class="docutils literal"><span class="pre">NULL</span></tt> then the location it points to is set to a
+non-zero value if there was an error.</li>
+<li><em>method</em> &#8211; the Python method that returned <em>result</em>.</li>
+<li><em>result</em> &#8211; the Python object returned by <em>method</em>.</li>
+<li><em>format</em> &#8211; the format string.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">0 if there was no error.  Otherwise a negative value is returned, and
+an exception raised.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This is normally called by handwritten code specified with the
+<a class="reference external" href="directives.html#directive-%VirtualCatcherCode"><tt class="xref docutils literal"><span class="pre">%VirtualCatcherCode</span></tt></a> directive with <em>method</em> being the supplied
+<tt class="docutils literal"><span class="pre">sipMethod</span></tt> and <em>result</em> being the value returned by
+<a title="sipCallMethod" class="reference internal" href="#sipCallMethod"><tt class="xref docutils literal"><span class="pre">sipCallMethod()</span></tt></a>.</p>
+<p>If <em>format</em> begins and ends with parentheses then <em>result</em> must be a Python
+tuple and the rest of <em>format</em> is applied to the tuple contents.</p>
+<p>In the following description the first letter is the format character, the
+entry in parentheses is the Python object type that the format character
+will convert, and the entry in brackets are the types of the C/C++ values
+to be passed.</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">ae</span></tt> (object) [char *]</dt>
+<dd>Convert a Python string-like object of length 1 to a C/C++ <tt class="docutils literal"><span class="pre">char</span></tt>
+according to the encoding <tt class="docutils literal"><span class="pre">e</span></tt>.  <tt class="docutils literal"><span class="pre">e</span></tt> can either be <tt class="docutils literal"><span class="pre">A</span></tt> for ASCII,
+<tt class="docutils literal"><span class="pre">L</span></tt> for Latin-1, or <tt class="docutils literal"><span class="pre">8</span></tt> for UTF-8.  For Python v2 the object may be
+either a string or a unicode object that can be encoded.  For Python v3
+the object may either be a bytes object or a string object that can be
+encoded.  An object that supports the buffer protocol may also be used.</dd>
+<dt><tt class="docutils literal"><span class="pre">b</span></tt> (integer) [bool *]</dt>
+<dd>Convert a Python integer to a C/C++ <tt class="docutils literal"><span class="pre">bool</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">c</span></tt> (string/bytes) [char *]</dt>
+<dd>Convert a Python v2 string object or a Python v3 bytes object of length
+1 to a C/C++ <tt class="docutils literal"><span class="pre">char</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">d</span></tt> (float) [double *]</dt>
+<dd>Convert a Python floating point number to a C/C++ <tt class="docutils literal"><span class="pre">double</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">e</span></tt> (integer) [enum *]</dt>
+<dd>Convert a Python integer to an anonymous C/C++ <tt class="docutils literal"><span class="pre">enum</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">f</span></tt> (float) [float *]</dt>
+<dd>Convert a Python floating point number to a C/C++ <tt class="docutils literal"><span class="pre">float</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">g</span></tt> (string/bytes) [const char **, <a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T"><tt class="xref docutils literal"><span class="pre">SIP_SSIZE_T</span></tt></a> *]</dt>
+<dd>Convert a Python v2 string object or a Python v3 bytes object to a
+C/C++ character array and its length.  If the Python object is
+<tt class="docutils literal"><span class="pre">Py_None</span></tt> then the array and length are <tt class="docutils literal"><span class="pre">NULL</span></tt> and zero
+respectively.</dd>
+<dt><tt class="docutils literal"><span class="pre">h</span></tt> (integer) [short *]</dt>
+<dd>Convert a Python integer to a C/C++ <tt class="docutils literal"><span class="pre">short</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">i</span></tt> (integer) [int *]</dt>
+<dd>Convert a Python integer to a C/C++ <tt class="docutils literal"><span class="pre">int</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">l</span></tt> (long) [long *]</dt>
+<dd>Convert a Python long to a C/C++ <tt class="docutils literal"><span class="pre">long</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">m</span></tt> (long) [unsigned long *]</dt>
+<dd>Convert a Python long to a C/C++ <tt class="docutils literal"><span class="pre">unsigned</span> <span class="pre">long</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">n</span></tt> (long) [long long *]</dt>
+<dd>Convert a Python long to a C/C++ <tt class="docutils literal"><span class="pre">long</span> <span class="pre">long</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">o</span></tt> (long) [unsigned long long *]</dt>
+<dd>Convert a Python long to a C/C++ <tt class="docutils literal"><span class="pre">unsigned</span> <span class="pre">long</span> <span class="pre">long</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">s</span></tt> (string/bytes) [const char **]</dt>
+<dd><p class="first">Convert a Python v2 string object or a Python v3 bytes object to a
+C/C++ <tt class="docutils literal"><span class="pre">'\0'</span></tt> terminated string.  If the Python object is <tt class="docutils literal"><span class="pre">Py_None</span></tt>
+then the string is <tt class="docutils literal"><span class="pre">NULL</span></tt>.</p>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use <tt class="docutils literal"><span class="pre">B</span></tt>.</p>
+</div>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">t</span></tt> (long) [unsigned short *]</dt>
+<dd>Convert a Python long to a C/C++ <tt class="docutils literal"><span class="pre">unsigned</span> <span class="pre">short</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">u</span></tt> (long) [unsigned int *]</dt>
+<dd>Convert a Python long to a C/C++ <tt class="docutils literal"><span class="pre">unsigned</span> <span class="pre">int</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">w</span></tt> (unicode/string) [wchar_t *]</dt>
+<dd>Convert a Python v2 string or unicode object or a Python v3 string
+object of length 1 to a C/C++ wide character.</dd>
+<dt><tt class="docutils literal"><span class="pre">x</span></tt> (unicode/string) [wchar_t **]</dt>
+<dd>Convert a Python v2 string or unicode object or a Python v3 string
+object to a C/C++ <tt class="docutils literal"><span class="pre">L'\0'</span></tt> terminated wide character string.  If the
+Python object is <tt class="docutils literal"><span class="pre">Py_None</span></tt> then the string is <tt class="docutils literal"><span class="pre">NULL</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">Ae</span></tt> (object) [int, const char **]</dt>
+<dd>Convert a Python string-like object to a C/C++ <tt class="docutils literal"><span class="pre">'\0'</span></tt> terminated
+string according to the encoding <tt class="docutils literal"><span class="pre">e</span></tt>.  <tt class="docutils literal"><span class="pre">e</span></tt> can either be <tt class="docutils literal"><span class="pre">A</span></tt> for
+ASCII, <tt class="docutils literal"><span class="pre">L</span></tt> for Latin-1, or <tt class="docutils literal"><span class="pre">8</span></tt> for UTF-8.  If the Python object is
+<tt class="docutils literal"><span class="pre">Py_None</span></tt> then the string is <tt class="docutils literal"><span class="pre">NULL</span></tt>.  The integer uniquely
+identifies the object in the context defined by the <tt class="docutils literal"><span class="pre">S</span></tt> format
+character and allows an extra reference to the object to be kept to
+ensure that the string remains valid.  For Python v2 the object may be
+either a string or a unicode object that can be encoded.  For Python v3
+the object may either be a bytes object or a string object that can be
+encoded.  An object that supports the buffer protocol may also be used.</dd>
+<dt><tt class="docutils literal"><span class="pre">B</span></tt> (string/bytes) [int, const char **]</dt>
+<dd>Convert a Python v2 string object or a Python v3 bytes object to a
+C/C++ <tt class="docutils literal"><span class="pre">'\0'</span></tt> terminated string.  If the Python object is <tt class="docutils literal"><span class="pre">Py_None</span></tt>
+then the string is <tt class="docutils literal"><span class="pre">NULL</span></tt>.  The integer uniquely identifies the
+object in the context defined by the <tt class="docutils literal"><span class="pre">S</span></tt> format character and allows
+an extra reference to the object to be kept to ensure that the string
+remains valid.</dd>
+<dt><tt class="docutils literal"><span class="pre">Cf</span></tt> (wrapped class) [<a title="sipWrapperType" class="reference internal" href="#sipWrapperType"><tt class="xref docutils literal"><span class="pre">sipWrapperType</span></tt></a> *, int *, void **]</dt>
+<dd><p class="first">Convert a Python object to a C structure or a C++ class instance and
+return its state as described in <a title="sipConvertToInstance" class="reference internal" href="#sipConvertToInstance"><tt class="xref docutils literal"><span class="pre">sipConvertToInstance()</span></tt></a>.
+<tt class="docutils literal"><span class="pre">f</span></tt> is a combination of the following flags encoded as an ASCII
+character by adding <tt class="docutils literal"><span class="pre">0</span></tt> to the combined value:</p>
+<blockquote>
+<p>0x01 disallows the conversion of <tt class="docutils literal"><span class="pre">Py_None</span></tt> to <tt class="docutils literal"><span class="pre">NULL</span></tt></p>
+<dl class="docutils">
+<dt>0x02 implements the <a class="reference external" href="annotations.html#fanno-Factory"><tt class="xref docutils literal"><span class="pre">Factory</span></tt></a> and <a class="reference external" href="annotations.html#fanno-TransferBack"><tt class="xref docutils literal"><span class="pre">TransferBack</span></tt></a></dt>
+<dd>annotations</dd>
+<dt>0x04 suppresses the return of the state of the returned C/C++</dt>
+<dd>instance.  Note that the <tt class="docutils literal"><span class="pre">int</span> <span class="pre">*</span></tt> used to return the state is
+not passed if this flag is specified.</dd>
+</dl>
+</blockquote>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use <tt class="docutils literal"><span class="pre">Hf</span></tt>.</p>
+</div>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">Df</span></tt> (wrapped instance) [const <tt class="xref docutils literal"><span class="pre">sipTypeDef</span></tt> *, int *, void **]</dt>
+<dd><p class="first">Convert a Python object to a C structure, C++ class or mapped type
+instance and return its state as described in
+<a title="sipConvertToType" class="reference internal" href="#sipConvertToType"><tt class="xref docutils literal"><span class="pre">sipConvertToType()</span></tt></a>.  <tt class="docutils literal"><span class="pre">f</span></tt> is a combination of the following
+flags encoded as an ASCII character by adding <tt class="docutils literal"><span class="pre">0</span></tt> to the combined
+value:</p>
+<blockquote>
+<p>0x01 disallows the conversion of <tt class="docutils literal"><span class="pre">Py_None</span></tt> to <tt class="docutils literal"><span class="pre">NULL</span></tt></p>
+<dl class="docutils">
+<dt>0x02 implements the <a class="reference external" href="annotations.html#fanno-Factory"><tt class="xref docutils literal"><span class="pre">Factory</span></tt></a> and <a class="reference external" href="annotations.html#fanno-TransferBack"><tt class="xref docutils literal"><span class="pre">TransferBack</span></tt></a></dt>
+<dd>annotations</dd>
+<dt>0x04 suppresses the return of the state of the returned C/C++</dt>
+<dd>instance.  Note that the <tt class="docutils literal"><span class="pre">int</span> <span class="pre">*</span></tt> used to return the state is
+not passed if this flag is specified.</dd>
+</dl>
+</blockquote>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.10.1.  Instead you should use
+<tt class="docutils literal"><span class="pre">Hf</span></tt>.</p>
+</div>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">E</span></tt> (wrapped enum) [PyTypeObject *, enum *]</dt>
+<dd><p class="first">Convert a Python named enum type to the corresponding C/C++ <tt class="docutils literal"><span class="pre">enum</span></tt>.</p>
+<div class="last admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use <tt class="docutils literal"><span class="pre">F</span></tt>.</p>
+</div>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">F</span></tt> (wrapped enum) [<tt class="xref docutils literal"><span class="pre">sipTypeDef</span></tt> *, enum *]</dt>
+<dd>Convert a Python named enum type to the corresponding C/C++ <tt class="docutils literal"><span class="pre">enum</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">G</span></tt> (unicode/string) [wchar_t **, <a title="SIP_SSIZE_T" class="reference internal" href="#SIP_SSIZE_T"><tt class="xref docutils literal"><span class="pre">SIP_SSIZE_T</span></tt></a> *]</dt>
+<dd>Convert a Python v2 string or unicode object or a Python v3 string
+object to a C/C++ wide character array and its length.  If the Python
+object is <tt class="docutils literal"><span class="pre">Py_None</span></tt> then the array and length are <tt class="docutils literal"><span class="pre">NULL</span></tt> and zero
+respectively.</dd>
+<dt><tt class="docutils literal"><span class="pre">Hf</span></tt> (wrapped instance) [const <tt class="xref docutils literal"><span class="pre">sipTypeDef</span></tt> *, int *, void **]</dt>
+<dd><p class="first">Convert a Python object to a C structure, C++ class or mapped type
+instance as described in <a title="sipConvertToType" class="reference internal" href="#sipConvertToType"><tt class="xref docutils literal"><span class="pre">sipConvertToType()</span></tt></a>.  <tt class="docutils literal"><span class="pre">f</span></tt> is a
+combination of the following flags encoded as an ASCII character by
+adding <tt class="docutils literal"><span class="pre">0</span></tt> to the combined value:</p>
+<blockquote class="last">
+<p>0x01 disallows the conversion of <tt class="docutils literal"><span class="pre">Py_None</span></tt> to <tt class="docutils literal"><span class="pre">NULL</span></tt></p>
+<dl class="docutils">
+<dt>0x02 implements the <a class="reference external" href="annotations.html#fanno-Factory"><tt class="xref docutils literal"><span class="pre">Factory</span></tt></a> and <a class="reference external" href="annotations.html#fanno-TransferBack"><tt class="xref docutils literal"><span class="pre">TransferBack</span></tt></a></dt>
+<dd>annotations</dd>
+</dl>
+<p>0x04 returns a copy of the C/C++ instance.</p>
+</blockquote>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">N</span></tt> (object) [PyTypeObject *, :PyObject **]</dt>
+<dd>A Python object is checked to see if it is a certain type and then
+returned without any conversions.  The reference count is incremented.
+The Python object may be <tt class="docutils literal"><span class="pre">Py_None</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">O</span></tt> (object) [PyObject **]</dt>
+<dd>A Python object is returned without any conversions.  The reference
+count is incremented.</dd>
+<dt><tt class="docutils literal"><span class="pre">S</span></tt> [<a title="sipSimpleWrapper" class="reference internal" href="#sipSimpleWrapper"><tt class="xref docutils literal"><span class="pre">sipSimpleWrapper</span></tt></a> *]</dt>
+<dd>This format character, if used, must be the first.  It is used with
+other format characters to define a context and doesn&#8217;t itself convert
+an argument.</dd>
+<dt><tt class="docutils literal"><span class="pre">T</span></tt> (object) [PyTypeObject *, PyObject **]</dt>
+<dd>A Python object is checked to see if it is a certain type and then
+returned without any conversions.  The reference count is incremented.
+The Python object may not be <tt class="docutils literal"><span class="pre">Py_None</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">V</span></tt> (<a title="sip.voidptr" class="reference external" href="python_api.html#sip.voidptr"><tt class="xref docutils literal"><span class="pre">sip.voidptr</span></tt></a>) [void *]</dt>
+<dd>Convert a Python <a title="sip.voidptr" class="reference external" href="python_api.html#sip.voidptr"><tt class="xref docutils literal"><span class="pre">sip.voidptr</span></tt></a> object to a C/C++ <tt class="docutils literal"><span class="pre">void</span> <span class="pre">*</span></tt>.</dd>
+<dt><tt class="docutils literal"><span class="pre">Z</span></tt> (object) []</dt>
+<dd>Check that a Python object is <tt class="docutils literal"><span class="pre">Py_None</span></tt>.  No value is returned.</dd>
+</dl>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipRegisterAttributeGetter">
+int <tt class="descname">sipRegisterAttributeGetter</tt><big>(</big>const sipTypeDef<em> *td</em>, sipAttrGetterFunc<em> getter</em><big>)</big><a class="headerlink" href="#sipRegisterAttributeGetter" title="Permalink to this definition">¶</a></dt>
+<dd><p>This registers a handler that will called just before SIP needs to get an
+attribute from a wrapped type&#8217;s dictionary for the first time.  The handler
+must then populate the type&#8217;s dictionary with any lazy attributes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><em>td</em> &#8211; the optional <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a> that
+determines which types the handler will be called for.</li>
+<li><em>getter</em> &#8211; the handler function.</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">0 if there was no error, otherwise -1 is returned.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If <em>td</em> is not <tt class="docutils literal"><span class="pre">NULL</span></tt> then the handler will only be called for types with
+that type or that are sub-classed from it.  Otherwise the handler will be
+called for all types.</p>
+<p>A handler has the following signature.</p>
+<p>int handler(const <tt class="xref docutils literal"><span class="pre">sipTypeDef</span></tt> *td, PyObject *dict)</p>
+<blockquote>
+<p><em>td</em> is the generated type definition of the type whose dictionary is
+to be populated.</p>
+<p><em>dict</em> is the dictionary to be populated.</p>
+<p>0 if there was no error, otherwise -1 is returned.</p>
+</blockquote>
+<p>See the section <a class="reference external" href="using.html#ref-lazy-type-attributes"><em>Lazy Type Attributes</em></a> for more details.</p>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipRegisterPyType">
+int <tt class="descname">sipRegisterPyType</tt><big>(</big>PyTypeObject<em> *type</em><big>)</big><a class="headerlink" href="#sipRegisterPyType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This registers a Python type object that can be used as the meta-type or
+super-type of a wrapped C++ type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>type</em> &#8211; the type object.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">0 if there was no error, otherwise -1 is returned.</td>
+</tr>
+</tbody>
+</table>
+<p>See the section <a class="reference external" href="using.html#ref-types-metatypes"><em>Types and Meta-types</em></a> for more details.</p>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipReleaseInstance">
+void <tt class="descname">sipReleaseInstance</tt><big>(</big>void<em> *cpp</em>, <a title="sipWrapperType" class="reference internal" href="#sipWrapperType">sipWrapperType</a><em> *type</em>, int<em> state</em><big>)</big><a class="headerlink" href="#sipReleaseInstance" title="Permalink to this definition">¶</a></dt>
+<dd><p>This destroys a wrapped C/C++ instance if it was a temporary instance.  It
+is called after a call to either <a title="sipConvertToInstance" class="reference internal" href="#sipConvertToInstance"><tt class="xref docutils literal"><span class="pre">sipConvertToInstance()</span></tt></a> or
+<a title="sipForceConvertToInstance" class="reference internal" href="#sipForceConvertToInstance"><tt class="xref docutils literal"><span class="pre">sipForceConvertToInstance()</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>cpp</em> &#8211; the C/C++ instance.</li>
+<li><em>type</em> &#8211; the type&#8217;s <a class="reference internal" href="#ref-type-objects"><em>generated type object</em></a>.</li>
+<li><em>state</em> &#8211; describes the state of the C/C++ instance.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipReleaseType" class="reference internal" href="#sipReleaseType"><tt class="xref docutils literal"><span class="pre">sipReleaseType()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipReleaseMappedType">
+void <tt class="descname">sipReleaseMappedType</tt><big>(</big>void<em> *cpp</em>, const sipMappedType<em> *mt</em>, int<em> state</em><big>)</big><a class="headerlink" href="#sipReleaseMappedType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This destroys a wrapped C/C++ mapped type if it was a temporary instance.
+It is called after a call to either <a title="sipConvertToMappedType" class="reference internal" href="#sipConvertToMappedType"><tt class="xref docutils literal"><span class="pre">sipConvertToMappedType()</span></tt></a> or
+<a title="sipForceConvertToMappedType" class="reference internal" href="#sipForceConvertToMappedType"><tt class="xref docutils literal"><span class="pre">sipForceConvertToMappedType()</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>cpp</em> &#8211; the C/C++ instance.</li>
+<li><em>mt</em> &#8211; the opaque structure returned by <a title="sipFindMappedType" class="reference internal" href="#sipFindMappedType"><tt class="xref docutils literal"><span class="pre">sipFindMappedType()</span></tt></a>.</li>
+<li><em>state</em> &#8211; describes the state of the C/C++ instance.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.  Instead you should use
+<a title="sipReleaseType" class="reference internal" href="#sipReleaseType"><tt class="xref docutils literal"><span class="pre">sipReleaseType()</span></tt></a>.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipReleaseType">
+void <tt class="descname">sipReleaseType</tt><big>(</big>void<em> *cpp</em>, const sipTypeDef<em> *td</em>, int<em> state</em><big>)</big><a class="headerlink" href="#sipReleaseType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This destroys a wrapped C/C++ or mapped type instance if it was a temporary
+instance.  It is called after a call to either <a title="sipConvertToType" class="reference internal" href="#sipConvertToType"><tt class="xref docutils literal"><span class="pre">sipConvertToType()</span></tt></a>
+or <a title="sipForceConvertToType" class="reference internal" href="#sipForceConvertToType"><tt class="xref docutils literal"><span class="pre">sipForceConvertToType()</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>cpp</em> &#8211; the C/C++ instance.</li>
+<li><em>td</em> &#8211; the type&#8217;s <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a>.</li>
+<li><em>state</em> &#8211; describes the state of the C/C++ instance.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipResolveTypedef">
+const char *<tt class="descname">sipResolveTypedef</tt><big>(</big>const char<em> *name</em><big>)</big><a class="headerlink" href="#sipResolveTypedef" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns the value of a C/C++ typedef.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>name</em> &#8211; the name of the typedef.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the value of the typedef or <tt class="docutils literal"><span class="pre">NULL</span></tt> if there was no such typedef.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="ctype">
+<dt id="sipSimpleWrapper">
+<tt class="descname">sipSimpleWrapper</tt><a class="headerlink" href="#sipSimpleWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a C structure that represents a Python wrapped instance whose type
+is <tt class="xref docutils literal"><span class="pre">sip.simplewrapper</span></tt>.  It is an extension of the <tt class="docutils literal"><span class="pre">PyObject</span></tt>
+structure and so may be safely cast to it.</p>
+<dl class="cmember">
+<dt id="data">
+void *<tt class="descname">data</tt><a class="headerlink" href="#data" title="Permalink to this definition">¶</a></dt>
+<dd>This is initialised to the address of the C/C++ instance.  If an access
+function is subsequently provided then it may be used for any purpose
+by the access function.</dd></dl>
+
+<dl class="cmember">
+<dt id="access_func">
+sipAccessFunc <tt class="descname">access_func</tt><a class="headerlink" href="#access_func" title="Permalink to this definition">¶</a></dt>
+<dd>This is the address of an optional access function that is called, with
+a pointer to this structure as its first argument.  If its second
+argument is <tt class="docutils literal"><span class="pre">UnguardedPointer</span></tt> then it returns the address of the
+C/C++ instance, even if it is known that its value is no longer valid.
+If the second argument is <tt class="docutils literal"><span class="pre">GuardedPointer</span></tt> then it returns the
+address of the C++ instance or <tt class="docutils literal"><span class="pre">0</span></tt> if it is known to be invalid.  If
+the second argument is <tt class="docutils literal"><span class="pre">ReleaseGuard</span></tt> then the structure is being
+deallocated and any dynamic resources used by the access function
+should be released.  If there is no access function then the
+<tt class="xref docutils literal"><span class="pre">sipSimpleWrapper.data</span></tt> is used as the address of the C/C++
+instance.  Typically a custom meta-type is used to set an access method
+after the Python object has been created.</dd></dl>
+
+<dl class="cmember">
+<dt id="user">
+PyObject *<tt class="descname">user</tt><a class="headerlink" href="#user" title="Permalink to this definition">¶</a></dt>
+<dd>This can be used for any purpose by handwritten code and will
+automatically be garbage collected at the appropriate time.</dd></dl>
+
+</dd></dl>
+
+<dl class="cvar">
+<dt id="sipSimpleWrapper_Type">
+PyTypeObject *<tt class="descname">sipSimpleWrapper_Type</tt><a class="headerlink" href="#sipSimpleWrapper_Type" title="Permalink to this definition">¶</a></dt>
+<dd>This is the type of a <a title="sipSimpleWrapper" class="reference internal" href="#sipSimpleWrapper"><tt class="xref docutils literal"><span class="pre">sipSimpleWrapper</span></tt></a> structure and is the C
+implementation of <tt class="xref docutils literal"><span class="pre">sip.simplewrapper</span></tt>.  It may be safely cast to
+<a title="sipWrapperType" class="reference internal" href="#sipWrapperType"><tt class="xref docutils literal"><span class="pre">sipWrapperType</span></tt></a>.</dd></dl>
+
+<dl class="ctype">
+<dt id="sipStringTypeClassMap">
+<tt class="descname">sipStringTypeClassMap</tt><a class="headerlink" href="#sipStringTypeClassMap" title="Permalink to this definition">¶</a></dt>
+<dd><p>This C structure is used with <a title="sipMapStringToClass" class="reference internal" href="#sipMapStringToClass"><tt class="xref docutils literal"><span class="pre">sipMapStringToClass()</span></tt></a> to define a
+mapping between <tt class="docutils literal"><span class="pre">'\0'</span></tt> terminated string based RTTI and
+<a class="reference internal" href="#ref-type-objects"><em>Generated Type Objects</em></a>.  The structure elements are as follows.</p>
+<dl class="cmember">
+<dt id="typeString">
+char *<tt class="descname">typeString</tt><a class="headerlink" href="#typeString" title="Permalink to this definition">¶</a></dt>
+<dd>The <tt class="docutils literal"><span class="pre">'\0'</span></tt> terminated string RTTI.</dd></dl>
+
+<dl class="cmember">
+<dt>
+<tt class="descname">sipWrapperType **pyType.</tt></dt>
+<dd>A pointer to the corresponding generated type object.</dd></dl>
+
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is deprecated from SIP v4.8.</p>
+</div>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipTransferBack">
+void <tt class="descname">sipTransferBack</tt><big>(</big>PyObject<em> *obj</em><big>)</big><a class="headerlink" href="#sipTransferBack" title="Permalink to this definition">¶</a></dt>
+<dd><p>This transfers ownership of a Python wrapped instance to Python (see
+<a class="reference external" href="using.html#ref-object-ownership"><em>Ownership of Objects</em></a>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>obj</em> &#8211; the wrapped instance.</td>
+</tr>
+</tbody>
+</table>
+<p>In addition, any association of the instance with regard to the cyclic
+garbage collector with another instance is removed.</p>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipTransferBreak">
+void <tt class="descname">sipTransferBreak</tt><big>(</big>PyObject<em> *obj</em><big>)</big><a class="headerlink" href="#sipTransferBreak" title="Permalink to this definition">¶</a></dt>
+<dd><p>Any association of a Python wrapped instance with regard to the cyclic
+garbage collector with another instance is removed.  Ownership of the
+instance should be with C++.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>obj</em> &#8211; the wrapped instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipTransferTo">
+void <tt class="descname">sipTransferTo</tt><big>(</big>PyObject<em> *obj</em>, PyObject<em> *owner</em><big>)</big><a class="headerlink" href="#sipTransferTo" title="Permalink to this definition">¶</a></dt>
+<dd><p>This transfers ownership of a Python wrapped instance to C++ (see
+<a class="reference external" href="using.html#ref-object-ownership"><em>Ownership of Objects</em></a>).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>obj</em> &#8211; the wrapped instance.</li>
+<li><em>owner</em> &#8211; an optional wrapped instance that <em>obj</em> becomes associated with with
+regard to the cyclic garbage collector.  If <em>owner</em> is <tt class="docutils literal"><span class="pre">NULL</span></tt> then no
+such association is made.  If <em>owner</em> is the same value as <em>obj</em> then
+any reference cycles involving <em>obj</em> can never be detected or broken by
+the cyclic garbage collector.  Responsibility for calling the C++
+instance&#8217;s destructor is always transfered to C++.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipTypeAsPyTypeObject">
+PyTypeObject *<tt class="descname">sipTypeAsPyTypeObject</tt><big>(</big>sipTypeDef<em> *td</em><big>)</big><a class="headerlink" href="#sipTypeAsPyTypeObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns a pointer to the Python type object that SIP creates for a
+<a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>td</em> &#8211; the type structure.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the Python type object.  If the type structure refers to a mapped type
+then <tt class="docutils literal"><span class="pre">NULL</span></tt> will be returned.</td>
+</tr>
+</tbody>
+</table>
+<p>If the type structure refers to a C structure or C++ class then the
+Python type object may be safely cast to a <a title="sipWrapperType" class="reference internal" href="#sipWrapperType"><tt class="xref docutils literal"><span class="pre">sipWrapperType</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipTypeFromPyTypeObject">
+const sipTypeDef *<tt class="descname">sipTypeFromPyTypeObject</tt><big>(</big>PyTypeObject<em> *py_type</em><big>)</big><a class="headerlink" href="#sipTypeFromPyTypeObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns the <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a> for
+a Python type object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>py_type</em> &#8211; the Python type object.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the type structure or <tt class="docutils literal"><span class="pre">NULL</span></tt> if the Python type object doesn&#8217;t
+correspond to a type structure.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipTypeIsClass">
+int <tt class="descname">sipTypeIsClass</tt><big>(</big>sipTypeDef<em> *td</em><big>)</big><a class="headerlink" href="#sipTypeIsClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>This checks if a <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a>
+refers to a C structure or C++ class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>td</em> &#8211; the type structure.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">a non-zero value if the type structure refers to a structure or class.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipTypeIsEnum">
+int <tt class="descname">sipTypeIsEnum</tt><big>(</big>sipTypeDef<em> *td</em><big>)</big><a class="headerlink" href="#sipTypeIsEnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>This checks if a <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a>
+refers to a named enum.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>td</em> &#8211; the type structure.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">a non-zero value if the type structure refers to an enum.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipTypeIsMapped">
+int <tt class="descname">sipTypeIsMapped</tt><big>(</big>sipTypeDef<em> *td</em><big>)</big><a class="headerlink" href="#sipTypeIsMapped" title="Permalink to this definition">¶</a></dt>
+<dd><p>This checks if a <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a>
+refers to a mapped type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>td</em> &#8211; the type structure.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">a non-zero value if the type structure refers to a mapped type.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipTypeIsNamespace">
+int <tt class="descname">sipTypeIsNamespace</tt><big>(</big>sipTypeDef<em> *td</em><big>)</big><a class="headerlink" href="#sipTypeIsNamespace" title="Permalink to this definition">¶</a></dt>
+<dd><p>This checks if a <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a>
+refers to a C++ namespace.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>td</em> &#8211; the type structure.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">a non-zero value if the type structure refers to a namespace.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipTypeName">
+const char *<tt class="descname">sipTypeName</tt><big>(</big>const sipTypeDef<em> *td</em><big>)</big><a class="headerlink" href="#sipTypeName" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns the C/C++ name of a wrapped type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>td</em> &#8211; the type&#8217;s <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a>.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the name of the C/C++ type.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipTypeScope">
+const sipTypeDef *<tt class="descname">sipTypeScope</tt><big>(</big>const sipTypeDef<em> *td</em><big>)</big><a class="headerlink" href="#sipTypeScope" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns the <a class="reference internal" href="#ref-type-structures"><em>generated type structure</em></a> of
+the enclosing scope of another generated type structure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>td</em> &#8211; the type structure.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">the type structure of the scope or <tt class="docutils literal"><span class="pre">NULL</span></tt> if the type has no scope.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="cvar">
+<dt id="sipVoidPtr_Type">
+PyTypeObject *<tt class="descname">sipVoidPtr_Type</tt><a class="headerlink" href="#sipVoidPtr_Type" title="Permalink to this definition">¶</a></dt>
+<dd>This is the type of a <tt class="docutils literal"><span class="pre">PyObject</span></tt> structure that is used to wrap a
+<tt class="docutils literal"><span class="pre">void</span> <span class="pre">*</span></tt>.</dd></dl>
+
+<dl class="ctype">
+<dt id="sipWrapper">
+<tt class="descname">sipWrapper</tt><a class="headerlink" href="#sipWrapper" title="Permalink to this definition">¶</a></dt>
+<dd>This is a C structure that represents a Python wrapped instance whose type
+is <a title="sip.wrapper" class="reference external" href="python_api.html#sip.wrapper"><tt class="xref docutils literal"><span class="pre">sip.wrapper</span></tt></a>.  It is an extension of the
+<a title="sipSimpleWrapper" class="reference internal" href="#sipSimpleWrapper"><tt class="xref docutils literal"><span class="pre">sipSimpleWrapper</span></tt></a> and <tt class="docutils literal"><span class="pre">PyObject</span></tt> structures and so may be safely
+cast to both.</dd></dl>
+
+<dl class="cfunction">
+<dt id="sipWrapper_Check">
+int <tt class="descname">sipWrapper_Check</tt><big>(</big>PyObject<em> *obj</em><big>)</big><a class="headerlink" href="#sipWrapper_Check" title="Permalink to this definition">¶</a></dt>
+<dd><p>This checks if a Python object is a wrapped instance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>obj</em> &#8211; the Python object.</td>
+</tr>
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">a non-zero value if the Python object is a wrapped instance.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This is deprecated from SIP v4.8.  Instead you should use the
+following:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="n">PyObject_TypeCheck</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">sipWrapper_Type</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+<dl class="cvar">
+<dt id="sipWrapper_Type">
+PyTypeObject *<tt class="descname">sipWrapper_Type</tt><a class="headerlink" href="#sipWrapper_Type" title="Permalink to this definition">¶</a></dt>
+<dd>This is the type of a <a title="sipWrapper" class="reference internal" href="#sipWrapper"><tt class="xref docutils literal"><span class="pre">sipWrapper</span></tt></a> structure and is the C
+implementation of <a title="sip.wrapper" class="reference external" href="python_api.html#sip.wrapper"><tt class="xref docutils literal"><span class="pre">sip.wrapper</span></tt></a>.  It may be safely cast to
+<a title="sipWrapperType" class="reference internal" href="#sipWrapperType"><tt class="xref docutils literal"><span class="pre">sipWrapperType</span></tt></a>.</dd></dl>
+
+<dl class="ctype">
+<dt id="sipWrapperType">
+<tt class="descname">sipWrapperType</tt><a class="headerlink" href="#sipWrapperType" title="Permalink to this definition">¶</a></dt>
+<dd>This is a C structure that represents a SIP generated type object.  It is
+an extension of the <tt class="docutils literal"><span class="pre">PyTypeObject</span></tt> structure (which is itself an
+extension of the <tt class="docutils literal"><span class="pre">PyObject</span></tt> structure) and so may be safely cast to
+<tt class="docutils literal"><span class="pre">PyTypeObject</span></tt> (and <tt class="docutils literal"><span class="pre">PyObject</span></tt>).</dd></dl>
+
+<dl class="cvar">
+<dt id="sipWrapperType_Type">
+PyTypeObject *<tt class="descname">sipWrapperType_Type</tt><a class="headerlink" href="#sipWrapperType_Type" title="Permalink to this definition">¶</a></dt>
+<dd>This is the type of a <a title="sipWrapperType" class="reference internal" href="#sipWrapperType"><tt class="xref docutils literal"><span class="pre">sipWrapperType</span></tt></a> structure and is the C
+implementation of <a title="sip.wrappertype" class="reference external" href="python_api.html#sip.wrappertype"><tt class="xref docutils literal"><span class="pre">sip.wrappertype</span></tt></a>.</dd></dl>
+
+<div class="section" id="generated-type-structures">
+<span id="ref-type-structures"></span><h2>Generated Type Structures<a class="headerlink" href="#generated-type-structures" title="Permalink to this headline">¶</a></h2>
+<p>SIP generates an opaque type structure for each C structure, C++ class, C++
+namespace, named enum or mapped type being wrapped.  These are
+<tt class="xref docutils literal"><span class="pre">sipTypeDef</span></tt> structures and are used extensively by the SIP API.</p>
+<p>The names of these structure are prefixed by <tt class="docutils literal"><span class="pre">sipType_</span></tt>.</p>
+<p>For those structures that correspond to C structures, C++ classes, C++
+namespaces or named enums the remaining part of the name is the fully
+qualified name of the structure, class, namespace or enum name.  Any <tt class="docutils literal"><span class="pre">::</span></tt>
+scope separators are replaced by an underscore.  For example, the type object
+for class <tt class="docutils literal"><span class="pre">Klass</span></tt> is <tt class="docutils literal"><span class="pre">sipType_Klass</span></tt>.</p>
+<p>For those structure that correspond to mapped types the remaining part of the
+name is generated by SIP.  The only way for handwritten code to obtain a
+pointer to a structure for a mapped type is to use <a title="sipFindType" class="reference internal" href="#sipFindType"><tt class="xref docutils literal"><span class="pre">sipFindType()</span></tt></a>.</p>
+<p>The type structures of all imported types are available to handwritten code.</p>
+</div>
+<div class="section" id="generated-type-objects">
+<span id="ref-type-objects"></span><h2>Generated Type Objects<a class="headerlink" href="#generated-type-objects" title="Permalink to this headline">¶</a></h2>
+<p>SIP generates a <a title="sipWrapperType" class="reference internal" href="#sipWrapperType"><tt class="xref docutils literal"><span class="pre">sipWrapperType</span></tt></a> type object for each C structure or
+C++ class being wrapped.</p>
+<p>These objects are named with the structure or class name prefixed by
+<tt class="docutils literal"><span class="pre">sipClass_</span></tt>.  For example, the type object for class <tt class="docutils literal"><span class="pre">Klass</span></tt> is
+<tt class="docutils literal"><span class="pre">sipClass_Klass</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Using these names is deprecated from SIP v4.8.  Instead use the
+corresponding generated type structure (see <a class="reference internal" href="#ref-type-structures"><em>Generated Type Structures</em></a>) and
+<a title="sipTypeAsPyTypeObject" class="reference internal" href="#sipTypeAsPyTypeObject"><tt class="xref docutils literal"><span class="pre">sipTypeAsPyTypeObject()</span></tt></a>.</p>
+</div>
+</div>
+<div class="section" id="generated-named-enum-type-objects">
+<span id="ref-enum-type-objects"></span><h2>Generated Named Enum Type Objects<a class="headerlink" href="#generated-named-enum-type-objects" title="Permalink to this headline">¶</a></h2>
+<p>SIP generates a type object for each named enum being wrapped.  These are
+PyTypeObject structures.  (Anonymous enums are wrapped as Python integers.)</p>
+<p>These objects are named with the fully qualified enum name (i.e. including any
+enclosing scope) prefixed by <tt class="docutils literal"><span class="pre">sipEnum_</span></tt>.  For example, the type object for
+enum <tt class="docutils literal"><span class="pre">Enum</span></tt> defined in class <tt class="docutils literal"><span class="pre">Klass</span></tt> is <tt class="docutils literal"><span class="pre">sipEnum_Klass_Enum</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Using these names is deprecated from SIP v4.8.  Instead use the
+corresponding generated type structure (see <a class="reference internal" href="#ref-type-structures"><em>Generated Type Structures</em></a>) and
+<a title="sipTypeAsPyTypeObject" class="reference internal" href="#sipTypeAsPyTypeObject"><tt class="xref docutils literal"><span class="pre">sipTypeAsPyTypeObject()</span></tt></a>.</p>
+</div>
+</div>
+<div class="section" id="generated-derived-classes">
+<span id="ref-derived-classes"></span><h2>Generated Derived Classes<a class="headerlink" href="#generated-derived-classes" title="Permalink to this headline">¶</a></h2>
+<p>For most C++ classes being wrapped SIP generates a derived class with the same
+name prefixed by <tt class="docutils literal"><span class="pre">sip</span></tt>.  For example, the derived class for class <tt class="docutils literal"><span class="pre">Klass</span></tt>
+is <tt class="docutils literal"><span class="pre">sipKlass</span></tt>.</p>
+<p>If a C++ class doesn&#8217;t have any virtual or protected methods in it or any of
+it&#8217;s super-class hierarchy, or does not emit any Qt signals, then a derived
+class is not generated.</p>
+<p>Most of the time handwritten code should ignore the derived classes.  The only
+exception is that handwritten constructor code specified using the
+<a class="reference external" href="directives.html#directive-%MethodCode"><tt class="xref docutils literal"><span class="pre">%MethodCode</span></tt></a> directive should call the derived class&#8217;s constructor
+(which has the same C++ signature) rather then the wrapped class&#8217;s constructor.</p>
+</div>
+<div class="section" id="generated-exception-objects">
+<span id="ref-exception-objects"></span><h2>Generated Exception Objects<a class="headerlink" href="#generated-exception-objects" title="Permalink to this headline">¶</a></h2>
+<p>SIP generates a Python object for each exception defined with the
+<a class="reference external" href="directives.html#directive-%Exception"><tt class="xref docutils literal"><span class="pre">%Exception</span></tt></a> directive.</p>
+<p>These objects are named with the fully qualified exception name (i.e. including
+any enclosing scope) prefixed by <tt class="docutils literal"><span class="pre">sipException_</span></tt>.  For example, the type
+object for enum <tt class="docutils literal"><span class="pre">Except</span></tt> defined in class <tt class="docutils literal"><span class="pre">Klass</span></tt> is
+<tt class="docutils literal"><span class="pre">sipException_Klass_Except</span></tt>.</p>
+<p>The objects of all imported exceptions are available to handwritten code.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">C API for Handwritten Code</a><ul>
+<li><a class="reference external" href="#generated-type-structures">Generated Type Structures</a></li>
+<li><a class="reference external" href="#generated-type-objects">Generated Type Objects</a></li>
+<li><a class="reference external" href="#generated-named-enum-type-objects">Generated Named Enum Type Objects</a></li>
+<li><a class="reference external" href="#generated-derived-classes">Generated Derived Classes</a></li>
+<li><a class="reference external" href="#generated-exception-objects">Generated Exception Objects</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="annotations.html"
+                                  title="previous chapter">Annotations</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="embedding.html"
+                                  title="next chapter">Using the C API when Embedding</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="embedding.html" title="Using the C API when Embedding"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="annotations.html" title="Annotations"
+             >previous</a> |</li>
+        <li><a href="index.html">SIP 4.11.2 Reference Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2010 Riverbank Computing Limited.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+    </div>
+  </body>
+</html>

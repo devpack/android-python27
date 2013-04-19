@@ -1,0 +1,12 @@
+diff -wuprN Python-2.7.2/Python/bltinmodule.c Python-2.7.2-new/Python/bltinmodule.c
+--- Python-2.7.2/Python/bltinmodule.c	2011-06-11 17:46:27.000000000 +0200
++++ Python-2.7.2-new/Python/bltinmodule.c	2012-08-18 14:11:55.379345818 +0200
+@@ -22,7 +22,7 @@ const char *Py_FileSystemDefaultEncoding
+ #elif defined(__APPLE__)
+ const char *Py_FileSystemDefaultEncoding = "utf-8";
+ #else
+-const char *Py_FileSystemDefaultEncoding = NULL; /* use default */
++const char *Py_FileSystemDefaultEncoding = "utf-8"; /* use default */
+ #endif
+ 
+ /* Forward */

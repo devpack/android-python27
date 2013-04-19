@@ -1,0 +1,292 @@
+v4.8 22nd October 2010
+  - Added support for Qt v4.7 including the new QtDeclarative module.
+  - pyqtProperty() can now be used as a method decorator in the same way that
+    the standard Python property type can be used.
+  - Added the notify argument to pyqtProperty().
+  - Unbound signals can now be subscripted in the same way that bound signals
+    can.
+  - Added the missing << operator to QPolygon, QPolygonF and
+    QXmlStreamAttributes.
+  - PyQt will now automatically keep a reference to objects set with some sort
+    of setter method when Qt expects the underlying C++ instance to stay valid
+    but does not take ownership of it.
+  - Added the lightmaps.py and stardelegate.py examples from Hans-Peter Jansen.
+  - Added the --assume-shared option to configure.py.
+  - The QtAssistant module is no longer built with Qt v4.7 and later.
+
+v4.7.7 21st September 2010
+  - A bug fix release.
+
+v4.7.6 6th September 2010
+  - A bug fix release.
+
+v4.7.5 31st August 2010
+  - Added QStringRef.__str__() and QStringRef.__unicode__() to the QString v1
+    API.
+  - The destruction by Qt of internally constructed QObject instances is now
+    automatically detected.
+  - A signal defined with pyqtSignal() can now be used with methods that make
+    an internal call to QObject::connect(), e.g. QTimer.singleShot().
+  - Added the --from-imports command line argument to pyuic4 and the
+    from_imports argument to PyQt4.uic.compileUi().
+  - Added support for Python v3.2.
+  - The Windows installer now includes qcollectiongenerator.exe and
+    qhelpgenerator.exe.
+
+v4.7.4 12th July 2010
+  - Any class with a count() method now supports the len() builtin.
+  - Added the missing == and != operators to QItemSelection.
+  - Added readQVariantHash(), readQVariantList(), readQVariantMap,
+    writeQVariantHash(), writeQVariantList() and writeQVariantMap() to
+    QDataStream.
+  - Added the ErrorPageExtensionOption and ErrorPageExtensionReturn classes,
+    and the ErrorDomain enum to QWebPage.
+
+v4.7.3 16th April 2010
+  - Added evaluateToString() and evaluateToStringList() to QXmlQuery.
+
+v4.7.2 17th March 2010
+  - A bug fix release.
+
+v4.7.1 17th March 2010
+  - Added the schema.py example.
+  - Added the missing pushContext() and popContext() to QScriptEngine.
+  - A QStyleOption instance will be wrapped as a specific sub-class where
+    possible.
+
+v4.7 14th January 2010
+  - Qt v4.6 is fully supported.
+  - Added the QtMultimedia module.
+  - Added keyword support for optional arguments.
+  - Added docstrings for all classes, functions and methods that describe the
+    Python signatures of all callables.
+  - Any Python object that can be pickled can now be automatically written to
+    and read from QSettings.
+  - A QHostAddress.SpecialAddress can be used whenever a QHostAddress is
+    expected.
+  - Added the optional initialFilter argument to the
+    QFileDialog.get*AndFilter() functions.
+  - Added the readInt(), readQString(), readQStringList(), readQVariant(),
+    writeInt(), writeQString(), writeQStringList() and writeQVariant() methods
+    to QDataStream.
+  - Added 'widgetPluginPath' to the uic module to specify the directories that
+    are searched for widget plugins.
+  - Added the anchorlayout.py, animatedtiles.py, appchooser.py, easing.py,
+    lighting.py, moveblocks.py, states.py and stickman.py examples.
+  - Significantly reduced the size of the modules on Linux and MacOS/X.
+  - Added support for configuring and building outside of the source tree (for
+    standard builds).
+
+v4.6.2 20th November 2009
+  - A bug fix release.
+
+v4.6.1 23rd October 2009
+  - Added the missing setDropAction() method to QGraphicsSceneDragDropEvent.
+  - Added the QMacCocoaViewContainer class on OS/X.
+  - An updated sandbox.py from Mark Summerfield.
+
+v4.6 26th September 2009
+  - Qt properties can be initialised using keyword arguments passed when
+    creating an instance.
+  - Signals can be connected using keyword arguments passed when creating an
+    instance.
+  - Added the QObject.pyqtConfigure() method to set Qt properties and connect
+    signals using keyword arguments at any time.
+  - Python v2.6 and later allow a Python bytearray to be used whenever a
+    QByteArray is expected.
+  - Added the getOpenFileNameAndFilter(), getOpenFileNamesAndFilter() and
+    getSaveFileNameAndFilter() static methods to QFileDialog.
+  - A QLatin1String can be passed whenever a QString is expected.
+  - The following APIs have been defined to allow applications to specify
+    which incompatible API they want to use: QDate, QDateTime, QString,
+    QTextStream, QTime, QUrl and QVariant.  See the section "Selecting
+    Incompatible APIs" in the documentation for a description of the
+    differences in the APIs.
+  - Added the compileUiDir() function to the uic module.
+
+v4.5.4 27th July 2009
+  - A bug fix release.
+
+v4.5.3 27th July 2009
+  - A bug fix release.
+
+v4.5.2 14th July 2009
+  - Added support for the two QImage constructors that operate on non-const
+    data by allowing a sip.voidptr to be passed.
+  - Added support for QHeaderView to pyuic4.
+  - Any Python object can now be passed where a QVariant is expected.  None is
+    interpreted as an invalid QVariant.
+  - Added the QAxContainer module to the GPL version.
+
+v4.5.1 16th June 2009
+  - Added the setCoordinateMode() and coordinateMode() methods to QGradient.
+
+v4.5 5th June 2009
+  - Added support for Qt v4.5.1.
+  - Added support for Python v3.
+  - Added the QInputContextFactory class.
+  - A new, more Pythonic, API has been added for connecting signals and slots
+    which does not require knowledge of C++ data types.
+  - New signals can now be defined using pyqtSignal as a more Pythonic
+    replacement of the (now deprecated) __pyqtSignals__ class attribute.
+  - Added the pyqtSlot decorator as a more Pythonic replacement of the (now
+    deprecated) pyqtSignature decorator.
+  - The "type" argument to pyqtProperty() can also be a Python type object.
+  - The "type" argument to Q_ARG() can also be a Python type object.
+  - The "type" argument to Q_RETURN_ARG() can also be a Python type object.
+  - Added QT_TR_NOOP_UTF8().
+  - super() works without restrictions.
+  - Replaced the old qtdemo example launcher with a port of the newer version
+    with help from Grissiom, Matthew Smith and Henning Schroeder.
+  - Added the editabletreemodel.py example from Cyril Romain.
+  - Added the fetchmore.py example from Darryl Wallace.
+  - Replaced the old tutorial with the newer Address Book tutorial.
+
+v4.4.4 8th November 2008
+  - QVariant.toPyObject() will now handle any Python object.  The way in which
+    QVariant wraps objects has subtlely changed in that the name returned by
+    typeName() may now be different, but is now more consistent.
+  - Added the data() method to the QPolygon, QPolygonF and QXmlAttributes
+    classes.
+  - Added the --no-designer-plugin option to configure.py to disable the
+    building of the Python plugin for Qt Designer.
+  - Added the missing Windows and Mac versions to QSysInfo.
+
+v4.4.3 8th Aug 2008
+  - Added support for Qt v4.4.1.
+  - A QChar can now be used whenever a QString is expected.
+  - All read related methods that take a maximum read length will now raise an
+    exception if the length is negative.
+  - The QVariant constructor that took a QVariantList argument has been
+    replaced with the fromList() static method.
+  - The QVariant constructor that took a QVariantMap argument has been replaced
+    with the fromMap() static method.
+  - Added the embeddeddialogs.py and padnavigator.py examples from Igor
+    Prischepoff.
+
+v4.4.2 20th May 2008
+  - A bug fix release.
+
+v4.4.1 20th May 2008
+  - Added the QRunnable and QThreadPool classes.
+
+v4.4 13th May 2008
+  - Added support for Qt v4.4 including the new QtHelp, QtWebKit, QtXmlPatterns
+    and phonon modules.
+  - Added support for QMetaObject.invokeMethod(), Q_ARG() and Q_RETURN_ARG().
+  - Added support for QObject.staticMetaObject.
+  - Added support for QScriptEngine.newFunction().
+  - pyqtSignature() now supports the specification of the types of return
+    values.
+  - Added support for slots that return values.
+  - Any Python object can now be wrapped as a QVariant.
+  - pyqtProperty() now supports DESIGNABLE, SCRIPTABLE, STORED and USER (based
+    on a patch from Ulrich Berning).
+  - Added __repr__ support to QByteArray, QChar, QDate, QDateTime, QLatin1Char,
+    QLatin1String, QLine, QLineF, QPoint, QPointF, QRect, QRectF, QRegExp,
+    QSize, QSizeF, QString, QTime, QUrl and QUuid (based on a patch from
+    Giovanni Bajo).
+  - Added the --pyqt3-wrapper argument to pyuic4 to generate a PyQt3 style
+    wrapper (from a patch from Ulrich Berning).
+  - Added the musicplayer.py and capabilities.py Phonon examples.
+  - Added the diagramscene.py example from Rajev Sebastian.
+  - Added the systray.py example from Daniel Harding.
+  - Added the Qt Designer multi-page widget, PyDateEdit and PyDateTimeEdit
+    plugin examples from Ulrich Berning.
+
+v4.3.3 5th December 2007
+  - Added support for Qt v4.3.3.
+
+v4.3.2 5th December 2007
+  - Added the --confirm-license option to configure.py.
+  - The GPL license now has the same exceptions as Qt.
+
+v4.3.1 28th September 2007
+  - Added the pyqtRemoveInputHook() and pyqtRestoreInputHook() functions to the
+    QtCore module.
+  - Added the sandbox GUI shell from Mark Summerfield.
+  - Added the dragdroprobot.py example from Lieven Buts.
+
+v4.3 30th July 2007
+  - Added support for Qt v4.3.0.
+  - partial functions may now be used as slots.
+  - The QByteArray, QChar, QColor, QDate, QDateTime, QKeySequence, QLatin1Char,
+    QLatin1String, QLine, QLineF, QMatrix, QPoint, QPointF, QPolygon, QRect,
+    QRectF, QSize, QSizeF, QString and QTime classes and all enums may be
+    pickled.
+  - configure.py now supports long option names.
+  - Changed the meaning of the -d (--destdir) option to configure.py so that
+    the PyQt4 directory always exists.
+  - Added the --consolidate option to configure.py to generate a consolidated
+    module (only useful if Qt was built as static libraries).
+  - Added the --plugin option to configure.py to specify which of Qt's static
+    plugins should be included (only useful if Qt was built as static
+    libraries).
+  - Added the --enable option to configure.py to specify explicitly which
+    modules are to be built.
+  - Added the --no-qsci-api option to configure.py to disable the installation
+    of the QScintilla API file.
+  - Added the --no-sip-files option to configure.py to disable the installation
+    of the .sip files.
+
+v4.2 10th April 2007
+  - Added the QtDesigner module to allow Qt Designer to be extended using PyQt.
+    This includes the ability to write widget plugins in Python.  Many examples
+    are included.
+  - The __pyqtSignals__ class attribute is used to dynamically create new Qt 
+    signals.
+  - The existing QtCore.pyqtSignature() decorator can now be used to
+    dynamically create new Qt slots.
+  - The QtCore.pyqtProperty() function is used to dynamically create properties
+    that behave as Qt properties and Python properties at the same time.
+  - Added an implementation of the Qt event loop to be used with the standard
+    Python DBus bindings (v0.80 and later).
+  - A QGradient can be used whenever a QBrush is expected.
+  - A StandardKey can be used whenever a QKeySequence is expected.
+  - On X11 added the QApplication ctors that accept a Display *.
+  - Added qt_set_sequence_auto_mnemonic(), qt_x11_wait_for_window_manager(),
+    qt_mac_secure_keyboard(), qt_mac_set_dock_menu(),
+    qt_mac_set_menubar_icons(), qt_mac_set_menubar_merge(),
+    qt_mac_set_native_menubar() and qt_mac_set_press_and_hold_context() to the
+    QtGui module.
+  - Added support for PyOS_InputHook.
+  - Added the basicsortfiltermodel.py example.
+
+v4.1.1 9th December 2006
+  - lambda functions may now be used as slots.
+  - Added support for Qt Designer v4.2 palettes to pyuic4.
+
+v4.1 4th November 2006
+  - Added support for Python v2.5.
+  - Added support for Qt v4.2 (except for the QtDBus module).
+  - Added the QAxContainer module for the commercial version for Windows.
+  - Added context manager support to the QMutexLocker, QReadLocker and
+    QWriteLocker classes.
+  - Added the QtTest module (only those functions that simulate user
+    interaction).
+  - Added the missing QStylePainter class.
+  - Added the QX11EmbedContainer and QX11EmbedWidget classes for X11.
+  - A Python date object can be used whenever a QDate is expected.
+  - Added the QDate.toPyDate() method to convert a QDate to a Python date
+    object.
+  - A Python datetime object can be used whenever a QDateTime is expected.
+  - Added the QDateTime.toPyDateTime() method to convert a QDateTime to a
+    Python datetime object.
+  - A Python time object can be used whenever a QTime is expected.
+  - Added the QTime.toPyTime() method to convert a QTime to a Python time
+    object.
+  - Added support for Q_ENUMS and Q_FLAGS.
+  - pyrcc4 now conforms to PEP 263.
+  - Added the 2dpainting.py, collidingmice.py, elasticnodes.py,
+    overpainting.py and webbrowser.py examples.
+  - A PyQt4 API file is installed if QScintilla2 is found.
+
+v4.0.1 15th July 2006
+  - QPolygon can be constructed from a Python list of pairs of integer
+    coordinates.  QPolygon.setPoints() can also take a Python list of pairs of
+    integer coordinates.
+  - pylupdate4 can now handle .ui files.
+  - pyqt_config_args was added to pyqtconfig.py.
+
+v4.0 10th June 2006
+  - A complete rewrite for Qt v4.

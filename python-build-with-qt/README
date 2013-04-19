@@ -1,0 +1,63 @@
+# - Based on https://github.com/nonameentername/python-android modified for my needs
+# - Tested on Ubuntu 11.04-i386 with Android NDK-6b and NDK-7c, gcc/g++ 4.4 and gcc/g++ 4.5
+
+
+# 1) Host machine dev env config if needed (package list for 32bit host, package names for 64bit may change)
+# check installed package on host machine with: zcat -f /var/log/dpkg.log* | grep "\ install\ " | sort
+
+sudo apt-get install build-essential cpp-4.4 g++-4.4 gcc-4.4-base gcc-4.4 bison flex autoconf automake autotools-dev quilt libcurl3 curl openssh-server ant mercurial filezilla pure-ftpd dpatch texinfo libncurses5-dev libgmp3-dev libmpfr-dev gawk patchutils binutils-dev zlib1g-dev 
+#sudo apt-get install git-core gnupg gperf libc6-dev lib32ncurses5-dev ia32-libs x11proto-core-dev libx11-dev lib32readline5-dev lib32z-dev libgl1-mesa-dev g++-multilib mingw32 tofrodos python-markdown libxml2-utils xsltproc
+
+
+# 2) build python 2.7.2 for Android
+
+export NDK="/home/tony/Desktop/xcross/android-ndk-r7c"
+export SDK="/home/tony/Desktop/xcross/android-sdk-linux_x86/"
+export NDKPLATFORM="$NDK/platforms/android-9/arch-arm"
+export PATH="$NDK/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/:$NDK:$SDK/tools:$PATH"
+
+bash bootstrap.sh && build_py.sh 
+Then navigate to the jni/python folder and uncomment all the commented lines in the Android.mk file
+bash build_py.sh && package.sh
+
+////////////////////////////////////////////////////
+/////////SIP and PYQT///////////////////////////////
+1) Download Necessitas installer and set install location to /opt/necessitas/
+2) Open Makefiles in both PyQt4 and sip folders and manually change all the paths that include (/home/tsheasha/......) to the corresponding path.
+[This will be fixed soon to be done automatically by running a shell file]
+3) Navigate to sip folder from terminal and enter commands : (a) make -j6  (b) make install
+4) Navigate to PyQt4 folder from terminal and enter commands : (a) make -j6  (b) make install
+5) bash package_pyqt.sh
+6) Using the zipped folder output from the previous operation and packing your python project ina zipped folder as well named: "my_python_project.zip", you can run your applicaiton on Android phones using the a project, which is a joint product of this project apk and the Necessitas project. This project is provided in the directory PyDroid.
+7)All you need to do is place your zipped folders in the res/raw direstory of this project, update the python library paths on the .pro file and just run using the Necessitas QtCreator. A sample application is provided in the downloaded project.
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+
+
+-------
+
+./bootstrap.sh
+    Downloads Python-2.7.2 source
+    patches Python for android
+    builds hostpython and hostpgen
+
+./build.sh
+    builds python library for android
+
+./package.sh
+    creates python_rxx.zip and python_extras_rxx.zip
+
+
+current status:
+    Python build finished, but the necessary bits to build these modules were not found:
+    _bsddb             _curses            _curses_panel
+    _tkinter           bsddb185           bz2
+    dbm                dl                 gdbm
+    imageop            linuxaudiodev      nis
+    ossaudiodev        readline           sunaudiodev
+    To find the necessary bits, look in setup.py in detect_modules() for the module's name.
+
+
+    Failed to build these modules:
+    _ctypes_test       _locale            audioop
+    grp                spwd

@@ -1,0 +1,214 @@
+diff -Naur Python-2.7.2orig//Modules/_multiprocessing/multiprocessing.c Python-2.7.2/Modules/_multiprocessing/multiprocessing.c
+--- Python-2.7.2orig//Modules/_multiprocessing/multiprocessing.c	2011-06-11 10:46:27.000000000 -0500
++++ Python-2.7.2/Modules/_multiprocessing/multiprocessing.c	2011-12-12 23:18:45.000000000 -0600
+@@ -122,7 +122,7 @@
+     cmsg->cmsg_type = SCM_RIGHTS;
+     cmsg->cmsg_len = CMSG_LEN(sizeof(int));
+     msg.msg_controllen = cmsg->cmsg_len;
+-    *CMSG_DATA(cmsg) = fd;
++    *(int*)CMSG_DATA(cmsg) = fd;
+ 
+     Py_BEGIN_ALLOW_THREADS
+     res = sendmsg(conn, &msg, 0);
+@@ -165,7 +165,7 @@
+     if (res < 0)
+         return PyErr_SetFromErrno(PyExc_OSError);
+ 
+-    fd = *CMSG_DATA(cmsg);
++    fd = *(int*)CMSG_DATA(cmsg);
+     return Py_BuildValue("i", fd);
+ }
+ 
+diff -Naur Python-2.7.2orig//Modules/posixmodule.c Python-2.7.2/Modules/posixmodule.c
+--- Python-2.7.2orig//Modules/posixmodule.c	2011-06-11 10:46:27.000000000 -0500
++++ Python-2.7.2/Modules/posixmodule.c	2011-12-12 23:18:45.000000000 -0600
+@@ -3787,13 +3787,6 @@
+     slave_fd = open(slave_name, O_RDWR | O_NOCTTY); /* open slave */
+     if (slave_fd < 0)
+         return posix_error();
+-#if !defined(__CYGWIN__) && !defined(HAVE_DEV_PTC)
+-    ioctl(slave_fd, I_PUSH, "ptem"); /* push ptem */
+-    ioctl(slave_fd, I_PUSH, "ldterm"); /* push ldterm */
+-#ifndef __hpux
+-    ioctl(slave_fd, I_PUSH, "ttcompat"); /* push ttcompat */
+-#endif /* __hpux */
+-#endif /* HAVE_CYGWIN */
+ #endif /* HAVE_OPENPTY */
+ 
+     return Py_BuildValue("(ii)", master_fd, slave_fd);
+diff -Naur Python-2.7.2orig//Modules/pwdmodule.c Python-2.7.2/Modules/pwdmodule.c
+--- Python-2.7.2orig//Modules/pwdmodule.c	2011-06-11 10:46:27.000000000 -0500
++++ Python-2.7.2/Modules/pwdmodule.c	2011-12-12 23:18:45.000000000 -0600
+@@ -75,11 +75,7 @@
+ #endif
+     SETI(setIndex++, p->pw_uid);
+     SETI(setIndex++, p->pw_gid);
+-#ifdef __VMS
+     SETS(setIndex++, "");
+-#else
+-    SETS(setIndex++, p->pw_gecos);
+-#endif
+     SETS(setIndex++, p->pw_dir);
+     SETS(setIndex++, p->pw_shell);
+ 
+diff -Naur Python-2.7.2orig//Modules/termios.c Python-2.7.2/Modules/termios.c
+--- Python-2.7.2orig//Modules/termios.c	2011-06-11 10:46:27.000000000 -0500
++++ Python-2.7.2/Modules/termios.c	2011-12-12 23:18:45.000000000 -0600
+@@ -227,6 +227,7 @@
+     return Py_None;
+ }
+ 
++#if 0  // No tcdrain defined for Android.
+ PyDoc_STRVAR(termios_tcdrain__doc__,
+ "tcdrain(fd) -> None\n\
+ \n\
+@@ -246,6 +247,7 @@
+     Py_INCREF(Py_None);
+     return Py_None;
+ }
++#endif
+ 
+ PyDoc_STRVAR(termios_tcflush__doc__,
+ "tcflush(fd, queue) -> None\n\
+@@ -301,8 +303,8 @@
+      METH_VARARGS, termios_tcsetattr__doc__},
+     {"tcsendbreak", termios_tcsendbreak,
+      METH_VARARGS, termios_tcsendbreak__doc__},
+-    {"tcdrain", termios_tcdrain,
+-     METH_VARARGS, termios_tcdrain__doc__},
++    // {"tcdrain", termios_tcdrain,
++    //  METH_VARARGS, termios_tcdrain__doc__},
+     {"tcflush", termios_tcflush,
+      METH_VARARGS, termios_tcflush__doc__},
+     {"tcflow", termios_tcflow,
+diff -Naur Python-2.7.2orig//Objects/stringlib/formatter.h Python-2.7.2/Objects/stringlib/formatter.h
+--- Python-2.7.2orig//Objects/stringlib/formatter.h	2011-06-11 10:46:27.000000000 -0500
++++ Python-2.7.2/Objects/stringlib/formatter.h	2011-12-12 23:18:45.000000000 -0600
+@@ -639,13 +639,7 @@
+ get_locale_info(int type, LocaleInfo *locale_info)
+ {
+     switch (type) {
+-    case LT_CURRENT_LOCALE: {
+-        struct lconv *locale_data = localeconv();
+-        locale_info->decimal_point = locale_data->decimal_point;
+-        locale_info->thousands_sep = locale_data->thousands_sep;
+-        locale_info->grouping = locale_data->grouping;
+-        break;
+-    }
++    case LT_CURRENT_LOCALE:
+     case LT_DEFAULT_LOCALE:
+         locale_info->decimal_point = ".";
+         locale_info->thousands_sep = ",";
+diff -Naur Python-2.7.2orig//Objects/stringlib/localeutil.h Python-2.7.2/Objects/stringlib/localeutil.h
+--- Python-2.7.2orig//Objects/stringlib/localeutil.h	2011-06-11 10:46:27.000000000 -0500
++++ Python-2.7.2/Objects/stringlib/localeutil.h	2011-12-12 23:18:45.000000000 -0600
+@@ -202,9 +202,8 @@
+                                   Py_ssize_t n_digits,
+                                   Py_ssize_t min_width)
+ {
+-        struct lconv *locale_data = localeconv();
+-        const char *grouping = locale_data->grouping;
+-        const char *thousands_sep = locale_data->thousands_sep;
++        const char *grouping = "\3\0";
++        const char *thousands_sep = ",";
+ 
+         return _Py_InsertThousandsGrouping(buffer, n_buffer, digits, n_digits,
+                                            min_width, grouping, thousands_sep);
+diff -Naur Python-2.7.2orig//Python/pystrtod.c Python-2.7.2/Python/pystrtod.c
+--- Python-2.7.2orig//Python/pystrtod.c	2011-06-11 10:46:27.000000000 -0500
++++ Python-2.7.2/Python/pystrtod.c	2011-12-12 23:18:45.000000000 -0600
+@@ -138,8 +138,7 @@
+ 
+     fail_pos = NULL;
+ 
+-    locale_data = localeconv();
+-    decimal_point = locale_data->decimal_point;
++    decimal_point = ".";
+     decimal_point_len = strlen(decimal_point);
+ 
+     assert(decimal_point_len != 0);
+@@ -375,8 +374,7 @@
+ Py_LOCAL_INLINE(void)
+ change_decimal_from_locale_to_dot(char* buffer)
+ {
+-    struct lconv *locale_data = localeconv();
+-    const char *decimal_point = locale_data->decimal_point;
++    const char *decimal_point = ".";
+ 
+     if (decimal_point[0] != '.' || decimal_point[1] != 0) {
+         size_t decimal_point_len = strlen(decimal_point);
+diff -Naur Python-2.7.2orig//setup.py Python-2.7.2/setup.py
+--- Python-2.7.2orig//setup.py	2011-12-06 23:46:54.000000000 -0600
++++ Python-2.7.2/setup.py	2011-12-12 23:18:52.000000000 -0600
+@@ -703,11 +703,13 @@
+ 
+         # crypt module.
+ 
+-        if self.compiler.find_library_file(lib_dirs, 'crypt'):
++        crypt_libdir = ['../obj/local/'+os.environ['ARCH']]
++
++        if self.compiler.find_library_file(crypt_libdir, 'crypt'):
+             libs = ['crypt']
+         else:
+             libs = []
+-        exts.append( Extension('crypt', ['cryptmodule.c'], libraries=libs) )
++        exts.append( Extension('crypt', ['cryptmodule.c'], library_dirs=crypt_libdir, libraries=libs) )
+ 
+         # CSV files
+         exts.append( Extension('_csv', ['_csv.c']) )
+@@ -733,6 +735,9 @@
+                                       '/usr/contrib/ssl/lib/'
+                                      ] )
+ 
++        ssl_incs = ['../openssl/include']
++        ssl_libs = ['../openssl/obj/local/'+os.environ['ARCH']]
++
+         if (ssl_incs is not None and
+             ssl_libs is not None):
+             exts.append( Extension('_ssl', ['_ssl.c'],
+@@ -767,8 +772,8 @@
+ 
+         min_openssl_ver = 0x00907000
+         have_any_openssl = ssl_incs is not None and ssl_libs is not None
+-        have_usable_openssl = (have_any_openssl and
+-                               openssl_ver >= min_openssl_ver)
++        have_usable_openssl = (have_any_openssl and True)
++                               #openssl_ver >= min_openssl_ver)
+ 
+         if have_any_openssl:
+             if have_usable_openssl:
+@@ -1075,6 +1080,9 @@
+             if sqlite_libfile:
+                 sqlite_libdir = [os.path.abspath(os.path.dirname(sqlite_libfile))]
+ 
++        sqlite_incdir = '../jni/sqlite3'
++        sqlite_libdir = ['../obj/local/'+os.environ['ARCH']]
++
+         if sqlite_incdir and sqlite_libdir:
+             sqlite_srcs = ['_sqlite/cache.c',
+                 '_sqlite/connection.c',
+@@ -1302,7 +1310,8 @@
+         #
+         # You can upgrade zlib to version 1.1.4 yourself by going to
+         # http://www.gzip.org/zlib/
+-        zlib_inc = find_file('zlib.h', [], inc_dirs)
++        zlib_inc = [os.path.join(os.environ['NDKPLATFORM'], 'usr/include')]
++        zlib_libdir = [os.path.join(os.environ['NDKPLATFORM'], 'usr/lib')]
+         have_zlib = False
+         if zlib_inc is not None:
+             zlib_h = zlib_inc[0] + '/zlib.h'
+@@ -1317,12 +1326,13 @@
+                     version = line.split()[2]
+                     break
+             if version >= version_req:
+-                if (self.compiler.find_library_file(lib_dirs, 'z')):
++                if (self.compiler.find_library_file(zlib_libdir, 'z')):
+                     if sys.platform == "darwin":
+                         zlib_extra_link_args = ('-Wl,-search_paths_first',)
+                     else:
+                         zlib_extra_link_args = ()
+                     exts.append( Extension('zlib', ['zlibmodule.c'],
++                                           library_dirs=zlib_libdir,
+                                            libraries = ['z'],
+                                            extra_link_args = zlib_extra_link_args))
+                     have_zlib = True

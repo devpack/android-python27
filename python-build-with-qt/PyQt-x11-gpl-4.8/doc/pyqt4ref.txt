@@ -1,0 +1,2357 @@
+=====================================
+ PyQt v4 - Python Bindings for Qt v4
+=====================================
+
+-----------------
+ Reference Guide
+-----------------
+
+:Contact:   info@riverbankcomputing.com
+:Version:   4.8
+:Copyright: Copyright (c) 2010 Riverbank Computing Limited
+
+.. contents::
+.. section-numbering::
+
+
+Introduction
+============
+
+This is the reference guide for PyQt 4.8.  PyQt v4 is a set of
+`Python <http://www.python.org>`__ bindings for v4 of the Qt application
+framework from `Nokia <http://qt.nokia.com>`__.
+
+There is a separate `PyQt API Reference <html/classes.html>`__.
+
+Qt is a set of C++ libraries and development tools that includes platform
+independent abstractions for graphical user interfaces, networking, threads,
+Unicode, regular expressions, SQL databases, SVG, OpenGL, XML, and user and
+application settings.  PyQt implements 440 of these classes as a set of
+Python modules.
+
+PyQt supports the Windows, Linux, UNIX and MacOS/X platforms.
+
+PyQt does not include Qt itself - you must obtain it separately.
+
+The homepage for PyQt is http://www.riverbankcomputing.com/software/pyqt/.
+Here you will always find the latest stable version, current development
+snapshots, and the latest version of this documentation.
+
+PyQt is built using the `SIP bindings generator
+<http://www.riverbankcomputing.com/software/sip/>`__.  SIP must be installed in
+order to build and use PyQt.
+
+Earlier versions of Qt are supported by PyQt v3.
+
+
+License
+-------
+
+PyQt is licensed on all platforms under a commercial license, the GPL v2 and
+the GPL v3.  Your PyQt license must be compatible with your Qt license.  If
+you use the GPL versions then your own code must also use a compatible
+license.
+
+PyQt, unlike Qt, is not available under the LGPL.
+
+You can purchase a commercial PyQt license `here
+<http://www.riverbankcomputing.com/commercial/buy>`__.
+
+
+PyQt Components
+---------------
+
+PyQt comprises a number of different components.  First of all there are a
+number of Python extension modules.  These are all installed in the ``PyQt4``
+Python package.
+
+    - The ``QtCore`` module.  This contains the core non-GUI classes, including
+      the event loop and Qt's signal and slot mechanism.  It also includes
+      platform independent abstractions for Unicode, threads, mapped files,
+      shared memory, regular expressions, and user and application settings.
+
+    - The ``QtGui`` module.  This contains the majority of the GUI classes.
+
+    - The ``QtHelp`` module.  This contains classes for creating and viewing
+      searchable documentation.
+
+    - The ``QtNetwork`` module.  This module contains classes for writing UDP
+      and TCP clients and servers.  It includes classes that implement FTP and
+      HTTP clients and support DNS lookups.
+
+    - The ``QtOpenGL`` module.  This module contains classes that enable the
+      use of OpenGL in rendering 3D graphics in PyQt applications.
+
+    - The ``QtScript`` module.  This module contains classes that enable PyQt
+      applications to be scripted using Qt's JavaScript interpreter.
+
+    - The ``QtScriptTools`` module.  This module contains classes that contain
+      additional components (e.g. a debugger) that are used with Qt's
+      JavaScript interpreter.
+
+    - The ``QtSql`` module.  This module contains classes that integrate with
+      SQL databases.  It includes editable data models for database tables that
+      can be used with GUI classes.  It also includes an implementation of
+      `SQLite <http://www.sqlite.org>`__.
+
+    - The ``QtSvg`` module.  This module contains classes for displaying the
+      contents of SVG files.
+
+    - The ``QtTest`` module.  This module contains functions that enable unit
+      testing of PyQt applications.  (PyQt does not implement the complete Qt
+      unit test framework.  Instead it assumes that the standard Python unit
+      test framework will be used and implements those functions that simulate
+      a user interacting with a GUI.)
+
+    - The ``QtWebKit`` module.  This module implements a web browser engine
+      based on the WebKit open source browser engine.
+
+    - The ``QtXml`` module.  This module contains classes that implement SAX
+      and DOM interfaces to Qt's XML parser.
+
+    - The ``QtXmlPatterns`` module.  This module contains classes that
+      implement XQuery and XPath support for XML and custom data models.
+
+    - The ``phonon`` module.  This module contains classes that
+      implement a cross-platform multimedia framework that enables the use of
+      audio and video content in PyQt applications.
+
+    - The ``QtDeclarative`` module.  This module provides a declarative
+      framework for building highly dynamic, custom user interfaces using
+      QML.
+
+    - The ``QtMultimedia`` module.  This module provides low-level multimedia
+      functionality.  Application developers would normally use the ``phonon``
+      module.
+
+    - The ``QtAssistant`` module.  This module contains classes that allow Qt
+      Assistant to be integrated with a PyQt application to provide online
+      help.  This module is not available with Qt v4.7 and later.
+
+    - The ``QtDesigner`` module.  This module contains classes that allow Qt
+      Designer to be extended using PyQt.  See `Writing Qt Designer Plugins`_
+      for a full description of how to do this.
+
+    - The ``QAxContainer`` module.  This module contains classes that allow
+      access to ActiveX controls and COM objects.
+
+    - The ``Qt`` module.  This module consolidates the classes contained in all
+      of the modules described above into a single module.  This has the
+      advantage that you don't have to worry about which underlying module
+      contains a particular class.  It has the disadvantage that it loads the
+      whole of the Qt framework, thereby increasing the memory footprint of an
+      application.  Whether you use this consolidated module, or the individual
+      component modules is down to personal taste.
+
+    - The `DBus <http://www.freedesktop.org/wiki/Software_2fdbus>`__ support
+      module is installed as ``dbus.mainloop.qt``.  PyQt does not support Qt's
+      native DBus classes (which are very C++ orientated).  Instead the
+      ``dbus.mainloop.qt`` module provides support for the Qt event loop in the
+      same way that the ``dbus.mainloop.glib`` included with the standard
+      ``dbus-python`` bindings package provides support for the GLib event
+      loop.  The API is described in `The DBus Support Module`_.  It is only
+      available for PyQt for X11 and only if the ``dbus-python`` v0.80 (or
+      later) bindings package is installed.
+
+    - The ``uic`` module.  This module contains classes for handling the
+      ``.ui`` files created by Qt Designer that describe the whole or part of a
+      graphical user interface.  It includes classes that load a ``.ui`` file
+      and render it directly, and classes that generate Python code from a
+      ``.ui`` file for later execution.  It is covered in detail in `The uic
+      Module`_.
+
+    - The ``pyqtconfig`` module is an extention of the SIP build system and is
+      created when PyQt is configured.  It encapsulates all the necessary
+      information about your Qt installation and makes it easier to write
+      installation scripts for bindings built on top of PyQt.  It is covered
+      in detail in `The PyQt Build System`_.
+
+PyQt also contains a number of utility programs.
+
+    - `pyuic4`_ corresponds to the Qt ``uic`` utility.  It converts GUIs
+      created using Qt Designer to Python code.  It is covered in detail in
+      `pyuic4`_.
+
+    - `pyrcc4`_ corresponds to the Qt ``rcc`` utility.  It embeds arbitrary
+      resources (eg. icons, images, translation files) described by a resource
+      collection file in a Python module.  It is covered in detail in
+      `pyrcc4`_.  (*Note* It will only be included if your copy of Qt includes
+      the XML module.)
+
+    - `pylupdate4`_ corresponds to the Qt ``lupdate`` utility.  It extracts
+      all of the translatable strings from Python code and creates or updates
+      ``.ts`` translation files.  These are then used by Qt Linguist to manage
+      the translation of those strings.  It is covered in detail in
+      `pylupdate4`_.  (*Note* It will only be included if your copy of Qt
+      includes the XML module.)
+
+When PyQt is configured a file called ``PyQt4.api`` is generated.  This can be
+used by the QScintilla editor component (at
+http://www.riverbankcomputing.com/software/qscintilla/) to enable the use of
+auto-completion and call tips when editing PyQt code.  The API file is
+installed automatically if QScintilla is already installed.
+
+PyQt includes a large number of examples.  These are ports to Python of many
+of the C++ examples provided with Qt.  They can be found in the ``examples``
+directory.
+
+Finally, PyQt contains the ``.sip`` files used by SIP to generate PyQt
+itself.  These can be used by developers of bindings of other Qt based class
+libraries - for example `PyQwt and PyQwt3D <http://pyqwt.sourceforge.net/>`__.
+
+
+Potential Incompatibilities with Earlier Versions
+=================================================
+
+PyQt v4.8
+---------
+
+QVariantList
+************
+
+In previous versions PyQt would always try and convert a Python list to a
+``QVariantList``.  In this version PyQt will first try to convert it to a
+``QVariant`` containing a ``QList<QObject *>``, but only if
+``QList<QObject *>`` has been registered with Qt as a meta-type.
+
+Normally it is only the ``QtDeclarative`` module that registers this meta-type
+and so the behaviour of existing applications should be unchanged.  It is
+possible however that you might observe different conversion behaviour after
+importing the ``QtDeclarative`` module.
+
+
+PyQt v4.7.4
+-----------
+
+pyqtSignal() with dict and list
+*******************************
+
+In previous versions a Qt signal defined using ``pyqtSignal()`` that had an
+argument specified as a dict then, when emitting a value, PyQt would try and
+convert the value to a ``QVariantMap`` if possible.  If it wasn't possible,
+normally because the dict had non-string keys, then the value would be left as
+a dict object.
+
+In this version PyQt will not attempt to convert the value to a ``QVariantMap``
+and will always leave it as a dict object.  If you want the value to be
+converted to a ``QVariantMap`` then define the signal argument as
+``'QVariantMap'``.
+
+The same applies to conversions between lists and ``QVariantList``.
+
+
+PyQt v4.7.1
+-----------
+
+QVariant
+********
+
+This version introduces a slight incompatibility in the conversion between
+sub-classes of standard Python types and ``QVariant``.
+
+Take, for example, the following code::
+
+    from PyQt4.QtCore import QVariant
+
+    class MyFloat(float):
+
+        pass
+
+    myfloat = MyFloat(5.0)
+    variant = QVariant(myfloat)
+
+With this version of PyQt ``myfloat`` will be converted in such a way as to
+preserve any additional attributes (including methods) and will not be
+converted to a C++ ``double``.  In other words, the following assertions are
+true::
+
+    assert(variant.type() != QVariant.Double)
+    assert(variant.toPyObject() is myfloat)
+
+Prior to this version ``myfloat`` would be converted to a C++ ``double``.  In
+other words, the following assertions would be true::
+
+    assert(variant.type() == QVariant.Double)
+    assert(variant.toPyObject() == myfloat)
+    assert(type(variant.toPyObject()) is float)
+
+The same change also affects objects that implement the sequence protocol.
+Prior to this version such an object would be converted to a ``QVariantList``
+which would mean that it was converted back to a Python ``list`` rather than to
+the original type.
+
+
+PyQt v4.5
+---------
+
+QVariant
+********
+
+This version introduces a slight incompatibility in the conversion between
+Python sub-classes of certain Qt classes and ``QVariant``.  The Qt classes
+affected are those that ``QVariant`` has explicit support for, e.g. ``QSize``,
+``QBitmap``.
+
+Take, for example, the following code::
+
+    from PyQt4.QtCore import QSize, QVariant
+
+    class MySize(QSize):
+
+        pass
+
+    mysize = MySize(5, 5)
+    variant = QVariant(mysize)
+
+With this version of PyQt ``mysize`` will be converted in such a way as to
+preserve any additional attributes (including methods) and will not be
+converted to a C++ ``QSize`` instance.  In other words, the following
+assertions are true::
+
+    assert(variant.type() != QVariant.Size)
+    assert(variant.toPyObject() is mysize)
+
+Prior to this version ``mysize`` would be converted to a C++ ``QSize``
+instance.  In other words, the following assertions would be true::
+
+    assert(variant.type() == QVariant.Size)
+    assert(variant.toPyObject() == mysize)
+    assert(type(variant.toPyObject()) is QSize)
+
+It is hoped that this change of behaviour will not have a significant impact.
+However if you need the old behaviour then simple create a copy of your
+sub-class instance using the base class constructor as shown below::
+
+    variant = QVariant(QSize(mysize))
+
+A similar issue also affects the conversion of the Python ``datetime``,
+``date`` and ``time`` types to ``QVariant``.  These are no longer converted to
+the corresponding ``QDateTime``, ``QDate`` and ``QTime`` classes.  The values
+can be retrieved using ``QVariant.toPyObject()``.  Again, the old behaviour can
+be achieved using an explicit conversion to the Qt class before converting to
+``QVariant``.
+
+A further incompatible change is the handling of Python sub-classes of
+``QObject``.  In previous versions ``QVariant.userType()`` would return an
+internal type and an extra reference would be kept to the Python object.  In
+the current version ``QVariant.userType()`` will correctly return
+``QMetaType.QObjectStar`` (or ``QMetaType.QWidgetStar``) but an extra
+reference to the Python object is not kept.  To avoid a potential crash you
+should ensure that you keep a separate reference to the Python object, either
+explicitly or implicitly by giving it a parent.
+
+
+pyrcc4 Support for Python v3
+****************************
+
+`pyrcc4`_ will now generate code for Python v3 when the new ``-py3`` command
+line option is used.  The generated code will also work with Python v2.6 and
+later.
+
+By default `pyrcc4`_ will generate code for all Python v2 versions but you
+should use the new ``-py2`` command line option to enforce this in case the
+default is changed in the future.
+
+
+Installing PyQt
+===============
+
+Downloading SIP
+---------------
+
+SIP must be installed before building and using PyQt.  You can get the latest
+release of the SIP source code from
+http://www.riverbankcomputing.com/software/sip/download.
+
+The SIP documentation can be found at
+http://www.riverbankcomputing.com/static/Docs/sip4/index.html.
+
+
+Downloading PyQt
+----------------
+
+You can get the latest release of the GPL version of the PyQt source code from
+http://www.riverbankcomputing.com/software/pyqt/download.
+
+If you are using the commercial version of PyQt then you should use the
+download instructions which were sent to you when you made your purchase.  You
+must also download your license file.
+
+
+Configuring PyQt
+----------------
+
+After unpacking the source package (either a ``.tar.gz`` or a ``.zip`` file
+depending on your platform) you should then check for any ``README`` files
+that relate to your platform.
+
+If you are using the commercial version of PyQt then you must copy your
+license file to the ``sip`` directory.
+
+You need to make sure your environment variables are set properly for your
+development environment.  For example, if you are using a binary distribution
+of Qt on Windows then make sure you have run the ``qtvars.bat`` file.  For
+other platforms it is normally enough to ensure that Qt's ``bin`` directory is
+on your ``PATH``.
+
+Next you need to configure SIP by executing the ``configure.py`` script.  For
+example::
+
+    python configure.py
+
+This assumes that the Python interpreter is on your path.  Something like the
+following may be appropriate on Windows::
+
+    c:\python26\python configure.py
+
+If you have multiple versions of Python installed then make sure you use the
+interpreter for which you wish to build PyQt for.
+
+The full set of command line options is:
+
+--version
+    Display the PyQt version number.
+
+-h, --help
+    Display a help message.
+
+--confirm-license
+    Using this confirms that you accept the terms of the PyQt license.
+
+-k, --static
+    The PyQt modules will be built as static libraries.  This is useful when
+    building a custom interpreter with the PyQt modules built in to the
+    interpreter.
+
+--no-docstrings
+    The PyQt modules will not contain automatically generated docstrings.
+
+-r, --trace
+    The generated PyQt modules contain additional tracing code that is enabled
+    using SIP's ``sip.settracemask()`` function.
+
+-u, --debug
+    The PyQt modules will be built with debugging symbols.  On Windows this
+    requires that a debug version of Python is installed.
+
+-w, --verbose
+    Compiler commands and any output issued during configuration is displayed
+    instead of being suppressed.  Use this if ``configure.py`` is having
+    problems to see what exactly is going wrong.
+
+-c, --concatenate
+    The C++ source files for a Python module will be concatenated.  This
+    results in significantly reduced compilation times.  Most, but not all,
+    C++ compilers can handle the large files that result.  See also the
+    ``--concatenate-split`` option.
+
+-j N, --concatenate-split=N
+    If the ``--concatenate`` option is used to concatenate the C++ source files
+    then this option determines how many files are created.  The default is 1.
+
+--assume-shared
+    Normally Qt is checked to see if it has been built as shared libraries.
+    Some Linux distributions configure their Qt builds to make this check
+    unreliable.  This option ignores the result of the check and assumes that
+    Qt has been built as shared libraries.
+
+-g, --consolidate
+    Normally each PyQt module (except for the ``Qt`` module) is linked against
+    the corresponding Qt library.  This option creates a module called ``_qt``
+    which is linked against all the required Qt libraries and the other modules
+    are stub modules that populate their module dictionaries from this one.
+    This is useful when linking against static Qt libraries to eliminate the
+    need to distribute the Qt libraries while minimising the memory footprint
+    of the PyQt modules.
+
+-e MODULE, --enable=MODULE
+    Normally checks for all PyQt4 modules are enabled and are built if the
+    corresponding Qt library can be found.  Using this option only those
+    modules specifically enabled will be checked for and built.  The option may
+    be specified any number of times.
+
+-t PLUGIN, --plugin=PLUGIN
+    If Qt has been built as static libraries then the static plugin ``PLUGIN``
+    will be linked with the appropriate PyQt module.  The option may be
+    specified any number of times.
+
+-q FILE, --qmake=FILE
+    Qt's ``qmake`` program is used to determine how your Qt installation is
+    laid out.  Normally ``qmake`` is found on your ``PATH``.  This option can
+    be used to specify a particular instance of ``qmake`` to use.  This option
+    is not available on Windows.
+
+-s DIR, --dbus=DIR
+    The ``dbus-python.h`` header file of the dbus-python package can be found
+    in the directory ``DIR/dbus``.
+
+-b DIR, --bindir=DIR
+    The ``pyuic4``, ``pyrcc4`` and ``pylupdate4`` utilities will be installed
+    in the directory ``DIR``.
+
+-d DIR, --destdir=DIR
+    The PyQt Python package will be installed in the directory ``DIR``.  The
+    default is the Python installation's ``site-packages`` directory.  If you
+    use this option then the ``PYTHONPATH`` environment variable must include
+    ``DIR``.
+
+-p DIR, --plugin-destdir=DIR
+    The Qt Designer plugin that manages plugins implemented in Python will be
+    installed in the ``designer`` subdirectory of the directory ``DIR``.
+
+--no-designer-plugin
+    The Qt Designer plugin will not be built.
+
+--no-sip-files
+    The ``.sip`` files for the PyQt modules will not be installed.
+
+-v DIR, --sipdir=DIR
+    The ``.sip`` files for the PyQt modules will be installed in the directory
+    ``DIR``.
+
+--use-arch=ARCH
+    When ``pyuic4`` calls the Python interpreter on MacOS it will be run
+    using the architecture ``ARCH``.  See the section
+    `Configuring SIP and PyQt for MacOs 10.6 (Snow Leopard)`_.
+
+--protected-is-public
+    On certain platforms the size of PyQt modules can be significantly reduced
+    by redefining the C++ ``protected`` keyword as ``public`` during
+    compilation.  This option enables this behaviour and is the default on
+    Linux and MacOS/X.
+
+--protected-not-public
+    The default redefinition of ``protected`` to ``public`` during compilation
+    on Linux and MacOS/X is disabled.
+
+-i, --vendorid
+    The checking of signed Python interpreters using the `VendorID
+    <http://www.riverbankcomputing.com/software/vendorid/>`__ package is
+    enabled.  See also the ``--vendorid-incdir`` and ``--vendorid-libdir``
+    options and `Deploying Commercial PyQt Applications`_.
+
+-l DIR, --vendorid-incdir=DIR
+    The header file of the VendorID package can be found in the directory
+    ``DIR``.
+
+-m DIR, --vendorid-libdir=DIR
+    The library of the VendorID package can be found in the directory ``DIR``.
+
+-a, --qsci-api
+    The ``PyQt4.api`` QScintilla API file is installed even if QScintilla does
+    not appear to be installed.  This option is implied if the
+    ``--qsci-api-destdir`` option is specified.
+
+--no-qsci-api
+    The ``PyQt4.api`` QScintilla API file is not installed even if QScintilla
+    does appear to be installed.
+
+-n DIR, --qsci-api-destdir=DIR
+    The QScintilla API file will be installed in the ``python`` subdirectory of
+    the ``api` subdirectory of the directory ``DIR``.
+
+
+Configuring SIP and PyQt for MacOS 10.6 (Snow Leopard)
+------------------------------------------------------
+
+With MacOS 10.6 the Python interpreter is built as a universal binary that
+supports the i386 and x86_64 architectures.  (It also supports the ppc
+architecture but that isn't relevant.)
+
+When building SIP and PyQt on a 64 bit system they will be built, by default,
+as x86_64 binaries.  However, again by default, Qt builds as i386 binaries.
+(Note that the default is expected to change in Qt v4.7.)  This means that,
+using the default configuration, PyQt will not build on a 64 bit system
+running MacOS 10.6 with a 32 bit build of Qt.  Instead you have to make sure
+that SIP and PyQt are built as i386 binaries.
+
+To configure SIP for i386 use the following command line options::
+
+    python configure.py --arch i386
+
+When PyQt is configured it will automatically pick up the correct architecture
+from SIP's configuration.  However it is necessary to use the following
+command line option when configuring PyQt::
+
+    python configure.py --use-arch i386
+
+This tells the different PyQt tools that execute the Python interpreter
+(actually only ``pyuic4`` at present) to use the i386 architecture rather than
+the default x86_64.  This ensures that the interpreter will be able to import
+the i386 PyQt modules.
+
+The other aspect to consider is the version of the SDK to use.  By default SIP
+will use the latest version it can find, probably ``MacOSX10.6.sdk``.  However
+the Qt binary installer is built with ``MacOSX10.4u.sdk`` so you will probably
+need to use the following command line option when configuring SIP::
+
+    python configure.py --sdk MacOSX10.4u.sdk
+
+
+Building PyQt
+-------------
+
+The next step is to build PyQt by running your platform's ``make`` command.
+For example::
+
+    make
+
+The final step is to install PyQt by running the following command::
+
+    make install
+
+(Depending on your system you may require root or administrator privileges.)
+
+This will install the various PyQt components.
+
+
+Selecting Incompatible APIs
+===========================
+
+PyQt provides limited support for multiple incompatible APIs and the ability
+for an application to select between them at run-time.  For example, an
+application can choose whether ``QString`` is implemented as a Python type, or
+is automatically converted to and from a Python v2 unicode object or a Python
+v3 string object.
+
+This ability allows developers to decide how to manage the transition from an
+older deprecated, API to a newer incompatible API.
+
+Each API that can be selected in this way has a name and a range of version
+numbers.  An application calls ``sip.setapi()`` to set the version number of a
+particular API.  This call must be made before any module that implements the
+API is imported.  Once set the version number cannot be changed.  If not set
+then an API will use its default version.
+
+For example the following code will disable the use of ``QString``::
+
+    import sip
+    sip.setapi('QString', 2)
+
+    from PyQt4 import QtCore
+
+    # This will raise an attribute exception because QString is only wrapped
+    # in version 1 of the API.
+    s = QtCore.QString()
+
+The rest of this section describes the different APIs that are available.
+
+
+QDate
+-----
+
+Version 2
+*********
+
+This is the default for Python v3.
+
+``__hash__()`` returns a hash of the string representation so that two objects
+with the same date will have the same hash.
+
+
+Version 1
+*********
+
+This is the default for Python v2.
+
+``__hash__()`` returns an object's ``id()`` so that two objects with the same
+date will have different hashes.
+
+
+QDateTime
+---------
+
+Version 2
+*********
+
+This is the default for Python v3.
+
+``__hash__()`` returns a hash of the string representation so that two objects
+with the same date and time will have the same hash.
+
+
+Version 1
+*********
+
+This is the default for Python v2.
+
+``__hash__()`` returns an object's ``id()`` so that two objects with the same
+date and time will have different hashes.
+
+
+QString
+-------
+
+Version 2
+*********
+
+This is the default for Python v3.
+
+The ``QString`` class is implemented as a mapped type that is automatically
+converted to and from a Python string.  In addition a None is converted to a
+null ``QString``.  However, a null ``QString`` is converted to an empty Python
+string (and not ``None``).  (This is because Qt often returns a null ``QString``
+when it should probably return an empty ``QString``.)
+
+The ``QChar`` and ``QStringRef`` classes are implemented as mapped types that
+are automatically converted to and from Python strings.
+
+The ``QStringList`` class is implemented as a mapped type that is
+automatically converted to and from Python lists of strings.
+
+The ``QLatin1Char``, ``QLatin1String`` and ``QStringMatcher`` classes are not
+implemented.
+
+The following Qt calls are not wrapped because they expect ``QString`` to be
+mutable::
+
+    void QTextDecoder::toUnicode(QString *target, const char *chars, int len)
+
+    QTextStream::QTextStream(QString *string, QIODevice::OpenMode openMode = QIODevice::ReadWrite)
+    void QTextStream::setString(QString *string, QIODevice::OpenMode openMode = QIODevice::ReadWrite)
+    QString *QTextStream::string()
+    QTextStream &operator>>(QChar &c)
+    QTextStream &operator>>(QString &s)
+
+    QXmlStreamWriter::QXmlStreamWriter(QString *string)
+
+Some PyQt calls have changed Python signatures to avoid the need for mutable
+strings.  The new signatures are as follows::
+
+    QAbstractSpinBox.fixup(str input) -> str
+    QAbstractSpinBox.validate(str input, int pos) -> QValidator.State, str, int
+
+    QDateTimeEdit.fixup(str input) -> str
+    QDateTimeEdit.validate(str input, int pos) -> QValidator.State, str, int
+
+    QDoubleSpinBox.fixup(str input) -> str
+    QDoubleSpinBox.validate(str input, int pos) -> QValidator.State, str, int
+
+    QDoubleValidator.validate(str input, int pos) -> QValidator.State, str, int
+
+    QClipboard.text(str subtype, QClipboard.Mode mode=QClipboard.Clipboard) -> str, str
+
+    QFileDialog.getOpenFileName(QWidget parent=None, str caption=None, str dir=None, str filter=None, QFileDialog.Options options=0) -> str
+    QFileDialog.getOpenFileNames(QWidget parent=None, str caption=None, str dir=None, str filter=None, QFileDialog.Options options=0) -> list(str)
+    QFileDialog.getSaveFileName(QWidget parent=None, str caption=None, str dir=None, str filter=None, QFileDialog.Options options=0) -> str
+
+    QIntValidator.validate(str input, int pos) -> QValidator.State, str, int
+
+    QRegExpValidator.validate(str input, int pos) -> QValidator.State, str, int
+
+    QSpinBox.fixup(str input) -> str
+    QSpinBox.validate(str input, int pos) -> QValidator.State, str, int
+
+    QValidator.fixup(str input) -> str
+    QValidator.validate(str input, int pos) -> QValidator.State, str, int
+
+    QWebPage.javaScriptPrompt(QWebFrame originatingFrame, str msg, str defaultValue) -> bool, str
+
+The static methods ``getOpenFileNameAndFilter()``,
+``getOpenFileNamesAndFilter()`` and ``getSaveFileNameAndFilter()`` have been
+added to ``QFileDialog`` (for version 1 and version 2) which return a tuple of
+the name(s) and the selected filter.
+
+The methods ``widthChar()`` and ``boundingRectChar()`` have been added to
+``QFontMetrics`` and ``QFontMetricsF`` which accept a Python string of length
+one and call the C++ ``width()`` and ``boundingRect()`` methods passing the
+character as a ``QChar`` (rather than a single character ``QString``).
+
+
+Version 1
+*********
+
+This is the default for Python v2.
+
+The ``QChar``, ``QLatin1Char``, ``QLatin1String``, ``QString``,
+``QStringList``, ``QStringMatcher`` and ``QStringRef`` classes are implemented
+as normal types.
+
+
+QTextStream
+-----------
+
+Version 2
+*********
+
+This is the default for Python v3.
+
+The C++ functions ``bin()``, ``hex()`` and ``oct()`` are named ``bin_()``,
+``hex_()`` and ``oct_()`` respectively in Python.  This allows the import
+style ``from PyQt4.QtCore import *`` to be used without them clashing with the
+Python built-in functions with the same names.
+
+
+Version 1
+*********
+
+This is the default for Python v2.
+
+The C++ functions ``bin()``, ``hex()`` and ``oct()`` have the same names in
+Python.  This causes problems when the import style
+``from PyQt4.QtCore import *`` is used because they clash with the Python
+built-in functions with the same names.
+
+
+QTime
+-----
+
+Version 2
+*********
+
+This is the default for Python v3.
+
+``__hash__()`` returns a hash of the string representation so that two objects
+with the same time will have the same hash.
+
+
+Version 1
+*********
+
+This is the default for Python v2.
+
+``__hash__()`` returns an object's ``id()`` so that two objects with the same
+time will have different hashes.
+
+
+QUrl
+----
+
+Version 2
+*********
+
+This is the default for Python v3.
+
+``__hash__()`` returns a hash of the string representation so that two objects
+with the same URL will have the same hash.
+
+
+Version 1
+*********
+
+This is the default for Python v2.
+
+``__hash__()`` returns an object's ``id()`` so that two objects with the same
+URL will have different hashes.
+
+
+QVariant
+--------
+
+Version 2
+*********
+
+This is the default for Python v3.
+
+The ``QVariant`` class is implemented as a mapped type.  Any Python object can
+be passed when a ``QVariant`` instance is expected.  When Qt returns a
+``QVariant`` then it will automatically be converted to the original Python
+object or an equivalent.  ``None`` is interpreted as an invalid ``QVariant``
+and vice versa.
+
+
+Version 1
+*********
+
+This is the default for Python v2.
+
+The ``QVariant`` class is implememted as a normal type.  Any Python object
+can be passed when a ``QVariant`` instance is expected and ``None`` is
+interpreted as an invalid ``QVariant``.  However, when Qt returns a
+``QVariant`` then it must be explicitly converted to the original Python
+object or an equivalent by calling its ``toPyObject()`` method.
+
+
+Support for Keyword Arguments
+=============================
+
+Starting with v4.7 PyQt supports the use of keyword arguments for optional
+arguments.
+
+One thing to be aware of is that, although the PyQt and Qt documentation may
+indicate that an argument has a particular name, you may find that PyQt
+actually uses a different name.  This is because the name of an argument is not
+part of the Qt API and there is some inconsistency in the way that similar
+arguments are named.  Different versions of Qt may use a different name for an
+argument which wouldn't affect the C++ API but would break the Python API.
+
+The docstrings that PyQt generates for all classes, functions and methods will
+contain the correct argument names.  In a future version of PyQt the
+documentation will also contain the correct argument names.
+
+
+Support for Qt Properties
+=========================
+
+PyQt does not support the setting and getting of Qt properties as if they were
+normal instance attributes.  This is because the name of a property often
+conflicts with the name of the property's getter method.
+
+However, PyQt does support the initial setting of properties using keyword
+arguments passed when an instance is created.  For example::
+
+    act = QtGui.QAction("&Save", self, shortcut=QtGui.QKeySequence.Save,
+            statusTip="Save the document to disk", triggered=self.save)
+
+The example also demonstrates the use of a keyword argument to connect a
+signal to a slot.
+
+PyQt also supports setting the values of properties (and connecting a signal
+to a slot) using the ``pyqtConfigure()`` method of ``QObject``.  For example,
+the following gives the same results as above::
+
+    act = QtGui.QAction("&Save", self)
+    act.pyqtConfigure(shortcut=QtGui.QKeySequence.Save,
+            statusTip="Save the document to disk", triggered=self.save)
+
+
+New-style Signal and Slot Support
+=================================
+
+This section describes the new style of connecting signals and slots
+introduced in PyQt v4.5.
+
+One of the key features of Qt is its use of signals and slots to communicate
+between objects.  Their use encourages the development of reusable components.
+
+A signal is emitted when something of potential interest happens.  A slot is a
+Python callable.  If a signal is connected to a slot then the slot is called
+when the signal is emitted.  If a signal isn't connected then nothing happens.
+The code (or component) that emits the signal does not know or care if the
+signal is being used.
+
+The signal/slot mechanism has the following features.
+
+- A signal may be connected to many slots.
+
+- A signal may also be connected to another signal.
+
+- Signal arguments may be any Python type.
+
+- A slot may be connected to many signals.
+
+- Connections may be direct (ie. synchronous) or queued (ie. asynchronous).
+
+- Connections may be made across threads.
+
+- Signals may be disconnected.
+
+
+Unbound and Bound Signals
+-------------------------
+
+A signal (specifically an unbound signal) is an attribute of a class that is a
+sub-class of ``QObject``.  When a signal is referenced as an attribute of an
+instance of the class then PyQt automatically binds the instance to the signal
+in order to create a *bound signal*.  This is the same mechanism that Python
+itself uses to create bound methods from class functions.
+
+A bound signal has ``connect()``, ``disconnect()`` and ``emit()`` methods that
+implement the associated functionality.
+
+A signal may be overloaded, ie. a signal with a particular name may support
+more than one signature.  A bound signal may be indexed with a signature in
+order to select the one required.  A signature is a sequence of types.  A type
+is either a Python type object or a string that is the name of a C++ type.
+
+If a signal is overloaded then it will have a default that will be used if no
+index is given.
+
+When a signal is emitted then any arguments are converted to C++ types if
+possible.  If an argument doesn't have a corresponding C++ type then it is
+wrapped in a special C++ type that allows it to be passed around Qt's meta-type
+system while ensuring that its reference count is properly maintained.
+
+
+Defining New Signals with ``QtCore.pyqtSignal()``
+-------------------------------------------------
+
+PyQt automatically defines signals for all Qt's built-in signals.  New signals
+can be defined as class attributes using the ``QtCore.pyqtSignal()`` factory.
+
+``QtCore.pyqtSignal()`` takes a number of type arguments that corresponds to
+the signature of the signal.  Each type may be a Python type object or a string
+that is the name of a C++ type.  Alternatively each argument could be a
+sequence of type arguments.  In this case each sequence defines the signature
+of a different signal overload.  The first overload will be the default.
+
+``QtCore.pyqtSignal()`` takes an optional *name* keyword argument that is the
+name of the signal.  If it is omitted then the name of the class attribute is
+used.
+
+The following example shows the definition of a number of new signals::
+
+    from PyQt4 import QtCore
+
+    class Foo(QtCore.QObject):
+
+        # This defines a signal called 'closed' that takes no arguments.
+        closed = QtCore.pyqtSignal()
+
+        # This defines a signal called 'rangeChanged' that takes two
+        # integer arguments.
+        range_changed = QtCore.pyqtSignal(int, int, name='rangeChanged')
+
+        # This defines a signal called 'valueChanged' that has two overloads,
+        # one that takes an integer argument and one that takes a QString
+        # argument.
+        valueChanged = QtCore.pyqtSignal((int, ), (QtCore.QString, ))
+
+        # The following will create exactly the same overloaded signal as
+        # above and demonstrates the use of C++ type names instead of Python
+        # type objects, and lists instead of tuples.
+        valueChanged = QtCore.pyqtSignal(['int'], ['QString'])
+
+New signals should only be defined in sub-classes of ``QObject``.
+
+New signals defined in this way will be automatically added to the class's
+``QMetaObject``.  This means that they will appear in Qt Designer and can be
+introspected using the ``QMetaObject`` API.
+
+
+Connecting, Disconnecting and Emitting Signals
+----------------------------------------------
+
+Signals are connected to slots using the ``connect()`` method of a bound
+signal::
+
+    connect(slot[, type=PyQt4.QtCore.Qt.AutoConnection])
+
+        *slot* may be either a Python callable or another bound signal.
+
+        *type* is a QtCore.Qt.ConnectionType value.
+
+Signals are disconnected from slots using the ``disconnect()`` method of a
+bound signal::
+
+    disconnect([slot])
+
+        *slot* may be either a Python callable or a another bound signal.  If
+        slot is omitted then all slots connected to the signal are
+        disconnected.
+
+Signals are emitted from using the ``emit()`` method of a bound signal::
+
+    emit(*args)
+
+        *args* is the optional sequence of arguments to pass to any connected
+        slots.
+
+The following code demonstrates the definition, connection and emit of a
+signal without arguments::
+
+    from PyQt4 import QtCore
+
+    class Foo(QtCore.QObject):
+
+        # Define a new signal called 'trigger' that has no arguments.
+        trigger = QtCore.pyqtSignal()
+
+        def connect_and_emit_trigger(self):
+            # Connect the trigger signal to a slot.
+            self.trigger.connect(self.handle_trigger)
+
+            # Emit the signal.
+            self.trigger.emit()
+
+        def handle_trigger(self):
+            # Show that the slot has been called.
+
+            print "trigger signal received"
+
+The following code demonstrates the connection of overloaded signals::
+
+    from PyQt4 import QtGui
+
+    class Bar(QtGui.QComboBox):
+
+        def connect_activated(self):
+            # The PyQt documentation will define what the default overload is.
+            # In this case it is the overload with the single integer argument.
+            self.activated.connect(self.handle_int)
+
+            # For non-default overloads we have to specify which we want to
+            # connect.  In this case the one with the single string argument.
+            # (Note that we could also explicitly specify the default if we
+            # wanted to.)
+            self.activated[str].connect(self.handle_string)
+
+        def handle_int(self, index):
+            print "activated signal passed integer", index
+
+        def handle_string(self, text):
+            print "activated signal passed QString", text
+
+
+Connecting Signals Using Keyword Arguments
+------------------------------------------
+
+It is also possible to connect signals by passing a slot as a keyword argument
+corresponding to the name of the signal when creating an object, or using the
+``pyqtConfigure()`` method of ``QObject``.  For example the following three
+fragments are equivalent::
+
+    act = QtGui.QAction("Action", self)
+    act.triggered.connect(self.on_triggered)
+
+    act = QtGui.QAction("Action", self, triggered=self.on_triggered)
+
+    act = QtGui.QAction("Action", self)
+    act.pyqtConfigure(triggered=self.on_triggered)
+
+
+The ``QtCore.pyqtSlot()`` Decorator
+-----------------------------------
+
+Although PyQt allows any Python callable to be used as a slot when connecting
+signals, it is sometimes necessary to explicitly mark a Python method as being
+a Qt slot and to provide a C++ signature for it.  PyQt provides the
+``QtCore.pyqtSlot()`` function decorator to do this.
+
+Using the decorator also has the advantage of reducing the amount of memory
+used and is slightly faster.
+
+All of the non-keyword arguments to the decorator are interpreted as the types
+of the corresponding C++ arguments.  A type is either a Python type object or a
+string that specifies a C++ type.  The decorator also takes two optional
+keywords arguments: ``name`` and ``result``.  ``name`` is the name of the slot
+that will be seen by C++.  If ommitted the name of the Python method being
+decorated will be used.  ``result`` is the type of the result and may also be
+a Python type object or a string that specifies a C++ type.
+
+For example::
+
+    @QtCore.pyqtSlot()
+    def foo(self):
+        """ C++: void foo() """
+
+    @QtCore.pyqtSlot(int, str)
+    def foo(self, arg1, arg2):
+        """ C++: void foo(int, QString) """
+
+    @QtCore.pyqtSlot(int, name='bar')
+    def foo(self, arg1):
+        """ C++: void bar(int) """
+
+    @QtCore.pyqtSlot(int, result=int)
+    def foo(self, arg1):
+        """ C++: int foo(int) """
+
+    @QtCore.pyqtSlot(int, QtGui.QWidget)
+    def foo(self, arg1):
+        """ C++: int foo(int, QWidget *) """
+
+It is also possible to chain the decorators in order to define a Python method
+several times with different signatures.
+
+For example::
+
+    @QtCore.pyqtSlot(int)
+    @QtCore.pyqtSlot('QString')
+    def valueChanged(self, value):
+        """ Two slots will be defined in the QMetaObject. """
+
+
+Connecting Slots By Name
+------------------------
+
+PyQt supports the ``QtCore.QMetaObject.connectSlotsByName()`` function that
+is most commonly used by `pyuic4`_ generated Python code to automatically
+connect signals to slots that conform to a simple naming convention.  However,
+where a class has overloaded Qt signals (ie. with the same name but with
+different arguments) PyQt needs additional information in order to
+automatically connect the correct signal.
+
+For example the ``QtGui.QSpinBox`` class has the following signals::
+
+    void valueChanged(int i);
+    void valueChanged(const QString &text);
+
+When the value of the spin box changes both of these signals will be emitted.
+If you have implemented a slot called ``on_spinbox_valueChanged`` (which
+assumes that you have given the ``QSpinBox`` instance the name ``spinbox``)
+then it will be connected to both variations of the signal.  Therefore, when
+the user changes the value, your slot will be called twice - once with an
+integer argument, and once with a unicode or ``QString`` argument.
+
+This also happens with signals that take optional arguments.  Qt implements
+this using multiple signals.  For example, ``QtGui.QAbstractButton`` has the
+following signal::
+
+    void clicked(bool checked = false);
+
+Qt implements this as the following::
+
+    void clicked();
+    void clicked(bool checked);
+
+The decorator can be used to specify which of the signals should be connected
+to the slot.
+
+For example, if you were only interested in the integer variant of the signal
+then your slot definition would look like the following::
+
+    @QtCore.pyqtSlot(int)
+    def on_spinbox_valueChanged(self, i):
+        # i will be an integer.
+        pass
+
+If you wanted to handle both variants of the signal, but with different Python
+methods, then your slot definitions might look like the following::
+
+    @QtCore.pyqtSlot(int, name='on_spinbox_valueChanged')
+    def spinbox_int_value(self, i):
+        # i will be an integer.
+        pass
+
+    @QtCore.pyqtSlot(str, name='on_spinbox_valueChanged')
+    def spinbox_qstring_value(self, s):
+        # s will be a Python string object (or a QString if they are enabled).
+        pass
+
+The following shows an example using a button when you are not interested in
+the optional argument::
+
+    @QtCore.pyqtSlot()
+    def on_button_clicked(self):
+        pass
+
+
+Old-style Signal and Slot Support
+=================================
+
+This section describes the older style for connecting signals and slots.  It
+uses the same API that a C++ application would use.  This has a number of
+advantages.
+
+- It is well understood and documented.
+
+- Any future changes to the C++ API should be easily included.
+
+It also has a number of disadvantages.
+
+- It requires knowledge of the C++ types of signal arguments.
+
+- It is error prone in that if you mis-type the signal name or signature then
+  no exception is raised, either when the signal is connected or emitted.
+
+- It is verbose.
+
+- It is not Pythonic.
+
+This older style of connecting signals and slots will continue to be supported
+throughout the life of PyQt v4.
+
+
+PyQt Signals and Qt Signals
+---------------------------
+
+Qt signals are statically defined as part of a C++ class.  They are referenced
+using the ``QtCore.SIGNAL()`` function.  This method takes a single string
+argument that is the name of the signal and its C++ signature.  For example::
+
+    QtCore.SIGNAL("finished(int)")
+
+The returned value is normally passed to the ``QtCore.QObject.connect()``
+method.
+
+PyQt allows new signals to be defined dynamically.  The act of emitting a
+PyQt signal implicitly defines it.  PyQt v4 signals are also referenced using
+the ``QtCore.SIGNAL()`` function.
+
+
+The ``PyQt_PyObject`` Signal Argument Type
+------------------------------------------
+
+It is possible to pass any Python object as a signal argument by specifying
+``PyQt_PyObject`` as the type of the argument in the signature.  For example::
+
+    QtCore.SIGNAL("finished(PyQt_PyObject)")
+
+While this would normally be used for passing objects like lists and
+dictionaries as signal arguments, it can be used for any Python type.  Its
+advantage when passing, for example, an integer is that the normal conversions
+from a Python object to a C++ integer and back again are not required.
+
+The reference count of the object being passed is maintained automatically.
+There is no need for the emitter of a signal to keep a reference to the object
+after the call to ``QtCore.QObject.emit()``, even if a connection is queued.
+
+
+Short-circuit Signals
+---------------------
+
+There is also a special form of a PyQt v4 signal known as a short-circuit
+signal.  Short-circut signals implicitly declare each argument as being of
+type ``PyQt_PyObject``.
+
+Short-circuit signals do not have a list of arguments or the surrounding
+parentheses.
+
+Short-circuit signals may only be connected to slots that have been implemented
+in Python.  They cannot be connected to Qt slots or the Python callables that
+wrap Qt slots.
+
+
+PyQt Slots and Qt Slots
+-----------------------
+
+Qt slots are statically defined as part of a C++ class.  They are referenced
+using the ``QtCore.SLOT()`` function.  This method takes a single string
+argument that is the name of the slot and its C++ signature.  For example::
+
+    QtCore.SLOT("done(int)")
+
+The returned value is normally passed to the ``QtCore.QObject.connect()``
+method.
+
+PyQt allows any Python callable to be used as a slot, not just Qt slots.  This
+is done by simply referencing the callable.  Because Qt slots are implemented
+as class methods they are also available as Python callables.  Therefore it is
+not usually necessary to use ``QtCore.SLOT()`` for Qt slots.  However, doing so
+is more efficient as it avoids a conversion to Python and back to C++.
+
+Qt allows a signal to be connected to a slot that requires fewer arguments than
+the signal passes.  The extra arguments are quietly discarded.  PyQt slots can
+be used in the same way.
+
+Note that when a slot is a Python callable its reference count is not
+increased.  This means that a class instance can be deleted without having to
+explicitly disconnect any signals connected to its methods.  However, if a slot
+is a lambda function or a partial function then its reference count is
+automatically incremented to prevent it from being immediately garbage
+collected.
+
+
+Connecting Signals and Slots
+----------------------------
+
+Connections between signals and slots (and other signals) are made using the
+``QtCore.QObject.connect()`` method.  For example::
+
+    QtCore.QObject.connect(a, QtCore.SIGNAL("QtSig()"), pyFunction)
+    QtCore.QObject.connect(a, QtCore.SIGNAL("QtSig()"), pyClass.pyMethod)
+    QtCore.QObject.connect(a, QtCore.SIGNAL("QtSig()"), b, QtCore.SLOT("QtSlot()"))
+    QtCore.QObject.connect(a, QtCore.SIGNAL("PySig()"), b, QtCore.SLOT("QtSlot()"))
+    QtCore.QObject.connect(a, QtCore.SIGNAL("PySig"), pyFunction)
+
+Disconnecting signals works in exactly the same way using the
+``QtCore.QObject.disconnect()`` method.  However, not all the variations of
+that method are supported by PyQt.  Signals must be disconnected one at a
+time.
+
+
+Emitting Signals
+----------------
+
+Any instance of a class that is derived from the ``QtCore.QObject`` class can
+emit a signal using its ``emit()`` method.  This takes a minimum of one
+argument which is the signal.  Any other arguments are passed to the connected
+slots as the signal arguments.  For example::
+
+    a.emit(QtCore.SIGNAL("clicked()"))
+    a.emit(QtCore.SIGNAL("pySig"), "Hello", "World")
+
+
+The ``QtCore.pyqtSignature()`` Decorator
+----------------------------------------
+
+The ``QtCore.pyqtSignature()`` serves the same purpose as the
+``QtCore.pyqtSlot()`` decorator but has a less Pythonic API.
+
+
+Python Objects and QVariant
+===========================
+
+Qt uses the ``QVariant`` class as a wrapper for any C++ data type.  PyQt allows
+any Python object to be wrapped as a ``QVariant`` and passed around Qt's
+meta-object system like any other type.
+
+PyQt will try to convert the Python object to a C++ equivalent if it can so
+that the ``QVariant`` can be passed to other C++ code that doesn't know what a
+Python object is.
+
+Version 2 of PyQt's ``QVariant`` API will automatically convert a ``QVariant``
+back to a Python object of the correct type.
+
+Version 1 of the ``QVariant`` API provides the ``QVariant.toPyObject()`` method
+to convert the ``QVariant`` back to a Python object of the correct type.
+
+Both versions will raise a Python exception if the conversion cannot be done.
+
+
+Integrating Python and QML
+==========================
+
+Qt v4.7 introduced QML as a means of declaratively describing a user interface
+and using JavaScript as a scripting language within QML.  It is possible to
+write complete standalone QML applications, or to combine them with C++.
+
+PyQt supports the integration of Python and QML as far as it can - given the
+limitations of the QML implementation.
+
+There are three types of QML application:
+
+- *Pure* applications that are written entirely in QML and can be run using the
+  ``qmlviewer`` tool provided with Qt.  PyQt fully supports this type of
+  application.  The examples provided by ``qtdemo.py`` under the *Qt
+  Declarative Examples* heading are all of this type.
+
+- QML allows ``QObject`` instances to be used in QML applications.  QML code is
+  able to call an object's slots and has read and write access to the object's
+  properties.  QML code can also respond to changes to the value of a property.
+  PyQt fully supports the use objects created in Python in this way.  The
+  ``minehunt.py`` example under the *Demonstrations* heading of ``qtdemo.py``
+  is an example of this type of application.
+
+- QML also allows ``QObject`` sub-classes to be used in QML applications so
+  that new instances are created from QML.  PyQt does not support this.  The
+  reason is that QML uses information generated at compile time (specifically
+  it uses ``QObject::staticMetaObject``) rather than information created
+  dynamically at run time (i.e. ``QObject::metaObject()``).  This approach is
+  fine for a static language like C++ but causes problems for languages such as
+  Python that allow types to created dynamically.  This limitation doesn't
+  place any restriction on the functionality of a Python/QML application, it
+  only places restrictions on how that application is written.
+
+
+Integrating Python and JavaScript in QtWebKit
+=============================================
+
+QtWebKit uses slots to expose class methods implemented in C++ as JavaScript
+methods that can be called from scripts embedded in HTML.  Python class
+methods that have been decorated behave in exactly the same way.
+
+In the same way, properties created using ``QtCore.pyqtProperty()`` are also
+automatically exposed as JavaScript properties.
+
+
+Support for Pickling
+====================
+
+The following PyQt classes may be pickled.
+
+    - QByteArray
+    - QChar
+    - QColor
+    - QDate
+    - QDateTime
+    - QKeySequence
+    - QLatin1Char
+    - QLatin1String
+    - QLine
+    - QLineF
+    - QMatrix
+    - QPoint
+    - QPointF
+    - QPolygon
+    - QRect
+    - QRectF
+    - QSize
+    - QSizeF
+    - QString
+    - QTime
+
+Also all named enums (``QtCore.Qt.Key`` for example) may be pickled.
+
+
+Support for Python's Buffer Interface
+=====================================
+
+If SIP v4.7.5 or later is used then any Python object that supports the buffer
+interface can be used whenever a ``char`` or ``char *`` is expected.  If the
+buffer has multiple segments then all but the first will be ignored.
+
+
+Using PyQt from the Python Shell
+================================
+
+PyQt installs an input hook (using ``PyOS_InputHook``) that processes events
+when an interactive interpreter is waiting for user input.  This means that
+you can, for example, create widgets from the Python shell prompt, interact
+with them, and still being able to enter other Python commands.
+
+For example, if you enter the following in the Python shell::
+
+    >>> from PyQt4 import QtGui
+    >>> a = QtGui.QApplication([])
+    >>> w = QtGui.QWidget()
+    >>> w.show()
+    >>> w.hide()
+    >>>
+
+The widget would be displayed when ``w.show()`` was entered amd hidden as soon
+as ``w.hide()`` was entered.
+
+The installation of an input hook can cause problems for certain applications
+(particularly those that implement a similar feature using different means).
+The ``QtCore`` module contains the ``pyqtRemoveInputHook()`` and
+``pyqtRestoreInputHook()`` functions that remove and restore the input hook
+respectively.
+
+
+Using Qt Designer
+=================
+
+Qt Designer is the Qt tool for designing and building graphical user
+interfaces.  It allows you to design widgets, dialogs or complete main windows
+using on-screen forms and a simple drag-and-drop interface.  It has the ability
+to preview your designs to ensure they work as you intended, and to allow you
+to prototype them with your users, before you have to write any code.
+
+Qt Designer uses XML ``.ui`` files to store designs and does not generate any
+code itself.  Qt includes the ``uic`` utility that generates the C++ code that
+creates the user interface.  Qt also includes the ``QUiLoader`` class that
+allows an application to load a ``.ui`` file and to create the corresponding
+user interface dynamically.
+
+PyQt does not wrap the ``QUiLoader`` class but instead includes the ``uic``
+Python module.  Like ``QUiLoader`` this module can load ``.ui`` files to create
+a user interface dynamically.  Like the ``uic`` utility it can also generate
+the Python code that will create the user interface.  PyQt's ``pyuic4``
+utility is a command line interface to the ``uic`` module.  Both are described
+in detail in the following sections.
+
+
+Using the Generated Code
+------------------------
+
+The code that is generated has an identical structure to that generated by Qt's
+``uic`` and can be used in the same way.
+
+The code is structured as a single class that is derived from the Python
+``object`` type.  The name of the class is the name of the toplevel object set
+in Designer with ``Ui_`` prepended.  (In the C++ version the class is defined
+in the ``Ui`` namespace.)  We refer to this class as the *form class*.
+
+The class contains a method called ``setupUi()``.  This takes a single argument
+which is the widget in which the user interface is created.  The type of this
+argument (typically ``QDialog``, ``QWidget`` or ``QMainWindow``) is set in
+Designer.  We refer to this type as the *Qt base class*.
+
+In the following examples we assume that a ``.ui`` file has been created
+containing a dialog and the name of the ``QDialog`` object is ``ImageDialog``.
+We also assume that the name of the file containing the generated Python code
+is ``ui_imagedialog.py``.  The generated code can then be used in a number of
+ways.
+
+The first example shows the direct approach where we simply create a simple
+application to create the dialog::
+
+    import sys
+    from PyQt4 import QtGui
+    from ui_imagedialog import Ui_ImageDialog
+
+    app = QtGui.QApplication(sys.argv)
+    window = QtGui.QDialog()
+    ui = Ui_ImageDialog()
+    ui.setupUi(window)
+
+    window.show()
+    sys.exit(app.exec_())
+
+The second example shows the single inheritance approach where we sub-class
+``QDialog`` and set up the user interface in the ``__init__()`` method::
+
+    from PyQt4 import QtCore, QtGui
+    from ui_imagedialog import Ui_ImageDialog
+
+    class ImageDialog(QtGui.QDialog):
+        def __init__(self):
+            QtGui.QDialog.__init__(self)
+
+            # Set up the user interface from Designer.
+            self.ui = Ui_ImageDialog()
+            self.ui.setupUi(self)
+
+            # Make some local modifications.
+            self.ui.colorDepthCombo.addItem("2 colors (1 bit per pixel)")
+
+            # Connect up the buttons.
+            self.connect(self.ui.okButton, QtCore.SIGNAL("clicked()"),
+                         self, QtCore.SLOT("accept()"))
+            self.connect(self.ui.cancelButton, QtCore.SIGNAL("clicked()"),
+                         self, QtCore.SLOT("reject()"))
+
+The third example shows the multiple inheritance approach::
+
+    from PyQt4 import QtCore, QtGui
+    from ui_imagedialog import Ui_ImageDialog
+
+    class ImageDialog(QtGui.QDialog, Ui_ImageDialog):
+        def __init__(self):
+            QtGui.QDialog.__init__(self)
+
+            # Set up the user interface from Designer.
+            self.setupUi(self)
+
+            # Make some local modifications.
+            self.colorDepthCombo.addItem("2 colors (1 bit per pixel)")
+
+            # Connect up the buttons.
+            self.connect(self.okButton, QtCore.SIGNAL("clicked()"),
+                         self, QtCore.SLOT("accept()"))
+            self.connect(self.cancelButton, QtCore.SIGNAL("clicked()"),
+                         self, QtCore.SLOT("reject()"))
+
+It is also possible to use the same approach used in PyQt v3.  This is shown in
+the final example::
+
+    from PyQt4 import QtCore, QtGui
+    from ui_imagedialog import ImageDialog
+
+    class MyImageDialog(ImageDialog):
+        def __init__(self):
+            ImageDialog.__init__(self)
+
+            # Make some local modifications.
+            self.colorDepthCombo.addItem("2 colors (1 bit per pixel)")
+
+            # Connect up the buttons.
+            self.connect(self.okButton, QtCore.SIGNAL("clicked()"),
+                         self, QtCore.SLOT("accept()"))
+            self.connect(self.cancelButton, QtCore.SIGNAL("clicked()"),
+                         self, QtCore.SLOT("reject()"))
+
+For a full description see the Qt Designer Manual in the Qt Documentation.
+
+
+The ``uic`` Module
+------------------
+
+The ``uic`` module contains the following functions and objects.
+
+widgetPluginPath
+    This is a list of the directories that are searched for widget plugins.
+    Initially it contains the name of the directory that contains the widget
+    plugins included with PyQt.
+
+compileUi(uifile, pyfile, execute=False, indent=4, pyqt3_wrapper=False, from_imports=False)
+    This function generates a Python module that will create a user interface 
+    from a Qt Designer ``.ui`` file.
+
+    ``uifile`` is a file name or file-like object containing the ``.ui`` file.
+
+    ``pyfile`` is the file-like object to which the generated Python code will
+    be written to.
+
+    ``execute`` is optionally set if a small amount of additional code is to be
+    generated that will display the user interface if the code is run as a
+    standalone application.
+
+    ``indent`` is the optional number of spaces used for indentation in the
+    generated code.  If it is zero then a tab character is used instead.
+
+    ``pyqt3_wrapper`` is optionally set if a small wrapper is to be generated
+    that allows the generated code to be used as it is by PyQt v3 applications.
+
+    ``from_imports`` is optionally set to generate import statements that are
+    relative to ``'.'``.  At the moment this only applies to the import of
+    resource modules.
+
+compileUiDir(dir, recurse=False, map=None, \*\*compileUi_args)
+    This function creates Python modules from Qt Designer ``.ui`` files in a
+    directory or directory tree.
+
+    ``dir`` is the name of the directory to scan for files whose name ends
+    with ``.ui``.  By default the generated Python module is created in the
+    same directory ending with ``.py``.
+
+    ``recurse`` is set if any sub-directories should be scanned.
+
+    ``map`` is an optional callable that is passed the name of the directory
+    containing the ``.ui`` file and the name of the Python module that will be
+    created.  The callable should return a tuple of the name of the directory
+    in which the Python module will be created and the (possibly modified)
+    name of the module.
+
+    ``compileUi_args`` are any additional keyword arguments that are passed to
+    the ``compileUi()`` function that is called to create each Python module.
+
+loadUiType(uifile, from_imports=False)
+    This function loads a Qt Designer ``.ui`` file and returns a tuple of the
+    generated *form class* and the *Qt base class*.  These can then be used to
+    create any number of instances of the user interface without having to
+    parse the ``.ui`` file more than once.
+
+    ``uifile`` is a file name or file-like object containing the ``.ui`` file.
+
+    ``from_imports`` is optionally set to use import statements that are
+    relative to ``'.'``.  At the moment this only applies to the import of
+    resource modules.
+
+
+loadUi(uifile, baseinstance=None)
+    This function loads a Qt Designer ``.ui`` file and returns an instance of
+    the user interface.
+
+    ``uifile`` is a file name or file-like object containing the ``.ui`` file.
+
+    ``baseinstance`` is an optional instance of the *Qt base class*.  If
+    specified then the user interface is created in it.  Otherwise a new
+    instance of the base class is automatically created.
+
+
+pyuic4
+------
+
+The ``pyuic4`` utility is a command line interface to the ``uic`` module.  The
+command has the following syntax::
+
+    pyuic4 [options] .ui-file
+
+The full set of command line options is:
+
+-h, --help              A help message is written to ``stdout``.
+--version               The version number is written to ``stdout``.
+-i N, --indent=N        The Python code is generated using an indentation of N
+                        spaces.  If N is 0 then a tab is used.  The default is
+                        4.
+-o FILE, --output=FILE  The Python code generated is written to the file FILE.
+-p, --preview           The GUI is created dynamically and displayed.  No
+                        Python code is generated.
+-w, --pyqt3-wrapper     The generated Python code includes a small wrapper that
+                        allows the GUI to be used in the same way as it is used
+                        in PyQt v3.
+-x, --execute           The generated Python code includes a small amount of
+                        additional code that creates and displays the GUI when
+                        it is executes as a standalone application.
+--from-imports          Resource modules are imported using ``from . import``
+                        rather than a simple ``import``.
+
+Note that code generated by ``pyuic4`` is not guaranteed to be compatible with
+earlier versions of PyQt.  However, it is guaranteed to be compatible with
+later versions.  If you have no control over the version of PyQt the users of
+your application are using then you should run ``pyuic4``, or call
+``PyQt4.uic.compileUi()``, as part of your installation process.  Another
+alternative would be to distribute the ``.ui`` files (perhaps as part of a
+resource file) and have your application load them dynamically.
+
+
+Writing Qt Designer Plugins
+---------------------------
+
+Qt Designer can be extended by writing plugins.  Normally this is done using
+C++ but PyQt also allows you to write plugins in Python.  Most of the time a
+plugin is used to expose a custom widget to Designer so that it appears in
+Designer's widget box just like any other widget.  It is possibe to change the
+widget's properties and to connect its signals and slots.
+
+It is also possible to add new functionality to Designer.  See the Qt
+documentation for the full details.  Here we will concentrate on describing
+how to write custom widgets in Python.
+
+The process of integrating Python custom widgets with Designer is very similar
+to that used with widget written using C++.  However, there are particular
+issues that have to be addressed.
+
+    - Designer needs to have a C++ plugin that conforms to the interface
+      defined by the ``QDesignerCustomWidgetInterface`` class.  (If the plugin
+      exposes more than one custom widget then it must conform to the
+      interface defined by the ``QDesignerCustomWidgetCollectionInterface``
+      class.)  In addition the plugin class must sub-class ``QObject`` as well
+      as the interface class.  PyQt does not allow Python classes to be
+      sub-classed from more than one Qt class.
+
+    - Designer can only connect Qt signals and slots.  It has no understanding
+      of Python signals or callables.
+
+    - Designer can only edit Qt properties that represent C++ types.  It has no
+      understanding of Python attributes or Python types.
+
+PyQt provides the following components and features to resolve these issues as
+simply as possible.
+
+    - PyQt's QtDesigner module includes additional classes (all of which have a
+      ``QPy`` prefix) that are already sub-classed from the necessary Qt
+      classes.  This avoids the need to sub-class from more than one Qt class
+      in Python.  For example, where a C++ custom widget plugin would sub-class
+      from ``QObject`` and ``QDesignerCustomWidgetInterface``, a Python custom
+      widget plugin would instead sub-class from
+      ``QPyDesignerCustomWidgetPlugin``.
+
+    - PyQt installs a C++ plugin in Designer's plugin directory.  It conforms
+      to the interface defined by the
+      ``QDesignerCustomWidgetCollectionInterface`` class.  It searches a
+      configurable set of directories looking for Python plugins that
+      implement a class sub-classed from ``QPyDesignerCustomWidgetPlugin``.
+      Each class that is found is instantiated and the instance created is
+      added to the custom widget collection.
+
+      The ``PYQTDESIGNERPATH`` environment variable specifies the set of
+      directories to search for plugins.  Directory names are separated by a
+      path separator (a semi-colon on Windows and a colon on other platforms).
+      If a directory name is empty (ie. there are consecutive path separators
+      or a leading or trailing path separator) then a set of default
+      directories is automatically inserted at that point.  The default
+      directories are the ``python`` subdirectory of each directory that
+      Designer searches for its own plugins.  If the environment variable is
+      not set then only the default directories are searched.  If a file's
+      basename does not end with ``plugin`` then it is ignored.
+
+    - A Python custom widget may define new Qt signals using
+      ``QtCore.pyqtSignal()``.
+
+    - A Python class method may be defined as a new Qt slot by using the
+      ``QtCore.pyqtSlot`` decorator.  For example::
+
+          # Define a Qt slot that takes a C++ integer argument.
+          @QtCore.pyqtSlot(int, name='addToTotal')
+          def add_int_to_total(self, value):
+              pass
+
+          # Define a similar slot that takes its name from the method.
+          @QtCore.pyqtSlot(int)
+          def addToTotal(self, value):
+              pass
+
+    - A new Qt property may be defined using the ``QtCore.pyqtProperty()``
+      function.  It is used in the same way as the standard Python
+      ``property()`` function.  In fact, Qt properties defined in this way
+      also behave as Python properties.  The full signature of the function is
+      as follows::
+
+          pyqtProperty(type, fget=None, fset=None, freset=None, fdel=None, doc=None, designable=True, scriptable=True, stored=True, user=False, constant=False, final=False, notify=None)
+
+      ``type`` is the type of the property.  It is either a Python type object
+      or a string that is the name of a C++ type.
+      ``freset`` is a function used to reset the value of the property to its
+      default value.
+      ``designable`` sets the Qt DESIGNABLE flag.
+      ``scriptable`` sets the Qt SCRIPTABLE flag.
+      ``stored`` sets the Qt STORED flag.
+      ``user`` sets the Qt USER flag.
+      ``constant`` sets the Qt CONSTANT flag.
+      ``final`` sets the Qt FINAL flag.
+      ``notify`` is the notify signal.
+      
+      The remaining arguments are the same as those used by the standard
+      ``property()`` function.
+      
+      Qt makes no use of the ``fdel`` function and Python makes no use of the
+      ``freset`` function, or the ``designable``, ``scriptable``, ``stored``,
+      ``user``, ``constant`` and ``final`` flags.
+
+      It is also possible to use ``QtCore.pyqtProperty()`` as a decorator in
+      the same way as the standard Python ``property()`` function.  The
+      following example shows how to define an ``int`` property with a getter
+      and setter::
+
+          @QtCore.pyqtProperty(int)
+          def total(self):
+              return self._total
+
+          @total.setter
+          def total(self, value):
+              self._total = value
+
+      If you prefer the Qt terminology you may also use ``write`` instead of
+      ``setter`` (and ``read`` instead of ``getter``).
+
+Note that the ability to define new Qt signals, slots and properties from
+Python is potentially useful to plugins conforming to any plugin interface and
+not just that used by Designer.
+
+For a simple but complete and fully documented example of a custom widget that
+defines new Qt signals, slots and properties, and its plugin, look in the
+``examples/designer/plugins`` directory of the PyQt source package.  The
+``widgets`` subdirectory contains the ``pydemo.py`` custom widget and the
+``python`` subdirectory contains its ``pydemoplugin.py`` plugin.
+
+
+The PyQt Resource System
+========================
+
+PyQt supports Qt's resource system.  This is a facility for embedding
+resources such as icons and translation files in an application.  This makes
+the packaging and distribution of those resources much easier.
+
+A ``.qrc`` resource collection file is an XML file used to specify which
+resource files are to be embedded.  The application then refers to the resource
+files by their original names but preceded by a colon.
+
+For a full description, including the format of the ``.qrc`` files, see the Qt
+Resource System in the Qt documentation.
+
+
+pyrcc4
+------
+
+``pyrcc4`` is PyQt's equivalent to Qt's ``rcc`` utility and is used in exactly
+the same way.  ``pyrcc4`` reads the ``.qrc`` file, and the resource files, and
+generates a Python module that only needs to be ``import`` ed by the
+application in order for those resources to be made available just as if they
+were the original files.
+
+Starting with PyQt v4.5, ``pyrcc`` generates code for Python v2.6 and later by
+default.  If you use the ``-py2`` command line option then ``pyrcc`` will
+generate code for all Python v2.x versions.
+
+`pyrcc4`_ will only be included if your copy of Qt includes the XML module.
+
+
+Internationalisation of PyQt Applications
+=========================================
+
+PyQt and Qt include a comprehensive set of tools for translating applications
+into local languages.  For a full description, see the Qt Linguist Manual in
+the Qt documentation.
+
+The process of internationalising an application comprises the following
+steps.
+
+    - The programmer uses `pylupdate4`_ to create or update a ``.ts``
+      translation file for each language that the application is to be
+      translated into.  A ``.ts`` file is an XML file that contains the strings
+      to be translated and the corresponding translations that have already
+      been made.  `pylupdate4`_ can be run any number of times during
+      development to update the ``.ts`` files with the latest strings for
+      translation.
+
+    - The translator uses Qt Linguist to update the ``.ts`` files with
+      translations of the strings.
+
+    - The release manager then uses Qt's ``lrelease`` utility to convert the
+      ``.ts`` files to ``.qm`` files which are compact binary equivalents used
+      by the application.  If an application cannot find an appropriate ``.qm``
+      file, or a particular string hasn't been translated, then the strings
+      used in the original source code are used instead.
+
+    - The release manage may optionally use `pyrcc4`_ to embed the ``.qm``
+      files, along with other application resources such as icons, in a Python
+      module.  This may make packaging and distribution of the application
+      easier.
+
+
+pylupdate4
+----------
+
+``pylupdate4`` is PyQt's equivalent to Qt's ``lupdate`` utility and is used in
+exactly the same way.  A Qt ``.pro`` project file is read that specifies the
+Python source files and Qt Designer interface files from which the text that
+needs to be translated is extracted.  The ``.pro`` file also specifies the
+``.ts`` translation files that ``pylupdate4`` updates (or creates if necessary)
+and are subsequently used by Qt Linguist.
+
+`pylupdate4`_ will only be included if your copy of Qt includes the XML module.
+
+
+Differences Between PyQt and Qt
+-------------------------------
+
+Qt implements internationalisation support through the ``QTranslator`` class,
+and the ``QCoreApplication::translate()``, ``QObject::tr()`` and
+``QObject::trUtf8()`` methods.  Usually the ``tr()`` method is used to obtain
+the correct translation of a message.  The translation process uses a message
+context to allow the same message to be translated differently.  ``tr()`` is
+actually generated by ``moc`` and uses the hardcoded class name as the context.
+On the other hand, ``QApplication::translate()`` allows the context to be
+explicitly stated.
+
+Unfortunately, because of the way Qt implements ``tr()`` (and ``trUtf8()``) it
+is not possible for PyQt to exactly reproduce its behaviour.  The PyQt
+implementation of ``tr()`` (and ``trUtf8()``) uses the class name of the
+instance as the context.  The key difference, and the source of potential
+problems, is that the context is determined dynamically in PyQt, but is
+hardcoded in Qt.  In other words, the context of a translation may change
+depending on an instance's class hierarchy.  For example::
+
+    class A(QtCore.QObject):
+        def hello(self):
+            return self.tr("Hello")
+
+    class B(A):
+        pass
+
+    a = A()
+    a.hello()
+
+    b = B()
+    b.hello()
+
+In the above the message is translated by ``a.hello()`` using a context of
+``A``, and by ``b.hello()`` using a context of ``B``.  In the equivalent C++
+version the context would be ``A`` in both cases.
+
+The PyQt behaviour is unsatisfactory and may be changed in the future.  It is
+recommended that ``QCoreApplication.translate()`` be used in preference to
+``tr()`` (and ``trUtf8()``).  This is guaranteed to work with current and
+future versions of PyQt and makes it much easier to share message files
+between Python and C++ code.  Below is the alternative implementation of ``A``
+that uses ``QCoreApplication.translate()``::
+
+    class A(QtCore.QObject):
+        def hello(self):
+            return QtCore.QCoreApplication.translate("A", "Hello")
+
+
+The DBus Support Module
+=======================
+
+The DBus support module is installed as ``dbus.mainloop.qt`` and provides
+support for the Qt event loop to the standard ``dbus-python`` language
+bindings package.  The module's API is almost identical to that of the
+``dbus.mainloop.glib`` modules that provides support for the GLib event loop.
+
+The ``dbus.mainloop.qt`` module contains the following function.
+
+DBusQtMainLoop(set_as_default=False)
+    This function returns a ``dbus.mainloop.NativeMainLoop`` object that
+    uses the the Qt event loop.
+
+    ``set_as_default`` is set to make the main loop instance the default for
+    all new Connection and Bus instances.  It may only be specified as a
+    keyword argument, and not as a positional argument.
+
+The following code fragment is all that is normally needed to set up the
+standard ``dbus-python`` language bindings package to be used with PyQt::
+
+    import dbus.mainloop.qt
+
+    dbus.mainloop.qt.DBusQtMainLoop(set_as_default=True)
+
+
+Things to be Aware Of
+=====================
+
+Python Strings, Qt Strings and Unicode
+--------------------------------------
+
+PyQt uses the ``QString`` class to represent Unicode strings, and the
+``QByteArray`` to represent byte arrays or strings.  In Python v3 the
+corresponding native object types are ``str`` and ``bytes``.  In Python v2 the
+corresponding native object types are ``unicode`` and ``str``.
+
+PyQt does its best to automatically convert between objects of the various
+types.  Explicit conversions can be easily made where necessary.
+
+In some cases PyQt will not perform automatic conversions where it is
+necessary to distinguish between different overloaded methods.
+
+For Python v3 the following conversions are done by default.
+
+    - If Qt expects a ``char *`` (or a ``const`` version) then PyQt will accept
+      a ``str`` or ``QString`` that contains only ASCII characters, a
+      ``bytes``, a ``QByteArray``, or a Python object that implements the
+      buffer protocol.
+
+    - If Qt expects a ``char`` (or a ``const`` version) then PyQt will accept
+      the same types as for ``char *`` and also require that a single character
+      is provided.
+
+    - If Qt expects a ``signed char *`` or an ``unsigned char *`` (or a
+      ``const`` version) then PyQt will accept a ``bytes``.
+
+    - If Qt expects a ``signed char`` or an ``unsigned char`` (or a ``const``
+      version) then PyQt will accept a ``bytes`` of length 1.
+
+    - If Qt expects a ``QString`` then PyQt will accept a ``str``, a ``bytes``
+      that contains only ASCII characters, a ``QChar`` or a ``QByteArray``.
+
+    - If Qt expects a ``QByteArray`` then PyQt will also accept a ``str`` that
+      contains only Latin-1 characters, or a ``bytes``.
+
+For Python v2 the following conversions are done by default.
+
+    - If Qt expects a ``char *``, ``signed char *`` or an ``unsigned char *``
+      (or a ``const`` version) then PyQt will accept a ``unicode`` or
+      ``QString`` that contains only ASCII characters, a ``str``, a
+      ``QByteArray``, or a Python object that implements the buffer protocol.
+
+    - If Qt expects a ``char``, ``signed char`` or an ``unsigned char`` (or a
+      ``const`` version) then PyQt will accept the same types as for
+      ``char *``, ``signed char *`` and ``unsigned char *`` and also require
+      that a single character is provided.
+
+    - If Qt expects a ``QString`` then PyQt will accept a ``unicode``, a
+      ``str`` that contains only ASCII characters, a ``QChar`` or a
+      ``QByteArray``.
+
+    - If Qt expects a ``QByteArray`` then PyQt will accept a ``unicode`` that
+      contains only Latin-1 characters, or a ``str``.
+
+Note that the different behaviour between Python v2 and v3 is due to v3's
+reduced support for the buffer protocol.
+
+
+Garbage Collection
+------------------
+
+C++ does not garbage collect unreferenced class instances, whereas Python does.
+In the following C++ fragment both colours exist even though the first can no
+longer be referenced from within the program::
+
+    col = new QColor();
+    col = new QColor();
+
+In the corresponding Python fragment, the first colour is destroyed when the
+second is assigned to ``col``::
+
+    col = QtGui.QColor()
+    col = QtGui.QColor()
+
+In Python, each colour must be assigned to different names.  Typically this is
+done within class definitions, so the code fragment would be something like::
+
+    self.col1 = QtGui.QColor()
+    self.col2 = QtGui.QColor()
+
+Sometimes a Qt class instance will maintain a pointer to another instance and
+will eventually call the destructor of that second instance.  The most common
+example is that a ``QObject`` (and any of its sub-classes) keeps pointers to
+its children and will automatically call their destructors.  In these cases,
+the corresponding Python object will also keep a reference to the corresponding
+child objects.
+
+So, in the following Python fragment, the first ``QLabel`` is not destroyed
+when the second is assigned to ``lab`` because the parent ``QWidget`` still has
+a reference to it::
+
+    parent = QtGui.QWidget()
+    lab = QtGui.QLabel("First label", parent)
+    lab = QtGui.QLabel("Second label", parent)
+
+
+Multiple Inheritance
+--------------------
+
+It is not possible to define a new Python class that sub-classes from more than
+one Qt class.
+
+
+Access to Protected Member Functions
+------------------------------------
+
+When an instance of a C++ class is not created from Python it is not possible
+to access the protected member functions, or emit any signals, of that
+instance.  Attempts to do so will raise a Python exception.  Also, any Python
+methods corresponding to the instance's virtual member functions will never be
+called.
+
+
+``None`` and ``NULL``
+---------------------
+
+Throughout PyQt, the ``None`` value can be specified wherever ``NULL`` is
+acceptable to the underlying C++ code.
+
+Equally, ``NULL`` is converted to ``None`` whenever it is returned by the
+underlying C++ code.
+
+
+Support for ``void *``
+----------------------
+
+PyQt (actually SIP) represents ``void *`` values as objects of type
+``sip.voidptr``.  Such values are often used to pass the addresses of external
+objects between different Python modules.  To make this easier, a Python
+integer (or anything that Python can convert to an integer) can be used
+whenever a ``sip.voidptr`` is expected.
+
+A ``sip.voidptr`` may be converted to a Python integer by using the ``int()``
+builtin function.
+
+A ``sip.voidptr`` may be converted to a Python string by using its
+``asstring()`` method.  The ``asstring()`` method takes an optional integer
+argument which is the length of the data in bytes.
+
+A ``sip.voidptr`` may also be given a size (ie. the size of the block of
+memory that is pointed to) by calling its ``setsize()`` method.  If it has a
+size then it is also able to support Python's buffer protocol.  This means
+that it can be wrapped using Python's ``buffer()`` builtin to create an object
+that treats the block of memory as a mutable list of bytes.  It also means
+that the Python ``struct`` module can be used to unpack and pack binary data
+structures in memory, memory mapped files or shared memory.
+
+
+``super`` and PyQt Classes
+--------------------------
+
+In versions of PyQt earlier than v4.5 there were restrictions on the use of
+``super`` with PyQt classes.  These restrictions no longer apply with v4.5 and
+later.
+
+
+Deploying Commercial PyQt Applications
+======================================
+
+When deploying commercial PyQt applications it is necessary to discourage
+users from accessing the underlying PyQt modules for themselves.  A user that
+used the modules shipped with your application to develop new applications
+would themselves be considered a developer and would need their own commercial
+Qt and PyQt licenses.
+
+One solution to this problem is the `VendorID
+<http://www.riverbankcomputing.com/software/vendorid/>`__ package.  This allows
+you to build Python extension modules that can only be imported by a digitally
+signed custom interpreter.  The package enables you to create such an
+interpreter with your application embedded within it.  The result is an
+interpreter that can only run your application, and PyQt modules that can only
+be imported by that interpreter.  You can use the package to similarly restrict
+access to any extension module.
+
+In order to build PyQt with support for the VendorID package, pass the ``-i``
+command line flag to ``configure.py``.
+
+
+The PyQt Build System
+=====================
+
+The PyQt build system is an extension of the SIP build system and is
+implemented by the ``pyqtconfig`` module, part of the ``PyQt4`` package.  It
+can be used by configuration scripts of other bindings that build on top of
+PyQt and takes care of the details of the Qt installation.
+
+The module contains a number of classes.
+
+
+``pyqtconfig`` Classes
+----------------------
+
+Configuration(sipconfig.Configuration)
+    This class encapsulates configuration values that can be accessed as
+    instance objects.
+
+    The following configuration values are provided in addition to those
+    provided by the super-class:
+
+        pyqt_bin_dir
+            The name of the directory where the PyQt utilities are installed.
+
+        pyqt_config_args
+            The command line passed to ``configure.py`` when PyQt was
+            configured.
+
+        pyqt_mod_dir
+            The name of the directory where the ``PyQt4`` Python package is
+            installed.
+
+        pyqt_modules
+            A space separated string of installed PyQt modules.  The ``Qt``
+            module is not included.
+
+        pyqt_sip_dir
+            The name of the base directory where PyQt's ``.sip`` files are
+            installed.  Each module's ``.sip`` files are installed in a
+            sub-directory with the same name as the module.
+
+        pyqt_sip_flags
+            A space separated string of the ``sip`` command line arguments used
+            to build the PyQt modules.  These should also be used when
+            building bindings that ``%Import`` any PyQt modules.
+
+        pyqt_version
+            The PyQt version as a 3 part hexadecimal number (e.g. v4.0.1 is
+            represented as ``0x040001``).
+
+        pyqt_version_str
+            The PyQt version as a string.  For development snapshots it will
+            start with ``snapshot-``.
+
+        qt_data_dir
+            The value of ``QLibraryInfo::location(DataPath)`` for the Qt
+            installation.
+
+        qt_dir
+            The root directory of the Qt installation (normally the directory
+            that contains the ``bin`` directory).
+
+        qt_edition
+            The Qt edition.
+
+        qt_framework
+            Set if Qt is built as a MacOS/X framework.
+
+        qt_inc_dir
+            The value of ``QLibraryInfo::location(HeadersPath)`` for the Qt
+            installation.
+
+        qt_lib_dir
+            The value of ``QLibraryInfo::location(LibrariesPath)`` for the Qt
+            installation.
+
+        qt_threaded
+            Set if Qt is built with thread support (always set for PyQt).
+
+        qt_version
+            The Qt version as a 3 part hexadecimal number (e.g. v4.1.2 is
+            represented as ``0x040102``).
+
+        qt_winconfig
+            Additional Windows specific configuration.
+
+    __init__(self, sub_cfg=None)
+        Initialise the instance.
+
+        ``sub_cfg`` is an optional list of sub-class configurations.  It should
+        only be used by the ``__init__()`` method of a sub-class to append its
+        own dictionary of configuration values before passing the list to its
+        super-class.
+
+QtAssistantModuleMakefile(QtNetworkModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QtAssistant`` module.
+
+QAxContainerModuleMakefile(QtGuiModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QAxContainer`` module.
+
+QtCoreModuleMakefile(sipconfig.SIPModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QtCore`` module.
+
+QtDeclarativeModuleMakefile(QtNetworkModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QtDeclarative`` module.
+
+QtGuiModuleMakefile(QtCoreModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QtGui`` module.
+
+QtHelpModuleMakefile(QtGuiModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QtHelp`` module.
+
+QtMultimediaModuleMakefile(QtGuiModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QtMultimedia`` module.
+
+QtNetworkModuleMakefile(QtCoreModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QtNetwork`` module.
+
+QtOpenGLModuleMakefile(QtGuiModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QtOpenGL`` module.
+
+QtScriptModuleMakefile(QtCoreModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QtScript`` module.
+
+QtSqlModuleMakefile(QtGuiModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QtSql`` module.
+
+QtSvgModuleMakefile(QtGuiModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QtSvg`` module.
+
+QtTestModuleMakefile(QtGuiModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QtTest`` module.
+
+QtWebKitModuleMakefile(QtNetworkModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QtWebKit`` module.
+
+QtXmlModuleMakefile(QtCoreModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QtXml`` module.
+
+QtXmlPatternsModuleMakefile(QtCoreModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``QtXmlPatterns`` module.
+
+phononModuleMakefile(QtGuiModuleMakefile)
+    This class encapsulates a Makefile to build a SIP generated Python
+    extension module that is built on the PyQt ``phonon`` module.

@@ -1,0 +1,33 @@
+diff -wuprN pycrypto-2.6/setup.py pycrypto-2.6-new/setup.py
+--- pycrypto-2.6/setup.py	2012-05-24 14:55:30.000000000 +0200
++++ pycrypto-2.6-new/setup.py	2012-10-04 11:37:54.893310815 +0200
+@@ -36,6 +36,29 @@
+ 
+ __revision__ = "$Id$"
+ 
++import os
++from distutils import sysconfig
++
++def customize_compiler(compiler):
++	ldshared = os.environ['BLDSHARED']
++	cc_cmd = os.environ['CC']
++	cxx = os.environ['CXX']
++	cpp = cxx
++	ccshared = sysconfig.get_config_vars("CCSHARED") #['-fPIC']
++ 	so_ext = "so"
++	cc = os.environ['ARM_LINKER']
++
++	compiler.set_executables(
++	    preprocessor=cpp,
++	    compiler=cc_cmd,
++	    compiler_so=cc_cmd + ' ' + ' '.join(ccshared),
++	    compiler_cxx=cxx,
++	    linker_so=ldshared,
++	    linker_exe=cc)
++
++	compiler.shared_lib_extension = so_ext
++setattr(sysconfig, 'customize_compiler', customize_compiler)
++
+ from distutils import core
+ from distutils.ccompiler import new_compiler
+ from distutils.core import Extension, Command

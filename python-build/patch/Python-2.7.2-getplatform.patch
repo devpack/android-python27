@@ -1,0 +1,34 @@
+diff -wuprN Python-2.7.2/Python/getplatform.c Python-2.7.2-new/Python/getplatform.c
+--- Python-2.7.2/Python/getplatform.c	2011-06-11 17:46:27.000000000 +0200
++++ Python-2.7.2-new/Python/getplatform.c	2012-09-15 11:23:15.825118132 +0200
+@@ -1,12 +1,25 @@
+-
+ #include "Python.h"
+ 
+-#ifndef PLATFORM
+-#define PLATFORM "unknown"
+-#endif
++#include <sys/utsname.h>
++#include <string.h>
+ 
+ const char *
+ Py_GetPlatform(void)
+ {
+-	return PLATFORM;
++    struct utsname u;
++    int i;
++    if ( uname(&u) < 0 )
++	return "unknown";
++
++    char xx[37];
++    memset(xx, 0, 37);
++    strcat (xx, u.sysname);
++    strcat (xx, "-");
++    strcat (xx, u.machine);
++
++    for (i=0; xx[i]; i++)
++	xx[i]=tolower(xx[i]);
++
++    return xx;
+ }
++

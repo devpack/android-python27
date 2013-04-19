@@ -1,0 +1,3 @@
+target = QtOpenGL
+sources = sipQtOpenGLcmodule.cpp sipQtOpenGLQList0101QGLShader.cpp sipQtOpenGLQGLShaderProgram.cpp sipQtOpenGLQGLShaderShaderType.cpp sipQtOpenGLQGLShader.cpp sipQtOpenGLQGLPixelBuffer.cpp sipQtOpenGLQGLFramebufferObjectFormat.cpp sipQtOpenGLQGLFramebufferObject.cpp sipQtOpenGLQGLColormap.cpp sipQtOpenGLQGLBuffer.cpp sipQtOpenGLQGLWidget.cpp sipQtOpenGLQGLContextBindOptions.cpp sipQtOpenGLQGLContext.cpp sipQtOpenGLQGLFormatOpenGLVersionFlags.cpp sipQtOpenGLQGLFormat.cpp sipQtOpenGLQGLFormatOptions.cpp sipQtOpenGLQGL.cpp
+headers = sipAPIQtOpenGL.h

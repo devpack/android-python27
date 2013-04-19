@@ -1,0 +1,18 @@
+David Boddie
+	For porting Qt v4 examples to PyQt.
+	For the implementation of Python plugin support for Designer.
+
+Torsten Marek
+	For pyuic for PyQt v4.
+
+Detlev Offenbach
+	For pylupdate for PyQt v4.
+
+Andreas Pakulat
+	For porting Qt v4 examples to PyQt.
+
+Douglas Soares de Andrade
+	For porting Qt v4 examples to PyQt.
+
+Baz Walter
+	For porting Qt v4 examples to PyQt.

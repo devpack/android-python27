@@ -1,0 +1,3 @@
+target = QtSql
+sources = sipQtSqlcmodule.cpp sipQtSqlQVector0100QVariant.cpp sipQtSqlQSqlResult.cpp sipQtSqlQSqlRelationalTableModel.cpp sipQtSqlQSqlTableModel.cpp sipQtSqlQSqlRelation.cpp sipQtSqlQSqlRelationalDelegate.cpp sipQtSqlQSqlQueryModel.cpp sipQtSqlQSqlQuery.cpp sipQtSqlQSqlIndex.cpp sipQtSqlQSqlRecord.cpp sipQtSqlQSqlField.cpp sipQtSqlQSqlError.cpp sipQtSqlQSqlDriver.cpp sipQtSqlQSqlDatabase.cpp sipQtSqlQSqlDriverCreatorBase.cpp sipQtSqlQSqlParamType.cpp sipQtSqlQSql.cpp
+headers = sipAPIQtSql.h

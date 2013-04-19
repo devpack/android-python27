@@ -1,0 +1,34 @@
+Sandbox
+=======
+
+Sandbox provides facilities for learning and experimenting with Python,
+and for creating and editing Python files.
+
+It is designed to be easy to learn and use, and to provide a PyQt-based
+alternative to IDLE. (If you need a full-featured IDE, with support for
+debugging, we suggest you use eric4
+(http://www.die-offenbachs.de/eric/index.html)
+
+Sandbox requires Python 2.5 and PyQt 4.2 (or later versions).
+
+Installation is easy since Sandbox is supplied as a single Python file.
+On Unix-like systems you may need to set sandbox.pyw to have execute
+permission and to put it (or a soft-link to it) in your PATH. For
+Windows, double-click to start it. You can always create a convenient
+shortcut to it if you find yourself using it quite often.
+
+Sandbox's home page is http://www.qtrac.eu/sandbox.html.
+
+
+Copyright (c) 2007 Mark Summerfield. All rights reserved.
+
+This program is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your
+option) any later version.
+
+This program is distributed in the hope that it will be useful, but
+without any warranty; without even the implied warranty of
+merchantability or fitness for a particular purpose. See the GNU General
+Public License (http://www.gnu.org/licenses/) for more details.
+

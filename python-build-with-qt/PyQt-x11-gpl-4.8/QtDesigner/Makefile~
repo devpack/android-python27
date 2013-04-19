@@ -1,0 +1,76 @@
+TARGET = QtDesigner.so
+OFILES = sipQtDesignercmodule.o sipQtDesignerQList0101QDesignerCustomWidgetInterface.o sipQtDesignerQPyDesignerCustomWidgetCollectionPlugin.o sipQtDesignerQPyDesignerContainerExtension.o sipQtDesignerQPyDesignerTaskMenuExtension.o sipQtDesignerQPyDesignerPropertySheetExtension.o sipQtDesignerQPyDesignerMemberSheetExtension.o sipQtDesignerQPyDesignerCustomWidgetPlugin.o sipQtDesignerQDesignerTaskMenuExtension.o sipQtDesignerQExtensionManager.o sipQtDesignerQDesignerPropertySheetExtension.o sipQtDesignerQDesignerMemberSheetExtension.o sipQtDesignerQFormBuilder.o sipQtDesignerQAbstractExtensionManager.o sipQtDesignerQExtensionFactory.o sipQtDesignerQAbstractExtensionFactory.o sipQtDesignerQDesignerCustomWidgetCollectionInterface.o sipQtDesignerQDesignerCustomWidgetInterface.o sipQtDesignerQDesignerContainerExtension.o sipQtDesignerQDesignerWidgetBoxInterface.o sipQtDesignerQDesignerPropertyEditorInterface.o sipQtDesignerQDesignerObjectInspectorInterface.o sipQtDesignerQDesignerFormWindowManagerInterface.o sipQtDesignerQDesignerFormWindowCursorInterface.o sipQtDesignerQDesignerFormWindowInterfaceFeature.o sipQtDesignerQDesignerFormWindowInterface.o sipQtDesignerQDesignerFormEditorInterface.o sipQtDesignerQAbstractFormBuilder.o sipQtDesignerQDesignerActionEditorInterface.o
+HFILES = sipAPIQtDesigner.h 
+
+CC = /opt/necessitas/android-ndk-r6b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/arm-linux-androideabi-gcc
+CXX = /opt/necessitas/android-ndk-r6b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/arm-linux-androideabi-g++
+LINK = /opt/necessitas/android-ndk-r6b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/arm-linux-androideabi-g++
+CPPFLAGS = -DNDEBUG -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I. -I/home/tsheasha/GUC/Bachelors/android-python27/python-build/PyQt-x11-gpl-4.8/qpy/QtDesigner -I/opt/necessitas/android-ndk-r6b/sources/cxx-stl-4.4.3/gnu-libstdc++/include -I/opt/necessitas/android-ndk-r6b/sources/cxx-stl-4.4.3/gnu-libstdc++/libs/armeabi/include -I/opt/necessitas/Android/Qt/480/qt-src/src/3rdparty/phonon -I/home/tsheasha/GUC/Bachelors/android-python27/python-build/build/include/python2.7 -I/opt/necessitas/mkspecs/linux-g++ -I/opt/necessitas/Android/Qt/480/armeabi/include/QtDesigner -I/opt/necessitas/Android/Qt/480/armeabi/include/QtGui -I/opt/necessitas/Android/Qt/480/armeabi/include/QtCore -I/opt/necessitas/Android/Qt/480/armeabi/include
+CFLAGS = -pipe -fPIC -g -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -Wall -Wno-psabi -W -D_REENTRANT
+CXXFLAGS = -pipe -DQT_NO_QWS_TRANSFORMED -DQ_WS_QWS -Dprotected=public -DSIP_PROTECTED_IS_PUBLIC --sysroot=/opt/necessitas/android-ndk-r6b/platforms/android-9/arch-arm/ -pipe -DQT_NO_QWS_TRANSFORMED -DQ_WS_QWS -Dprotected=public -DSIP_PROTECTED_IS_PUBLIC --sysroot=/opt/necessitas/android-ndk-r6b/platforms/android-5/arch-arm/ -fpic -g -msoft-float -mthumb -mthumb-interwork -mtune=xscale -march=armv5te -mfloat-abi=softfp -mfpu=vfp -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -g -msoft-float -mthumb -mthumb-interwork  -mtune=xscale -march=armv5te -mfloat-abi=softfp -mfpu=vfp -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -Wall -Wno-psabi -W -Os -pipe -msoft-float -fpic -mthumb-interwork -ffunction-sections -funwind-tables -fstack-protector -fno-short-enums -funwind-tables -DANDROID  -D__ARM_ARCH_5__ -D__ARM_ARCH_5T__ -D__ARM_ARCH_5TE__ -D__STDC_INT64__ -DQT_NO_QWS_TRANSFORMED -fPIC -g -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -g -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -Wall -Wno-psabi -W -D_REENTRANT
+LFLAGS = --sysroot=/opt/necessitas/android-ndk-r6b/platforms/android-9/arch-arm/ -L/opt/necessitas/android-ndk-r6b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/../lib/gcc/arm-linux-androideabi/4.4.3/ -Wl,-rpath-link= -Wl,-rpath=/opt/necessitas/Android/Qt/480/qt-src/src/3rdparty/android/precompiled/android-9/arch-arm/lib -Wl,-z,noexecstack -Wl,-O1  -Wl,-z,noexecstack -shared -Wl,-shared,-Bsymbolic -Wl,--no-whole-archive -Wl,--no-undefined -Wl,-z,noexecstack -shared -Wl,-z,noexecstack -Wl,-O1  -Wl,-z,noexecstack -shared -Wl,-shared,-Bsymbolic -Wl,--no-whole-archive   -Wl,-rpath=/home/tsheasha/GUC/Bachelors/android-python27/python-build/PyQt-x11-gpl-4.8/qpy/QtDesigner -Wl,-rpath=/opt/necessitas/Android/Qt/480/armeabi/lib -Wl,--version-script=QtDesigner.exp
+LIBS = -L/home/tsheasha/GUC/Bachelors/android-python27/python-build/PyQt-x11-gpl-4.8/qpy/QtDesigner -L/opt/necessitas/android-ndk-r6b/sources/cxx-stl-4.4.3/gnu-libstdc++/libs/armeabi/ -L/opt/necessitas/Android/Qt/480/armeabi/lib -lqpydesigner -lstdc++ -lsupc++ -llog -lz -lm -ldl -lc -lgcc -L/home/tsheasha/GUC/Bachelors/android-python27/python-build/output/python/lib/ -lpython2.7 -lQtDesigner -lQtGui -L/tmp/necessitas/unstable/Android/Qt/480/build-armeabi/install/lib -L/tmp/necessitas/android-ndk-r6b/sources/cxx-stl/gnu-libstdc++/libs/armeabi -L/tmp/necessitas/android-ndk-r6b/platforms/android-5/arch-arm//usr/lib -lQtCore -L/tmp/necessitas/unstable/Android/Qt/480/build-armeabi/install/lib -L/tmp/necessitas/android-ndk-r6b/sources/cxx-stl/gnu-libstdc++/libs/armeabi -L/tmp/necessitas/android-ndk-r6b/platforms/android-5/arch-arm//usr/lib -lstdc++ -lsupc++ -llog -lz -lm -ldl -lc -lgcc -lQtCore -L/tmp/necessitas/unstable/Android/Qt/480/build-armeabi/install/lib -L/tmp/necessitas/android-ndk-r6b/sources/cxx-stl/gnu-libstdc++/libs/armeabi -L/tmp/necessitas/android-ndk-r6b/platforms/android-5/arch-arm//usr/lib -lstdc++ -lsupc++ -llog -lz -lm -ldl -lc -lgcc
+MOC = /opt/necessitas/Android/Qt/480/armeabi/bin/moc
+.SUFFIXES: .c .o .cpp .cc .cxx .C
+
+
+.cpp.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.cc.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.cxx.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.C.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.c.o:
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) -o $@ $<
+
+all: $(TARGET)
+
+$(OFILES): $(HFILES)
+
+$(TARGET): $(OFILES)
+	@echo '{ global: initQtDesigner; local: *; };' > QtDesigner.exp
+	$(LINK) $(LFLAGS) -o $(TARGET) $(OFILES) $(LIBS)
+
+install: $(TARGET)
+	@if not exist $(DESTDIR)/home/tsheasha/GUC/Bachelors/android-python27/python-build/output/extras/python/site-packages/PyQt4 || mkdir $(DESTDIR)/home/tsheasha/GUC/Bachelors/android-python27/python-build/output/extras/python/site-packages/PyQt4
+	copy /y $(TARGET) $(DESTDIR)/home/tsheasha/GUC/Bachelors/android-python27/python-build/output/extras/python/site-packages/PyQt4/$(TARGET)
+	/opt/necessitas/android-ndk-r6b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/arm-linux-androideabi-strip $(DESTDIR)/home/tsheasha/GUC/Bachelors/android-python27/python-build/output/extras/python/site-packages/PyQt4/$(TARGET)
+
+clean:
+	-del /q 2> NUL $(TARGET)
+	-del /q 2> NUL sipQtDesignercmodule.o
+	-del /q 2> NUL sipQtDesignerQList0101QDesignerCustomWidgetInterface.o
+	-del /q 2> NUL sipQtDesignerQPyDesignerCustomWidgetCollectionPlugin.o
+	-del /q 2> NUL sipQtDesignerQPyDesignerContainerExtension.o
+	-del /q 2> NUL sipQtDesignerQPyDesignerTaskMenuExtension.o
+	-del /q 2> NUL sipQtDesignerQPyDesignerPropertySheetExtension.o
+	-del /q 2> NUL sipQtDesignerQPyDesignerMemberSheetExtension.o
+	-del /q 2> NUL sipQtDesignerQPyDesignerCustomWidgetPlugin.o
+	-del /q 2> NUL sipQtDesignerQDesignerTaskMenuExtension.o
+	-del /q 2> NUL sipQtDesignerQExtensionManager.o
+	-del /q 2> NUL sipQtDesignerQDesignerPropertySheetExtension.o
+	-del /q 2> NUL sipQtDesignerQDesignerMemberSheetExtension.o
+	-del /q 2> NUL sipQtDesignerQFormBuilder.o
+	-del /q 2> NUL sipQtDesignerQAbstractExtensionManager.o
+	-del /q 2> NUL sipQtDesignerQExtensionFactory.o
+	-del /q 2> NUL sipQtDesignerQAbstractExtensionFactory.o
+	-del /q 2> NUL sipQtDesignerQDesignerCustomWidgetCollectionInterface.o
+	-del /q 2> NUL sipQtDesignerQDesignerCustomWidgetInterface.o
+	-del /q 2> NUL sipQtDesignerQDesignerContainerExtension.o
+	-del /q 2> NUL sipQtDesignerQDesignerWidgetBoxInterface.o
+	-del /q 2> NUL sipQtDesignerQDesignerPropertyEditorInterface.o
+	-del /q 2> NUL sipQtDesignerQDesignerObjectInspectorInterface.o
+	-del /q 2> NUL sipQtDesignerQDesignerFormWindowManagerInterface.o
+	-del /q 2> NUL sipQtDesignerQDesignerFormWindowCursorInterface.o
+	-del /q 2> NUL sipQtDesignerQDesignerFormWindowInterfaceFeature.o
+	-del /q 2> NUL sipQtDesignerQDesignerFormWindowInterface.o
+	-del /q 2> NUL sipQtDesignerQDesignerFormEditorInterface.o
+	-del /q 2> NUL sipQtDesignerQAbstractFormBuilder.o
+	-del /q 2> NUL sipQtDesignerQDesignerActionEditorInterface.o
+	-del /q 2> NUL QtDesigner.exp

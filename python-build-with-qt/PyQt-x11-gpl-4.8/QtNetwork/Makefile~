@@ -1,0 +1,104 @@
+TARGET = QtNetwork.so
+OFILES = sipQtNetworkcmodule.o sipQtNetworkQList0100QSslCipher.o sipQtNetworkQList0100QSslCertificate.o sipQtNetworkQList0100QNetworkProxy.o sipQtNetworkQList0100QNetworkInterface.o sipQtNetworkQList0100QNetworkAddressEntry.o sipQtNetworkQList0100QNetworkCookie.o sipQtNetworkQList0100QNetworkConfiguration.o sipQtNetworkQList0100QSslError.o sipQtNetworkQList0100QHostAddress.o sipQtNetworkQPair0100QHostAddress1800.o sipQtNetworkQUrlInfo.o sipQtNetworkQUdpSocketBindMode.o sipQtNetworkQUdpSocket.o sipQtNetworkQTcpServer.o sipQtNetworkQSslSocket.o sipQtNetworkQTcpSocket.o sipQtNetworkQSslKey.o sipQtNetworkQSslError.o sipQtNetworkQSslCipher.o sipQtNetworkQSslConfiguration.o sipQtNetworkQMultiMap0100QSslAlternateNameEntryType0100QString.o sipQtNetworkQSslCertificate.o sipQtNetworkQSsl.o sipQtNetworkQNetworkSession.o sipQtNetworkQNetworkRequest.o sipQtNetworkQNetworkReply.o sipQtNetworkQNetworkProxyFactory.o sipQtNetworkQNetworkProxyQuery.o sipQtNetworkQNetworkProxyCapabilities.o sipQtNetworkQNetworkProxy.o sipQtNetworkQNetworkInterfaceInterfaceFlags.o sipQtNetworkQNetworkInterface.o sipQtNetworkQNetworkAddressEntry.o sipQtNetworkQNetworkDiskCache.o sipQtNetworkQNetworkCookieJar.o sipQtNetworkQNetworkCookie.o sipQtNetworkQNetworkConfigurationStateFlags.o sipQtNetworkQNetworkConfiguration.o sipQtNetworkQNetworkConfigurationManagerCapabilities.o sipQtNetworkQNetworkConfigurationManager.o sipQtNetworkQNetworkAccessManager.o sipQtNetworkQLocalSocket.o sipQtNetworkquintptr.o sipQtNetworkQLocalServer.o sipQtNetworkQHttp.o sipQtNetworkQHttpRequestHeader.o sipQtNetworkQHttpResponseHeader.o sipQtNetworkQHttpHeader.o sipQtNetworkQHostInfo.o sipQtNetworkQHostAddress.o sipQtNetworkQFtp.o sipQtNetworkQAuthenticator.o sipQtNetworkQAbstractSocket.o sipQtNetworkQAbstractNetworkCache.o sipQtNetworkQNetworkCacheMetaData.o sipQtNetworkQHash0100QNetworkRequestAttribute0100QVariant.o
+HFILES = sipAPIQtNetwork.h 
+
+CC = /opt/necessitas/android-ndk-r6b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/arm-linux-androideabi-gcc
+CXX = /opt/necessitas/android-ndk-r6b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/arm-linux-androideabi-g++
+LINK = /opt/necessitas/android-ndk-r6b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/arm-linux-androideabi-g++
+CPPFLAGS = -DNDEBUG -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -I/opt/necessitas/android-ndk-r6b/sources/cxx-stl-4.4.3/gnu-libstdc++/include -I/opt/necessitas/android-ndk-r6b/sources/cxx-stl-4.4.3/gnu-libstdc++/libs/armeabi/include -I/opt/necessitas/Android/Qt/480/qt-src/src/3rdparty/phonon -I/home/tsheasha/GUC/Bachelors/android-python27/python-build/build/include/python2.7 -I/opt/necessitas/mkspecs/android-g++ -I/opt/necessitas/Android/Qt/480/armeabi/include/QtNetwork -I/opt/necessitas/Android/Qt/480/armeabi/include/QtCore -I/opt/necessitas/Android/Qt/480/armeabi/include
+CFLAGS = -pipe -fPIC -g -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -Wall -Wno-psabi -W -D_REENTRANT
+CXXFLAGS = -pipe -DQT_NO_QWS_TRANSFORMED -DQ_WS_QWS -Dprotected=public -DSIP_PROTECTED_IS_PUBLIC --sysroot=/opt/necessitas/android-ndk-r6b/platforms/android-9/arch-arm/ -pipe -DQT_NO_QWS_TRANSFORMED -DQ_WS_QWS -Dprotected=public -DSIP_PROTECTED_IS_PUBLIC --sysroot=/opt/necessitas/android-ndk-r6b/platforms/android-5/arch-arm/ -fpic -g -msoft-float -mthumb -mthumb-interwork -mtune=xscale -march=armv5te -mfloat-abi=softfp -mfpu=vfp -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -g -msoft-float -mthumb -mthumb-interwork  -mtune=xscale -march=armv5te -mfloat-abi=softfp -mfpu=vfp -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -Wall -Wno-psabi -W -Os -pipe -msoft-float -fpic -mthumb-interwork -ffunction-sections -funwind-tables -fstack-protector -fno-short-enums -funwind-tables -DANDROID  -D__ARM_ARCH_5__ -D__ARM_ARCH_5T__ -D__ARM_ARCH_5TE__ -D__STDC_INT64__ -DQT_NO_QWS_TRANSFORMED -fPIC -g -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -g -mthumb -Os -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -Wall -Wno-psabi -W -D_REENTRANT
+LFLAGS = --sysroot=/opt/necessitas/android-ndk-r6b/platforms/android-9/arch-arm/ -L/opt/necessitas/android-ndk-r6b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/../lib/gcc/arm-linux-androideabi/4.4.3/ -Wl,-rpath-link= -Wl,-rpath=/opt/necessitas/Android/Qt/480/qt-src/src/3rdparty/android/precompiled/android-9/arch-arm/lib -Wl,-z,noexecstack -Wl,-O1  -Wl,-z,noexecstack -shared -Wl,-shared,-Bsymbolic -Wl,--no-whole-archive -Wl,--no-undefined -Wl,-z,noexecstack -shared -Wl,-z,noexecstack -Wl,-O1  -Wl,-z,noexecstack -shared -Wl,-shared,-Bsymbolic -Wl,--no-whole-archive   -Wl,-rpath=/opt/necessitas/Android/Qt/480/armeabi/lib -Wl,--version-script=QtNetwork.exp
+LIBS = -L/opt/necessitas/android-ndk-r6b/sources/cxx-stl-4.4.3/gnu-libstdc++/libs/armeabi/ -L/opt/necessitas/Android/Qt/480/armeabi/lib -lstdc++ -lsupc++ -llog -lz -lm -ldl -lc -lgcc -L/home/tsheasha/GUC/Bachelors/android-python27/python-build/output/python/lib/ -lpython2.7 -lQtNetwork -L/opt/necessitas/unstable/Android/Qt/480/build-armeabi/install/lib -L/opt/necessitas/android-ndk-r6b/sources/cxx-stl/gnu-libstdc++/libs/armeabi -L/opt/necessitas/android-ndk-r6b/platforms/android-5/arch-arm//usr/lib -lQtCore -L/opt/necessitas/unstable/Android/Qt/480/build-armeabi/install/lib -L/opt/necessitas/android-ndk-r6b/sources/cxx-stl/gnu-libstdc++/libs/armeabi -L/opt/necessitas/android-ndk-r6b/platforms/android-5/arch-arm//usr/lib -lstdc++ -lsupc++ -llog -lz -lm -ldl -lc -lgcc -lQtCore -L/opt/necessitas/unstable/Android/Qt/480/build-armeabi/install/lib -L/opt/necessitas/android-ndk-r6b/sources/cxx-stl/gnu-libstdc++/libs/armeabi -L/opt/necessitas/android-ndk-r6b/platforms/android-5/arch-arm//usr/lib -lstdc++ -lsupc++ -llog -lz -lm -ldl -lc -lgcc
+MOC = /opt/necessitas/Android/Qt/480/armeabi/bin/moc
+.SUFFIXES: .c .o .cpp .cc .cxx .C
+
+
+.cpp.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.cc.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.cxx.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.C.o:
+	$(CXX) -c $(CXXFLAGS) $(CPPFLAGS) -o $@ $<
+
+.c.o:
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) -o $@ $<
+
+all: $(TARGET)
+
+$(OFILES): $(HFILES)
+
+$(TARGET): $(OFILES)
+	@echo '{ global: initQtNetwork; local: *; };' > QtNetwork.exp
+	$(LINK) $(LFLAGS) -o $(TARGET) $(OFILES) $(LIBS)
+
+install: $(TARGET)
+	@test -d $(DESTDIR)/home/tsheasha/GUC/Bachelors/android-python27/python-build/output/extras/python/site-packages/PyQt4 || mkdir $(DESTDIR)/home/tsheasha/GUC/Bachelors/android-python27/python-build/output/extras/python/site-packages/PyQt4
+	cp -f $(TARGET) $(DESTDIR)/home/tsheasha/GUC/Bachelors/android-python27/python-build/output/extras/python/site-packages/PyQt4/$(TARGET)
+	/opt/necessitas/android-ndk-r6b/toolchains/arm-linux-androideabi-4.4.3/prebuilt/linux-x86/bin/arm-linux-androideabi-strip $(DESTDIR)/home/tsheasha/GUC/Bachelors/android-python27/python-build/output/extras/python/site-packages/PyQt4/$(TARGET)
+
+clean:
+	-del /q 2> NUL $(TARGET)
+	-del /q 2> NUL sipQtNetworkcmodule.o
+	-del /q 2> NUL sipQtNetworkQList0100QSslCipher.o
+	-del /q 2> NUL sipQtNetworkQList0100QSslCertificate.o
+	-del /q 2> NUL sipQtNetworkQList0100QNetworkProxy.o
+	-del /q 2> NUL sipQtNetworkQList0100QNetworkInterface.o
+	-del /q 2> NUL sipQtNetworkQList0100QNetworkAddressEntry.o
+	-del /q 2> NUL sipQtNetworkQList0100QNetworkCookie.o
+	-del /q 2> NUL sipQtNetworkQList0100QNetworkConfiguration.o
+	-del /q 2> NUL sipQtNetworkQList0100QSslError.o
+	-del /q 2> NUL sipQtNetworkQList0100QHostAddress.o
+	-del /q 2> NUL sipQtNetworkQPair0100QHostAddress1800.o
+	-del /q 2> NUL sipQtNetworkQUrlInfo.o
+	-del /q 2> NUL sipQtNetworkQUdpSocketBindMode.o
+	-del /q 2> NUL sipQtNetworkQUdpSocket.o
+	-del /q 2> NUL sipQtNetworkQTcpServer.o
+	-del /q 2> NUL sipQtNetworkQSslSocket.o
+	-del /q 2> NUL sipQtNetworkQTcpSocket.o
+	-del /q 2> NUL sipQtNetworkQSslKey.o
+	-del /q 2> NUL sipQtNetworkQSslError.o
+	-del /q 2> NUL sipQtNetworkQSslCipher.o
+	-del /q 2> NUL sipQtNetworkQSslConfiguration.o
+	-del /q 2> NUL sipQtNetworkQMultiMap0100QSslAlternateNameEntryType0100QString.o
+	-del /q 2> NUL sipQtNetworkQSslCertificate.o
+	-del /q 2> NUL sipQtNetworkQSsl.o
+	-del /q 2> NUL sipQtNetworkQNetworkSession.o
+	-del /q 2> NUL sipQtNetworkQNetworkRequest.o
+	-del /q 2> NUL sipQtNetworkQNetworkReply.o
+	-del /q 2> NUL sipQtNetworkQNetworkProxyFactory.o
+	-del /q 2> NUL sipQtNetworkQNetworkProxyQuery.o
+	-del /q 2> NUL sipQtNetworkQNetworkProxyCapabilities.o
+	-del /q 2> NUL sipQtNetworkQNetworkProxy.o
+	-del /q 2> NUL sipQtNetworkQNetworkInterfaceInterfaceFlags.o
+	-del /q 2> NUL sipQtNetworkQNetworkInterface.o
+	-del /q 2> NUL sipQtNetworkQNetworkAddressEntry.o
+	-del /q 2> NUL sipQtNetworkQNetworkDiskCache.o
+	-del /q 2> NUL sipQtNetworkQNetworkCookieJar.o
+	-del /q 2> NUL sipQtNetworkQNetworkCookie.o
+	-del /q 2> NUL sipQtNetworkQNetworkConfigurationStateFlags.o
+	-del /q 2> NUL sipQtNetworkQNetworkConfiguration.o
+	-del /q 2> NUL sipQtNetworkQNetworkConfigurationManagerCapabilities.o
+	-del /q 2> NUL sipQtNetworkQNetworkConfigurationManager.o
+	-del /q 2> NUL sipQtNetworkQNetworkAccessManager.o
+	-del /q 2> NUL sipQtNetworkQLocalSocket.o
+	-del /q 2> NUL sipQtNetworkquintptr.o
+	-del /q 2> NUL sipQtNetworkQLocalServer.o
+	-del /q 2> NUL sipQtNetworkQHttp.o
+	-del /q 2> NUL sipQtNetworkQHttpRequestHeader.o
+	-del /q 2> NUL sipQtNetworkQHttpResponseHeader.o
+	-del /q 2> NUL sipQtNetworkQHttpHeader.o
+	-del /q 2> NUL sipQtNetworkQHostInfo.o
+	-del /q 2> NUL sipQtNetworkQHostAddress.o
+	-del /q 2> NUL sipQtNetworkQFtp.o
+	-del /q 2> NUL sipQtNetworkQAuthenticator.o
+	-del /q 2> NUL sipQtNetworkQAbstractSocket.o
+	-del /q 2> NUL sipQtNetworkQAbstractNetworkCache.o
+	-del /q 2> NUL sipQtNetworkQNetworkCacheMetaData.o
+	-del /q 2> NUL sipQtNetworkQHash0100QNetworkRequestAttribute0100QVariant.o
+	-del /q 2> NUL QtNetwork.exp

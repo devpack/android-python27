@@ -1,0 +1,25 @@
+# This is the build file for pylupdate for Qt v4.
+#
+# Copyright (c) 2008
+# 	Riverbank Computing Limited <info@riverbankcomputing.com>
+# 
+# This file is part of PyQt.
+# 
+# This copy of PyQt is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by the Free
+# Software Foundation; either version 2, or (at your option) any later
+# version.
+# 
+# PyQt is supplied in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+# details.
+# 
+# You should have received a copy of the GNU General Public License along with
+# PyQt; see the file LICENSE.  If not, write to the Free Software Foundation,
+# Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+target = pylupdate4
+sources = fetchtr.cpp merge.cpp numberh.cpp sametexth.cpp main.cpp metatranslator.cpp proparser.cpp translator.cpp simtexth.cpp
+headers = metatranslator.h proparser.h simtexth.h
+moc_headers = translator.h

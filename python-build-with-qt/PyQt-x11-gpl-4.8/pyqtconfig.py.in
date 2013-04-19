@@ -1,0 +1,285 @@
+# Copyright (c) 2010 Riverbank Computing Limited <info@riverbankcomputing.com>
+# 
+# This file is part of PyQt.
+# 
+# This file may be used under the terms of the GNU General Public
+# License versions 2.0 or 3.0 as published by the Free Software
+# Foundation and appearing in the files LICENSE.GPL2 and LICENSE.GPL3
+# included in the packaging of this file.  Alternatively you may (at
+# your option) use any later version of the GNU General Public
+# License if such license has been publicly approved by Riverbank
+# Computing Limited (or its successors, if any) and the KDE Free Qt
+# Foundation. In addition, as a special exception, Riverbank gives you
+# certain additional rights. These rights are described in the Riverbank
+# GPL Exception version 1.1, which can be found in the file
+# GPL_EXCEPTION.txt in this package.
+# 
+# Please review the following information to ensure GNU General
+# Public Licensing requirements will be met:
+# http://trolltech.com/products/qt/licenses/licensing/opensource/. If
+# you are unsure which license is appropriate for your use, please
+# review the following information:
+# http://trolltech.com/products/qt/licenses/licensing/licensingoverview
+# or contact the sales department at sales@riverbankcomputing.com.
+# 
+# This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
+# WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+#
+# This module is intended to be used by the configuration scripts of extension
+# modules that %Import PyQt4 modules.
+
+
+import sipconfig
+
+
+# These are installation specific values created when PyQt4 was configured.
+# @SIP_CONFIGURATION@
+
+
+class Configuration(sipconfig.Configuration):
+    """The class that represents PyQt configuration values.
+    """
+    def __init__(self, sub_cfg=None):
+        """Initialise an instance of the class.
+
+        sub_cfg is the list of sub-class configurations.  It should be None
+        when called normally.
+        """
+        if sub_cfg:
+            cfg = sub_cfg
+        else:
+            cfg = []
+
+        cfg.append(_pkg_config)
+
+        sipconfig.Configuration.__init__(self, cfg)
+
+
+class QtCoreModuleMakefile(sipconfig.SIPModuleMakefile):
+    """The Makefile class for modules that %Import QtCore.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore"]
+
+        sipconfig.SIPModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtGuiModuleMakefile(QtCoreModuleMakefile):
+    """The Makefile class for modules that %Import QtGui.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtGui"]
+
+        QtCoreModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtHelpModuleMakefile(QtGuiModuleMakefile):
+    """The Makefile class for modules that %Import QtHelp.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtGui", "QtHelp"]
+
+        QtGuiModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtMultimediaModuleMakefile(QtGuiModuleMakefile):
+    """The Makefile class for modules that %Import QtMultimedia.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtGui", "QtMultimedia"]
+
+        QtGuiModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtNetworkModuleMakefile(QtCoreModuleMakefile):
+    """The Makefile class for modules that %Import QtNetwork.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtNetwork"]
+
+        QtCoreModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtDeclarativeModuleMakefile(QtNetworkModuleMakefile):
+    """The Makefile class for modules that %Import QtDeclarative.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtGui", "QtNetwork", "QtDeclarative"]
+
+        QtNetworkModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtAssistantModuleMakefile(QtNetworkModuleMakefile):
+    """The Makefile class for modules that %Import QtAssistant.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtGui", "QtNetwork", "QtAssistant"]
+
+        QtNetworkModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtOpenGLModuleMakefile(QtGuiModuleMakefile):
+    """The Makefile class for modules that %Import QtOpenGL.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        kw["opengl"] = 1
+
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtGui", "QtOpenGL"]
+
+        QtGuiModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtScriptModuleMakefile(QtCoreModuleMakefile):
+    """The Makefile class for modules that %Import QtScript.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtScript"]
+
+        QtCoreModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtScriptToolsModuleMakefile(QtScriptModuleMakefile):
+    """The Makefile class for modules that %Import QtScriptTools.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtGui", "QtScript", "QtScriptTools"]
+
+        QtScriptModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtSqlModuleMakefile(QtGuiModuleMakefile):
+    """The Makefile class for modules that %Import QtSql.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtGui", "QtSql"]
+
+        QtGuiModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtSvgModuleMakefile(QtGuiModuleMakefile):
+    """The Makefile class for modules that %Import QtSvg.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtGui", "QtSvg"]
+
+        QtGuiModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtTestModuleMakefile(QtGuiModuleMakefile):
+    """The Makefile class for modules that %Import QtTest.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtGui", "QtTest"]
+
+        QtGuiModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtWebKitModuleMakefile(QtNetworkModuleMakefile):
+    """The Makefile class for modules that %Import QtWebKit.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtGui", "QtNetwork", "QtWebKit"]
+
+        QtNetworkModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtXmlModuleMakefile(QtCoreModuleMakefile):
+    """The Makefile class for modules that %Import QtXml.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtXml"]
+
+        QtCoreModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtXmlPatternsModuleMakefile(QtCoreModuleMakefile):
+    """The Makefile class for modules that %Import QtXmlPatterns.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtXmlPatterns"]
+
+        QtCoreModuleMakefile.__init__(self, *args, **kw)
+
+
+class phononModuleMakefile(QtGuiModuleMakefile):
+    """The Makefile class for modules that %Import phonon.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtGui", "phonon"]
+
+        QtGuiModuleMakefile.__init__(self, *args, **kw)
+
+
+class QtDesignerModuleMakefile(QtGuiModuleMakefile):
+    """The Makefile class for modules that %Import QtDesigner.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtGui", "QtDesigner"]
+
+        QtGuiModuleMakefile.__init__(self, *args, **kw)
+
+
+class QAxContainerModuleMakefile(QtGuiModuleMakefile):
+    """The Makefile class for modules that %Import QAxContainer.
+    """
+    def __init__(self, *args, **kw):
+        """Initialise an instance of a module Makefile.
+        """
+        if "qt" not in kw:
+            kw["qt"] = ["QtCore", "QtGui", "QAxContainer"]
+
+        QtGuiModuleMakefile.__init__(self, *args, **kw)
