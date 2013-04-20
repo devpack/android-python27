@@ -5,7 +5,7 @@ android-python27
 
 The objective of this project is to help people embed a Python for Android interpreter along with their scripts into a single APK that will not require the interpreter to be downloaded separately. A custom version of Python can also be used.
 
-We hope to add more interpreters, and welcome contributors who have experience with different interpreters.
+Wiki: http://code.google.com/p/android-python27/w/list
 
 News:
 
