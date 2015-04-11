@@ -3,6 +3,10 @@ ka-lite-android-python27
 
 The objective of this project is to create an APK for Ka-lite and make it runs on the embeded Python-for-Android interpreter. Therefore, user can use this app as a LAN server to serve open-scoure educational contents, or consume the content within the app's webview, without the access to the Internet.
 
+More details about Ka-lite can be found here:
+
+Wiki: https://github.com/learningequality/ka-lite/wiki
+
 More details about how to use android-python27 can be found here:
 
 Wiki: http://code.google.com/p/android-python27/w/list
