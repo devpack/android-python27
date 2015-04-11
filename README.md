@@ -36,6 +36,8 @@ Wiki: http://code.google.com/p/android-python27/w/list
 
 Based on:
 
+- https://code.google.com/p/android-python27/
+
 - https://github.com/nonameentername
 
 - https://code.google.com/p/python-for-android/
