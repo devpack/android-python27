@@ -16,3 +16,9 @@ cp -r appconf python
 zip -r python_extras_27.zip python
 rm -rf python
 mv python_extras_27.zip $addon_1_destination
+
+# prepare kalite
+if [ "$1" = "kalite" ]; then
+	echo "downloading kalite develop branch to your current directory"
+	git clone -b develop https://github.com/learningequality/ka-lite.git
+fi
