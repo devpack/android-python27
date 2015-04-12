@@ -10,6 +10,9 @@ unzip $addon_1_target -d $cur
 cp -r unittest python
 # add module compressor to python_extras_27
 cp -r compressor python
+# add module appconf to python_extras_27
+cp -r appconf python
+
 zip -r python_extras_27.zip python
 rm -rf python
 mv python_extras_27.zip $addon_1_destination
