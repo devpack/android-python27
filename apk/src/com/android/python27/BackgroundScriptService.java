@@ -162,6 +162,7 @@ public class BackgroundScriptService extends Service {
 		// arguments
 		ArrayList<String> args = new ArrayList<String>();
 		args.add(scriptName);
+		args.add("start");
 		args.add("--foreground");
 
 		File pythonBinary = new File(this.getFilesDir().getAbsolutePath() + "/python/bin/python");
